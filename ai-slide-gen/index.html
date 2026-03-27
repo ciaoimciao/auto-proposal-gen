@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI Slide Gen — Notso.ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<style>
+/* ═══════════════════════════════════════
+   DESIGN TOKENS (same system as auto-proposal-gen)
+═══════════════════════════════════════ */
+:root{
+  --sb:#F5F2EC;--sb2:#EDEAE2;--ink:#111110;--ink2:#4A4846;--mu:#888580;--bdr:#D8D4CC;
+  --or:#FF6B3D;--fd:'Syne',sans-serif;--fb:'DM Sans',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--fb);background:var(--sb);color:var(--ink);min-height:100vh;}
+
+/* ─── NAVBAR ─── */
+.sn{display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;
+  border-bottom:1px solid var(--bdr);background:var(--sb);position:sticky;top:0;z-index:100;}
+.sn-logo{font-family:var(--fd);font-weight:800;font-size:1.25rem;letter-spacing:-.04em;}
+.sn-logo span{color:var(--or);}
+.sn-badge{font-size:.68rem;background:var(--ink);color:#fff;padding:3px 12px;border-radius:20px;font-weight:600;letter-spacing:.06em;}
+
+/* ─── SETUP VIEW ─── */
+#setup-view{min-height:100vh;}
+.hero{padding:3.5rem 2.5rem 1.5rem;max-width:980px;margin:0 auto;}
+.hero-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--or);margin-bottom:.75rem;}
+.hero-title{font-family:var(--fd);font-weight:800;font-size:2.6rem;line-height:1.08;letter-spacing:-.05em;margin-bottom:.85rem;}
+.hero-title em{color:var(--or);font-style:normal;}
+.hero-sub{font-size:.93rem;color:var(--ink2);line-height:1.75;max-width:500px;}
+
+.form-wrap{max-width:980px;margin:0 auto;padding:1.5rem 2.5rem 4rem;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem 1.5rem;}
+.form-full{grid-column:1/-1;}
+.form-group{display:flex;flex-direction:column;gap:.4rem;}
+label.form-label{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);}
+.form-input{background:#fff;border:1.5px solid var(--bdr);border-radius:10px;
+  padding:.65rem 1rem;font-family:var(--fb);font-size:.9rem;color:var(--ink);
+  outline:none;transition:border-color .15s;}
+.form-input:focus{border-color:var(--or);}
+textarea.form-input{resize:vertical;min-height:110px;line-height:1.65;}
+select.form-input{appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888580' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;}
+
+/* API Key row */
+.apikey-row{background:#fff;border:1.5px solid var(--bdr);border-radius:12px;
+  padding:1rem 1.25rem;display:flex;align-items:center;gap:.85rem;margin-bottom:1.25rem;}
+.apikey-icon{font-size:1.35rem;flex-shrink:0;}
+.apikey-field{flex:1;}
+.apikey-label{font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--mu);margin-bottom:.3rem;}
+.apikey-input{width:100%;border:none;outline:none;font-family:'Courier New',monospace;
+  font-size:.85rem;color:var(--ink);background:transparent;letter-spacing:.03em;}
+
+/* Theme selector */
+.theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;}
+.theme-card{border:2px solid var(--bdr);border-radius:12px;padding:.85rem;cursor:pointer;
+  transition:all .15s;text-align:center;user-select:none;}
+.theme-card:hover{border-color:#aaa;}
+.theme-card.active{border-color:var(--or);background:rgba(255,107,61,.05);}
+.theme-swatch{height:38px;border-radius:7px;margin-bottom:.6rem;}
+.theme-name{font-family:var(--fd);font-weight:700;font-size:.8rem;letter-spacing:-.01em;}
+.theme-desc{font-size:.67rem;color:var(--mu);margin-top:.2rem;}
+
+/* Generate button */
+.gen-btn{width:100%;background:var(--ink);color:#fff;font-family:var(--fd);font-weight:700;
+  font-size:1rem;padding:.95rem;border-radius:12px;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:.65rem;
+  transition:transform .15s,box-shadow .15s;margin-top:.75rem;}
+.gen-btn:hover{transform:translateY(-1px);box-shadow:0 8px 28px rgba(17,17,16,.2);}
+.gen-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;}
+
+/* ─── LOADING VIEW ─── */
+#loading-view{display:none;min-height:100vh;flex-direction:column;align-items:center;
+  justify-content:center;gap:1.5rem;padding:2rem;}
+.spinner{width:44px;height:44px;border:3px solid var(--bdr);border-top-color:var(--or);
+  border-radius:50%;animation:spin .9s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-title{font-family:var(--fd);font-weight:700;font-size:1.25rem;letter-spacing:-.03em;}
+.loading-sub{font-size:.83rem;color:var(--mu);}
+.loading-steps{display:flex;flex-direction:column;gap:.6rem;margin-top:.5rem;}
+.step{font-size:.85rem;color:var(--mu);display:flex;align-items:center;gap:.6rem;transition:color .2s;}
+.step.active{color:var(--or);font-weight:500;}
+.step.done{color:#16a34a;font-weight:500;}
+
+/* ─── PREVIEW VIEW ─── */
+#preview-view{display:none;min-height:100vh;flex-direction:column;}
+.pv-bar{display:flex;align-items:center;justify-content:space-between;
+  padding:.85rem 2rem;border-bottom:1px solid var(--bdr);background:var(--sb);
+  position:sticky;top:0;z-index:100;gap:1rem;}
+.pv-bar-title{font-family:var(--fd);font-weight:700;font-size:.95rem;letter-spacing:-.03em;
+  flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.pv-actions{display:flex;gap:.6rem;flex-shrink:0;}
+.btn-ghost{background:transparent;border:1.5px solid var(--bdr);color:var(--ink2);
+  font-family:var(--fd);font-weight:600;font-size:.78rem;padding:.45rem .95rem;
+  border-radius:8px;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.btn-ghost:hover{border-color:var(--ink);}
+.btn-export{background:var(--or);color:#fff;font-family:var(--fd);font-weight:700;
+  font-size:.78rem;padding:.45rem 1.1rem;border-radius:8px;border:none;cursor:pointer;
+  transition:transform .15s;white-space:nowrap;}
+.btn-export:hover{transform:translateY(-1px);}
+.btn-export:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+
+.pv-body{display:grid;grid-template-columns:200px 1fr;flex:1;overflow:hidden;height:calc(100vh - 57px);}
+.pv-sidebar{border-right:1px solid var(--bdr);overflow-y:auto;padding:.6rem;background:var(--sb);}
+.thumb{border:2px solid transparent;border-radius:9px;padding:.5rem;cursor:pointer;
+  margin-bottom:.45rem;transition:all .15s;}
+.thumb:hover{background:var(--sb2);}
+.thumb.active{border-color:var(--or);background:#fff;}
+.thumb-num{font-size:.6rem;color:var(--mu);margin-bottom:.2rem;font-weight:600;}
+.thumb-mini{aspect-ratio:16/9;border-radius:5px;overflow:hidden;margin-bottom:.35rem;position:relative;}
+.thumb-label{font-size:.67rem;font-weight:600;color:var(--ink2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+.pv-main{overflow:auto;padding:2rem;background:var(--sb2);display:flex;align-items:flex-start;justify-content:center;}
+.slide-canvas{width:100%;max-width:800px;aspect-ratio:16/9;border-radius:14px;
+  overflow:hidden;box-shadow:0 20px 60px rgba(17,17,16,.14);position:relative;}
+
+/* ─── TOAST ─── */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;padding:.75rem 1.25rem;
+  border-radius:10px;font-size:.85rem;font-weight:500;z-index:9999;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);animation:fadeUp .2s ease;}
+.toast.error{background:#ef4444;color:#fff;}
+.toast.success{background:#16a34a;color:#fff;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     SETUP VIEW
+══════════════════════════════════════ -->
+<div id="setup-view">
+  <nav class="sn">
+    <div class="sn-logo">Notso<span>.</span>ai</div>
+    <div class="sn-badge">AI Slide Gen · Beta</div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-eyebrow">Powered by Claude AI × PptxGenJS</div>
+    <h1 class="hero-title">從一段描述<br>到<em>真正的 PPTX</em></h1>
+    <p class="hero-sub">輸入提案背景，Claude 會理解你的需求並生成完整投影片內容，直接匯出 PowerPoint 檔案。</p>
+  </div>
+
+  <div class="form-wrap">
+    <!-- API Key -->
+    <div class="apikey-row">
+      <div class="apikey-icon">🔑</div>
+      <div class="apikey-field">
+        <div class="apikey-label">Anthropic API Key</div>
+        <input type="password" class="apikey-input" id="api-key" placeholder="sk-ant-api03-..." autocomplete="off"/>
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label">客戶名稱</label>
+        <input type="text" class="form-input" id="client-name" placeholder="e.g. 台灣大哥大"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">專案名稱</label>
+        <input type="text" class="form-input" id="project-name" placeholder="e.g. 數位行銷轉型計畫"/>
+      </div>
+      <div class="form-group form-full">
+        <label class="form-label">提案說明 <span style="color:var(--or)">*</span></label>
+        <textarea class="form-input" id="description"
+          placeholder="描述這個提案的背景、目標、要解決什麼問題、預期成效… 越詳細，Claude 生成的內容越貼切、越專業。"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">產業類別</label>
+        <select class="form-input" id="industry">
+          <option value="technology">科技 / IT</option>
+          <option value="marketing">行銷 / 廣告</option>
+          <option value="finance">金融 / 財務</option>
+          <option value="retail">零售 / 電商</option>
+          <option value="healthcare">醫療 / 健康</option>
+          <option value="education">教育 / 培訓</option>
+          <option value="manufacturing">製造 / 工業</option>
+          <option value="consulting">顧問 / 管理</option>
+          <option value="real_estate">不動產</option>
+          <option value="other">其他</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">投影片語言</label>
+        <select class="form-input" id="language">
+          <option value="zh">繁體中文</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">投影片數量</label>
+        <select class="form-input" id="slide-count">
+          <option value="8">8 張（精簡版）</option>
+          <option value="12" selected>12 張（標準版）</option>
+          <option value="16">16 張（完整版）</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">簡報人</label>
+        <input type="text" class="form-input" id="presenter" placeholder="e.g. 王小明 / 業務總監"/>
+      </div>
+
+      <!-- Theme -->
+      <div class="form-group form-full">
+        <label class="form-label">簡報風格</label>
+        <div class="theme-grid">
+          <div class="theme-card active" data-theme="dark" onclick="selectTheme('dark')">
+            <div class="theme-swatch" style="background:linear-gradient(135deg,#111110 0%,#1e1e1c 100%);border:1px solid #2a2a28;"></div>
+            <div class="theme-name">Dark Pro</div>
+            <div class="theme-desc">專業深色，高對比視覺</div>
+          </div>
+          <div class="theme-card" data-theme="light" onclick="selectTheme('light')">
+            <div class="theme-swatch" style="background:linear-gradient(135deg,#F5F2EC 0%,#EDEAE2 100%);border:1px solid #D8D4CC;"></div>
+            <div class="theme-name">Light Clean</div>
+            <div class="theme-desc">清爽淺色，商務優雅</div>
+          </div>
+          <div class="theme-card" data-theme="navy" onclick="selectTheme('navy')">
+            <div class="theme-swatch" style="background:linear-gradient(135deg,#0F1629 0%,#1a2545 100%);border:1px solid #2a3a6a;"></div>
+            <div class="theme-name">Navy Bold</div>
+            <div class="theme-desc">深藍正式，企業感強</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="gen-btn" id="gen-btn" onclick="startGeneration()">
+      <span style="font-size:1.1rem;">✦</span>
+      <span>用 Claude 生成投影片</span>
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     LOADING VIEW
+══════════════════════════════════════ -->
+<div id="loading-view">
+  <div class="spinner"></div>
+  <div class="loading-title">Claude 正在生成你的投影片…</div>
+  <div class="loading-sub">通常需要 15–30 秒，請稍候</div>
+  <div class="loading-steps">
+    <div class="step" id="s1">○ 解析提案需求與背景</div>
+    <div class="step" id="s2">○ 生成投影片結構與內容</div>
+    <div class="step" id="s3">○ 渲染預覽</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PREVIEW VIEW
+══════════════════════════════════════ -->
+<div id="preview-view">
+  <div class="pv-bar">
+    <div class="pv-bar-title" id="pv-title">—</div>
+    <div class="pv-actions">
+      <button class="btn-ghost" onclick="backToSetup()">← 重新生成</button>
+      <button class="btn-export" id="export-btn" onclick="exportPptx()">⬇ 匯出 PPTX</button>
+    </div>
+  </div>
+  <div class="pv-body">
+    <div class="pv-sidebar" id="thumbs"></div>
+    <div class="pv-main">
+      <div class="slide-canvas" id="slide-canvas"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════ -->
+<script>
+// ─────────────────────────────────────
+// STATE
+// ─────────────────────────────────────
+const S = {
+  apiKey: '',
+  theme: 'dark',
+  slides: [],
+  title: '',
+  current: 0
+};
+
+// ─────────────────────────────────────
+// INIT
+// ─────────────────────────────────────
+(function() {
+  const saved = localStorage.getItem('notso-api-key');
+  if (saved) document.getElementById('api-key').value = saved;
+})();
+
+// ─────────────────────────────────────
+// THEME
+// ─────────────────────────────────────
+function selectTheme(t) {
+  S.theme = t;
+  document.querySelectorAll('.theme-card').forEach(el =>
+    el.classList.toggle('active', el.dataset.theme === t)
+  );
+}
+
+function themeColors() {
+  return {
+    dark:  { bg:'#111110', bg2:'#1a1a18', tx:'#F5F2EC', tx2:'rgba(245,242,236,.6)',  ac:'#FF6B3D', ac2:'#3D3AE8', isDark:true  },
+    light: { bg:'#F5F2EC', bg2:'#EDEAE2', tx:'#111110', tx2:'rgba(17,17,16,.6)',     ac:'#FF6B3D', ac2:'#2563EB', isDark:false },
+    navy:  { bg:'#0F1629', bg2:'#1a2545', tx:'#F5F2EC', tx2:'rgba(245,242,236,.6)',  ac:'#4F8EF7', ac2:'#A78BFA', isDark:true  }
+  }[S.theme];
+}
+
+// ─────────────────────────────────────
+// GENERATION FLOW
+// ─────────────────────────────────────
+async function startGeneration() {
+  const apiKey   = document.getElementById('api-key').value.trim();
+  const client   = document.getElementById('client-name').value.trim();
+  const project  = document.getElementById('project-name').value.trim();
+  const desc     = document.getElementById('description').value.trim();
+  const industry = document.getElementById('industry').value;
+  const lang     = document.getElementById('language').value;
+  const count    = document.getElementById('slide-count').value;
+  const presenter= document.getElementById('presenter').value.trim();
+
+  // Inline validation — highlight empty required fields
+  let hasError = false;
+  function markError(id, msg) {
+    const el = document.getElementById(id);
+    el.style.borderColor = '#ef4444';
+    el.style.boxShadow = '0 0 0 3px rgba(239,68,68,.15)';
+    el.focus();
+    // remove highlight on next input
+    el.addEventListener('input', () => {
+      el.style.borderColor = '';
+      el.style.boxShadow = '';
+    }, { once: true });
+    if (!hasError) { toast(msg, 'error'); hasError = true; }
+  }
+  if (!desc)   markError('description', '請填寫提案說明');
+  if (!apiKey) markError('api-key', '請輸入 Anthropic API Key');
+  if (hasError) return;
+
+  localStorage.setItem('notso-api-key', apiKey);
+  S.apiKey = apiKey;
+
+  showView('loading');
+  setStep(1, 'active');
+
+  try {
+    setStep(1, 'done'); setStep(2, 'active');
+
+    const result = await callClaude({ apiKey, client, project, desc, industry, lang, count, presenter });
+
+    setStep(2, 'done'); setStep(3, 'active');
+
+    S.slides = result.slides;
+    S.title  = result.title || project || '提案簡報';
+
+    await delay(300);
+    setStep(3, 'done');
+    await delay(300);
+
+    renderPreview();
+    showView('preview');
+
+  } catch (err) {
+    showView('setup');
+    toast(err.message || '生成失敗，請檢查 API Key 或重試', 'error');
+  }
+}
+
+function setStep(n, state) {
+  const labels = { 1:'解析提案需求與背景', 2:'生成投影片結構與內容', 3:'渲染預覽' };
+  const el = document.getElementById(`s${n}`);
+  const icon = state === 'done' ? '✅' : state === 'active' ? '⏳' : '○';
+  el.textContent = `${icon} ${labels[n]}`;
+  el.className = `step ${state}`;
+}
+
+const delay = ms => new Promise(r => setTimeout(r, ms));
+
+// ─────────────────────────────────────
+// CLAUDE API
+// ─────────────────────────────────────
+async function callClaude({ apiKey, client, project, desc, industry, lang, count, presenter }) {
+  const langNote = lang === 'zh'
+    ? '所有投影片內容必須使用繁體中文，技術名詞可保留英文。'
+    : 'Write all slide content in English.';
+
+  const system = `You are a world-class business presentation consultant. You create concise, compelling, data-driven slide decks.
+${langNote}
+Respond with ONLY a valid JSON object — no markdown fences, no explanation, no extra text.
+
+JSON schema:
+{
+  "title": "string — presentation title",
+  "slides": [
+    {
+      "type": "cover|agenda|problem|solution|feature|timeline|team|budget|metric|closing",
+      "title": "string",
+      "subtitle": "string (optional)",
+      "body": "string — 1-2 sentences of context (optional)",
+      "points": ["string"] — bullet points (optional),
+      "highlight": "string — key stat or number, e.g. '40%' or 'NT$500萬' (optional)",
+      "highlightLabel": "string — label for the highlight (optional)",
+      "table": {
+        "headers": ["string"],
+        "rows": [["string"]]
+      } (optional, for budget type)
+    }
+  ]
+}
+
+Slide type rules:
+- cover: title + subtitle (no points needed)
+- agenda: title + points (list of topics covered)
+- problem: title + body + 3-5 points (specific pain points)
+- solution: title + body + 3-5 points (solution features/benefits)
+- feature: title + 3-4 points (each formatted as "Feature Name: short description")
+- timeline: title + points (each as "Phase X — Name: tasks, duration")
+- team: title + points (each as "Name / Role: key expertise")
+- budget: title + table + highlight (total amount)
+- metric: title + highlight (big number) + highlightLabel + body
+- closing: title + points (next steps) + subtitle (contact)
+
+Generate exactly ${count} slides. Make content specific and professional, not generic.`;
+
+  const user = `Create a business proposal presentation:
+- Client: ${client || '（未指定）'}
+- Project: ${project || '（未指定）'}
+- Industry: ${industry}
+- Presenter: ${presenter || '（未指定）'}
+- Description: ${desc}
+
+Generate ${count} slides telling a compelling story: context → problem → solution → plan → call to action.`;
+
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-opus-4-6',
+      max_tokens: 4096,
+      system,
+      messages: [{ role: 'user', content: user }]
+    })
+  });
+
+  if (!res.ok) {
+    const e = await res.json().catch(() => ({}));
+    throw new Error(e.error?.message || `API Error ${res.status}`);
+  }
+
+  const data = await res.json();
+  let text = data.content[0].text.trim();
+
+  // Strip markdown code fences if present
+  const m = text.match(/```(?:json)?\s*([\s\S]*?)```/);
+  if (m) text = m[1].trim();
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    throw new Error('Claude 回傳格式錯誤，請重試');
+  }
+}
+
+// ─────────────────────────────────────
+// PREVIEW
+// ─────────────────────────────────────
+function renderPreview() {
+  document.getElementById('pv-title').textContent = S.title;
+  buildThumbs();
+  showSlide(0);
+}
+
+function buildThumbs() {
+  const container = document.getElementById('thumbs');
+  container.innerHTML = S.slides.map((sl, i) => `
+    <div class="thumb ${i === 0 ? 'active' : ''}" onclick="showSlide(${i})">
+      <div class="thumb-num">${i + 1} / ${S.slides.length}</div>
+      <div class="thumb-mini">${miniHTML(sl)}</div>
+      <div class="thumb-label">${sl.title}</div>
+    </div>
+  `).join('');
+}
+
+function showSlide(i) {
+  S.current = i;
+  document.querySelectorAll('.thumb').forEach((el, j) =>
+    el.classList.toggle('active', j === i)
+  );
+  document.getElementById('slide-canvas').innerHTML = slideHTML(S.slides[i]);
+}
+
+// ─────────────────────────────────────
+// HTML SLIDE RENDERERS
+// ─────────────────────────────────────
+function slideHTML(sl) {
+  const c = themeColors();
+  const base = `width:100%;height:100%;position:relative;overflow:hidden;background:${c.bg};color:${c.tx};font-family:'DM Sans',sans-serif;`;
+  switch (sl.type) {
+    case 'cover':  return coverHTML(sl, c, base);
+    case 'metric': return metricHTML(sl, c, base);
+    case 'budget': return tableHTML(sl, c, base);
+    default:       return contentHTML(sl, c, base);
+  }
+}
+
+function coverHTML(sl, c, base) {
+  const date = new Date().toLocaleDateString('zh-TW');
+  const meta = sl.points ? sl.points.join('  ·  ') : '';
+  return `<div style="${base}padding:7% 9%;">
+    <div style="position:absolute;left:0;top:0;width:5px;height:100%;background:${c.ac};"></div>
+    <div style="font-size:clamp(9px,1.3vw,12px);font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:${c.ac};margin-bottom:6%;">${date}</div>
+    <h1 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(18px,4.2vw,40px);line-height:1.1;letter-spacing:-.04em;margin-bottom:3%;max-width:85%;">${sl.title}</h1>
+    ${sl.subtitle ? `<p style="font-size:clamp(11px,1.8vw,17px);color:${c.tx2};line-height:1.55;max-width:70%;margin-bottom:8%;">${sl.subtitle}</p>` : ''}
+    <div style="position:absolute;bottom:7%;left:9%;right:9%;border-top:1px solid ${c.tx2};padding-top:3%;font-size:clamp(9px,1.2vw,11px);color:${c.tx2};">${meta}</div>
+  </div>`;
+}
+
+function contentHTML(sl, c, base) {
+  const pts = sl.points || [];
+  return `<div style="${base}padding:5.5% 7%;">
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,${c.ac},${c.ac2});"></div>
+    <div style="font-size:clamp(7px,1vw,10px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:${c.ac};margin-bottom:1.5%;">${sl.type}</div>
+    <h2 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(14px,2.8vw,26px);letter-spacing:-.03em;margin-bottom:${sl.body ? '1.5%' : '3%'};line-height:1.15;">${sl.title}</h2>
+    ${sl.body ? `<p style="font-size:clamp(9px,1.3vw,12px);color:${c.tx2};margin-bottom:2.5%;line-height:1.6;max-width:90%;">${sl.body}</p>` : ''}
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:1.2%;">
+      ${pts.map(p => `
+        <li style="display:flex;align-items:flex-start;gap:1.5%;font-size:clamp(9px,1.35vw,13px);line-height:1.5;">
+          <span style="color:${c.ac};margin-top:.1em;flex-shrink:0;font-size:.9em;">▸</span>
+          <span style="color:${c.tx};">${p}</span>
+        </li>`).join('')}
+    </ul>
+    ${sl.highlight ? `
+      <div style="position:absolute;bottom:6%;right:7%;background:${c.ac};color:#fff;padding:1.8% 2.5%;border-radius:8px;text-align:center;min-width:80px;">
+        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(13px,2.2vw,20px);">${sl.highlight}</div>
+        ${sl.highlightLabel ? `<div style="font-size:clamp(7px,.9vw,9px);opacity:.85;margin-top:.2em;">${sl.highlightLabel}</div>` : ''}
+      </div>` : ''}
+  </div>`;
+}
+
+function metricHTML(sl, c, base) {
+  return `<div style="${base}padding:5% 7%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,${c.ac},${c.ac2});"></div>
+    <h2 style="font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(11px,1.8vw,16px);color:${c.tx2};margin-bottom:5%;letter-spacing:-.02em;">${sl.title}</h2>
+    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(38px,9.5vw,88px);color:${c.ac};letter-spacing:-.04em;line-height:1;">${sl.highlight || '—'}</div>
+    ${sl.highlightLabel ? `<div style="font-size:clamp(11px,1.8vw,16px);color:${c.tx2};margin-top:2%;">${sl.highlightLabel}</div>` : ''}
+    ${sl.body ? `<p style="font-size:clamp(9px,1.3vw,12px);color:${c.tx2};margin-top:4%;max-width:55%;line-height:1.6;">${sl.body}</p>` : ''}
+  </div>`;
+}
+
+function tableHTML(sl, c, base) {
+  if (!sl.table) return contentHTML(sl, c, base);
+  const { headers, rows } = sl.table;
+  const border = c.isDark ? 'rgba(255,255,255,.1)' : 'rgba(17,17,16,.1)';
+  const rowAlt  = c.isDark ? 'rgba(255,255,255,.04)' : 'rgba(17,17,16,.03)';
+  return `<div style="${base}padding:5.5% 7%;">
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,${c.ac},${c.ac2});"></div>
+    <h2 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(14px,2.5vw,22px);letter-spacing:-.03em;margin-bottom:${sl.highlight ? '1%' : '3%'};">${sl.title}</h2>
+    ${sl.highlight ? `<p style="font-size:clamp(9px,1.3vw,12px);color:${c.ac};font-weight:600;margin-bottom:2.5%;">總計：${sl.highlight}</p>` : ''}
+    <table style="width:100%;border-collapse:collapse;font-size:clamp(8px,1.2vw,11px);">
+      <thead>
+        <tr style="border-bottom:2px solid ${c.ac};">
+          ${headers.map(h => `<th style="text-align:left;padding:1.5% 2%;font-weight:700;color:${c.ac};">${h}</th>`).join('')}
+        </tr>
+      </thead>
+      <tbody>
+        ${rows.map((row, i) => `
+          <tr style="${i % 2 ? `background:${rowAlt};` : ''}border-bottom:1px solid ${border};">
+            ${row.map(cell => `<td style="padding:1.5% 2%;color:${c.tx};">${cell}</td>`).join('')}
+          </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;
+}
+
+function miniHTML(sl) {
+  const c = themeColors();
+  const pts = sl.points || [];
+  return `<div style="width:100%;height:100%;background:${c.bg};padding:10% 12%;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${c.ac};"></div>
+    <div style="font-size:5px;font-weight:700;color:${c.ac};margin-bottom:3px;text-transform:uppercase;letter-spacing:.08em;">${sl.type}</div>
+    <div style="font-size:6.5px;font-weight:800;color:${c.tx};line-height:1.3;font-family:'Syne',sans-serif;margin-bottom:4px;">${sl.title.substring(0,40)}</div>
+    ${pts.slice(0,3).map(p => `<div style="font-size:4.5px;color:${c.tx2};display:flex;gap:3px;margin-bottom:2px;"><span style="color:${c.ac};">▸</span><span>${p.substring(0,35)}</span></div>`).join('')}
+  </div>`;
+}
+
+// ─────────────────────────────────────
+// PPTX EXPORT
+// ─────────────────────────────────────
+async function exportPptx() {
+  const btn = document.getElementById('export-btn');
+  btn.textContent = '生成中…';
+  btn.disabled = true;
+
+  try {
+    const pptx = new PptxGenJS();
+    pptx.layout = 'LAYOUT_WIDE'; // 13.33 x 7.5 inches
+
+    const c = themeColors();
+    // pptxgenjs uses hex without #
+    const BG  = c.bg.replace('#','');
+    const TX  = c.tx.replace('#','');
+    const TX2 = c.isDark ? 'AAAAAA' : '777777';
+    const AC  = c.ac.replace('#','');
+    const AC2 = c.ac2.replace('#','');
+
+    for (const sl of S.slides) {
+      const s = pptx.addSlide();
+      s.background = { color: BG };
+      switch (sl.type) {
+        case 'cover':  pptxCover(pptx, s, sl, {BG,TX,TX2,AC,AC2}); break;
+        case 'metric': pptxMetric(pptx, s, sl, {BG,TX,TX2,AC,AC2}); break;
+        case 'budget': pptxTable(pptx, s, sl, {BG,TX,TX2,AC,AC2}); break;
+        default:       pptxContent(pptx, s, sl, {BG,TX,TX2,AC,AC2}); break;
+      }
+    }
+
+    const fname = S.title.replace(/[^\w\u4e00-\u9fa5]/g,'_').substring(0,40) || 'proposal';
+    await pptx.writeFile({ fileName: `${fname}.pptx` });
+    toast('PPTX 已下載！', 'success');
+
+  } catch (err) {
+    toast('匯出失敗：' + err.message, 'error');
+  } finally {
+    btn.textContent = '⬇ 匯出 PPTX';
+    btn.disabled = false;
+  }
+}
+
+function pptxAccentBar(pptx, s, AC, vertical = false) {
+  if (vertical) {
+    s.addShape(pptx.ShapeType.rect, { x:0, y:0, w:0.1, h:7.5, fill:{color:AC}, line:{color:AC} });
+  } else {
+    s.addShape(pptx.ShapeType.rect, { x:0, y:0, w:13.33, h:0.05, fill:{color:AC}, line:{color:AC} });
+  }
+}
+
+function pptxCover(pptx, s, sl, {TX, TX2, AC}) {
+  pptxAccentBar(pptx, s, AC, true);
+  const date = new Date().toLocaleDateString('zh-TW');
+
+  s.addText(date, { x:.45, y:.8, w:12, h:.35, fontSize:10, bold:true, color:AC, fontFace:'Arial', charSpacing:4 });
+
+  s.addText(sl.title, { x:.45, y:1.4, w:11, h:2.6,
+    fontSize:36, bold:true, color:TX, fontFace:'Arial', charSpacing:-1, wrap:true });
+
+  if (sl.subtitle) {
+    s.addText(sl.subtitle, { x:.45, y:3.8, w:9.5, h:1,
+      fontSize:15, color:TX2, fontFace:'Arial', wrap:true });
+  }
+
+  // divider
+  s.addShape(pptx.ShapeType.rect, { x:.45, y:5.35, w:12.4, h:0.01,
+    fill:{color:TX2}, line:{color:TX2} });
+
+  // meta
+  const meta = sl.points ? sl.points.join('   ·   ') : '';
+  if (meta) {
+    s.addText(meta, { x:.45, y:5.6, w:12, h:.4,
+      fontSize:10, color:TX2, fontFace:'Arial' });
+  }
+}
+
+function pptxContent(pptx, s, sl, {TX, TX2, AC, AC2}) {
+  pptxAccentBar(pptx, s, AC);
+
+  // type label
+  s.addText((sl.type || 'content').toUpperCase(), { x:.6, y:.3, w:12, h:.3,
+    fontSize:9, bold:true, color:AC, fontFace:'Arial', charSpacing:5 });
+
+  // title
+  s.addText(sl.title, { x:.6, y:.65, w:11.5, h:1.1,
+    fontSize:24, bold:true, color:TX, fontFace:'Arial', charSpacing:-.5, wrap:true });
+
+  let y = 1.75;
+
+  // body
+  if (sl.body) {
+    s.addText(sl.body, { x:.6, y, w:11.5, h:.65, fontSize:12, color:TX2, fontFace:'Arial', wrap:true });
+    y += .75;
+  }
+
+  // bullet points
+  const pts = sl.points || [];
+  if (pts.length > 0) {
+    const items = pts.map(p => ({
+      text: p,
+      options: { bullet:{type:'bullet'}, paraSpaceAfter:6, fontSize:13, color:TX, fontFace:'Arial' }
+    }));
+    s.addText(items, { x:.6, y, w:10.8, h:7.5 - y - .8, valign:'top', wrap:true });
+  }
+
+  // highlight badge
+  if (sl.highlight) {
+    s.addShape(pptx.ShapeType.rect, { x:10.85, y:5.85, w:2.0, h:1.1,
+      fill:{color:AC}, line:{color:AC}, rounding:.08 });
+    s.addText(sl.highlight, { x:10.85, y:5.9, w:2.0, h:.58,
+      fontSize:18, bold:true, color:'FFFFFF', align:'center', fontFace:'Arial' });
+    if (sl.highlightLabel) {
+      s.addText(sl.highlightLabel, { x:10.85, y:6.45, w:2.0, h:.38,
+        fontSize:9, color:'FFFFFF', align:'center', fontFace:'Arial' });
+    }
+  }
+}
+
+function pptxMetric(pptx, s, sl, {TX, TX2, AC, AC2}) {
+  pptxAccentBar(pptx, s, AC);
+
+  s.addText(sl.title, { x:1, y:.45, w:11, h:.7,
+    fontSize:18, bold:true, color:TX2, align:'center', fontFace:'Arial' });
+
+  s.addText(sl.highlight || '—', { x:1, y:1.3, w:11, h:3.2,
+    fontSize:90, bold:true, color:AC, align:'center', fontFace:'Arial', charSpacing:-3 });
+
+  if (sl.highlightLabel) {
+    s.addText(sl.highlightLabel, { x:1, y:4.3, w:11, h:.65,
+      fontSize:17, color:TX2, align:'center', fontFace:'Arial' });
+  }
+
+  if (sl.body) {
+    s.addText(sl.body, { x:2.5, y:5.1, w:8, h:.8,
+      fontSize:12, color:TX2, align:'center', fontFace:'Arial', wrap:true });
+  }
+}
+
+function pptxTable(pptx, s, sl, {TX, TX2, AC, AC2}) {
+  pptxAccentBar(pptx, s, AC);
+
+  s.addText(sl.title, { x:.6, y:.3, w:11.5, h:.85,
+    fontSize:22, bold:true, color:TX, fontFace:'Arial' });
+
+  if (sl.highlight) {
+    s.addText(`總計：${sl.highlight}`, { x:.6, y:1.1, w:12, h:.45,
+      fontSize:13, bold:true, color:AC, fontFace:'Arial' });
+  }
+
+  if (!sl.table) return;
+  const { headers, rows } = sl.table;
+  const colW = headers.map(() => 12.1 / headers.length);
+
+  const tData = [
+    headers.map(h => ({ text: h, options: { bold:true, color:AC, fill:{color:AC+'22'} } })),
+    ...rows.map(row => row.map(cell => ({ text: String(cell||''), options: { color:TX } })))
+  ];
+
+  s.addTable(tData, {
+    x:.6, y: sl.highlight ? 1.65 : 1.3,
+    w:12.1, colW,
+    fontSize:11, fontFace:'Arial',
+    border:{ type:'solid', color:TX2, pt:.5 },
+    rowH:.45
+  });
+}
+
+// ─────────────────────────────────────
+// VIEW MANAGEMENT
+// ─────────────────────────────────────
+function showView(name) {
+  const map = { setup:'setup-view', loading:'loading-view', preview:'preview-view' };
+  Object.entries(map).forEach(([k, id]) => {
+    const el = document.getElementById(id);
+    if (k === name) {
+      el.style.display = k === 'setup' ? 'block' : 'flex';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+
+  if (name === 'loading') {
+    [1,2,3].forEach(n => setStep(n, 'pending'));
+  }
+}
+
+function backToSetup() { showView('setup'); }
+
+function toast(msg, type = 'error') {
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 5000);
+}
+
+showView('setup');
+</script>
+</body>
+</html>

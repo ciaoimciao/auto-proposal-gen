@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "auto-proposal-gen (Python static server)",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8080", "--directory", "auto-proposal-gen"],
+      "port": 8080
+    },
+    {
+      "name": "ai-slide-gen (Python static server)",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8081", "--directory", "ai-slide-gen"],
+      "port": 8081
+    }
+  ]
+}
