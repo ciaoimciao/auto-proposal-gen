@@ -66,8 +66,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--sb);color:var(--ink);min-
   z-index:100;width:auto;max-width:640px;
   gap:1rem;
 }
-.sn-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;letter-spacing:-.04em;color:#0a0a0a;}
-.sn-logo span{color:#0a0a0a;}
+.sn-logo{display:flex;align-items:center;}
+.sn-logo img{height:24px;}
 .sn-chip{
   font-size:.6rem;font-weight:600;
   text-transform:uppercase;letter-spacing:.35em;
@@ -291,8 +291,8 @@ textarea.fi{resize:vertical;min-height:72px;}
 
 /* topbar — adapts to panel theme */
 .dtb{display:flex;align-items:center;justify-content:space-between;padding:.6rem 1.25rem;border-bottom:1px solid rgba(163,163,163,.18);background:rgba(245,245,244,.88);backdrop-filter:blur(16px);flex-shrink:0;gap:.5rem;flex-wrap:wrap;}
-.dtb-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem;letter-spacing:-.03em;color:#0a0a0a;}
-.dtb-logo span{color:#0a0a0a;}
+.dtb-logo{display:flex;align-items:center;}
+.dtb-logo img{height:20px;}
 .dtb-r{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;}
 .sctr{font-size:.72rem;color:#737373;font-variant-numeric:tabular-nums;min-width:40px;letter-spacing:.05em;}
 .nb{padding:.32rem .85rem;border-radius:9999px;border:1px solid rgba(163,163,163,.25);background:transparent;color:#0a0a0a;font-family:'DM Sans',sans-serif;font-size:.74rem;cursor:pointer;transition:all .15s;white-space:nowrap;letter-spacing:.02em;}
@@ -310,6 +310,7 @@ textarea.fi{resize:vertical;min-height:72px;}
 .slide-stage{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:.5rem 1rem .25rem;overflow:hidden;min-height:0;}
 .slide-scaler{position:relative;transform-origin:top center;}
 .slide-canvas{width:1920px;height:1080px;position:relative;overflow:hidden;}
+.slide-canvas::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:1;background-image:radial-gradient(circle, rgba(10,10,10,.04) 0.6px, transparent 0.6px);background-size:20px 20px;opacity:.5;}
 .slide{display:none;width:100%;height:100%;position:absolute;top:0;left:0;animation:fds .32s ease both;}
 .slide.active{display:block;}
 @keyframes fds{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -352,6 +353,23 @@ textarea.fi{resize:vertical;min-height:72px;}
 .sp.dark .sp-upload-zone{border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.03);}
 .sp.dark .sp-upload-zone:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.05);}
 .sp.dark .sp-upload-lbl{color:#7A7870;}
+/* Pose gen dark */
+.sp.dark .sp-pose-ref{background:rgba(255,255,255,.04);}
+.sp.dark .sp-pose-ref-info{color:#9A9890;}
+.sp.dark .sp-pose-presets button{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#9A9890;}
+.sp.dark .sp-pose-presets button:hover{border-color:rgba(255,255,255,.3);color:#F5F2EC;}
+.sp.dark .sp-pose-presets button.active{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff;}
+.sp.dark .sp-pose-prompt{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#F5F2EC;}
+.sp.dark .sp-pose-prompt:focus{border-color:rgba(255,255,255,.25);}
+.sp.dark .sp-pose-gen-btn{background:#e5e5e5;color:#0a0a0a;}
+.sp.dark .sp-pose-gen-btn:hover:not(:disabled){background:#fff;}
+.sp.dark .sp-pose-result{border:1px solid rgba(255,255,255,.08);}
+.sp.dark .sp-pose-result-add{background:rgba(255,255,255,.9);color:#0a0a0a;}
+.sp.dark .sp-pose-result-add:hover{background:#fff;}
+.sp.dark .sp-pose-status{color:#7A7870;}
+.sp.dark .sp-pose-input{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#F5F2EC;}
+.sp.dark .sp-pose-input:focus{border-color:rgba(255,255,255,.25);}
+.sp.dark .sp-spinner{border-color:rgba(255,255,255,.15);border-top-color:#fff;}
 .sp.dark .sp-img-thumb{border-color:rgba(255,255,255,.1);}
 /* LIGHT panel */
 .sp.light{background:#ffffff;border-left:1px solid #D8D4CC;}
@@ -371,7 +389,7 @@ textarea.fi{resize:vertical;min-height:72px;}
 .sp.light .sp-lang:hover{border-color:#0a0a0a;color:#0a0a0a;}
 .sp.light .sp-lang.active{background:#0a0a0a;border-color:#0a0a0a;color:#fff;}
 .sp.light input[type="color"].sp-ci{border-color:#D8D4CC;background:#F5F2EC;}
-.sp.light .sp-slide-item{background:#F5F2EC;border-color:#D8D4CC;}
+.sp.light .sp-slide-item{background:#F5F2EC;border-color:#E8E5DE;}
 .sp.light .sp-slide-item:hover{border-color:#0a0a0a;}
 .sp.light .sp-slide-handle{color:#C0BDBA;}
 .sp.light .sp-slide-num{color:#525252;}
@@ -385,6 +403,22 @@ textarea.fi{resize:vertical;min-height:72px;}
 .sp.light .sp-upload-zone{border-color:#C8C4BC;background:#F5F2EC;}
 .sp.light .sp-upload-zone:hover{border-color:#0a0a0a;background:rgba(10,10,10,.03);}
 .sp.light .sp-upload-lbl{color:#888580;}
+/* Pose gen light */
+.sp.light .sp-pose-ref{background:#F5F2EC;}
+.sp.light .sp-pose-ref-info{color:#888580;}
+.sp.light .sp-pose-presets button{background:#F5F2EC;border:1px solid #D8D4CC;color:#4A4846;}
+.sp.light .sp-pose-presets button:hover{border-color:#0a0a0a;color:#0a0a0a;}
+.sp.light .sp-pose-presets button.active{background:#0a0a0a;border-color:#0a0a0a;color:#fff;}
+.sp.light .sp-pose-prompt{background:#F5F2EC;border:1px solid #D8D4CC;color:#111110;}
+.sp.light .sp-pose-prompt:focus{border-color:#0a0a0a;}
+.sp.light .sp-pose-gen-btn{background:#0a0a0a;color:#fff;}
+.sp.light .sp-pose-gen-btn:hover:not(:disabled){background:#1a1a1a;}
+.sp.light .sp-pose-result{border:1px solid #D8D4CC;}
+.sp.light .sp-pose-result-add{background:#0a0a0a;color:#fff;}
+.sp.light .sp-pose-result-add:hover{background:#1a1a1a;}
+.sp.light .sp-pose-status{color:#888580;}
+.sp.light .sp-pose-input{background:#F5F2EC;border:1px solid #D8D4CC;color:#111110;}
+.sp.light .sp-pose-input:focus{border-color:#0a0a0a;}
 .sp.light .sp-img-thumb{border-color:#D8D4CC;}
 
 /* Panel structure */
@@ -455,6 +489,47 @@ input[type="color"].sp-ci{width:100%;height:30px;border:1.5px solid;border-radiu
 /* mascot upload */
 .sp-upload-zone{border:2px dashed;border-radius:12px;padding:.75rem;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
 .sp-upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+
+/* ── Pose Generator ── */
+.sp-pose-ref{display:flex;align-items:center;gap:10px;margin-bottom:.6rem;padding:6px;border-radius:10px;}
+.sp-pose-ref img{width:48px;height:48px;border-radius:8px;object-fit:cover;}
+.sp-pose-ref-info{font-size:.65rem;line-height:1.4;}
+.sp-pose-presets{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:.6rem;}
+.sp-pose-presets button{
+  padding:3px 10px;border-radius:9999px;font-size:.65rem;font-weight:600;
+  cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;
+  letter-spacing:.02em;
+}
+.sp-pose-prompt{
+  width:100%;border-radius:8px;padding:6px 8px;font-size:.72rem;
+  font-family:'DM Sans',sans-serif;resize:none;min-height:48px;
+  transition:border-color .2s;outline:none;
+}
+.sp-pose-gen-btn{
+  width:100%;padding:6px;border:none;border-radius:9999px;
+  font-family:'Syne',sans-serif;font-size:.72rem;font-weight:600;
+  cursor:pointer;transition:all .2s;margin-top:.5rem;
+  letter-spacing:.03em;display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.sp-pose-gen-btn:disabled{opacity:.4;cursor:not-allowed;}
+.sp-pose-results{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:.6rem;}
+.sp-pose-result{border-radius:10px;overflow:hidden;position:relative;cursor:pointer;transition:transform .15s;}
+.sp-pose-result:hover{transform:scale(1.02);}
+.sp-pose-result img{width:100%;aspect-ratio:1;object-fit:cover;display:block;}
+.sp-pose-result-add{
+  position:absolute;bottom:4px;right:4px;padding:2px 8px;border-radius:9999px;
+  font-size:.55rem;font-weight:600;cursor:pointer;border:none;
+  transition:all .15s;letter-spacing:.03em;
+}
+.sp-pose-status{font-size:.65rem;margin-top:.4rem;text-align:center;}
+.sp-pose-input{
+  width:100%;border-radius:8px;padding:5px 8px;font-size:.68rem;
+  font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;
+  margin-bottom:.5rem;
+}
+/* loading spinner */
+@keyframes sp-spin{to{transform:rotate(360deg)}}
+.sp-spinner{width:16px;height:16px;border:2px solid rgba(0,0,0,.1);border-top-color:#0a0a0a;border-radius:50%;animation:sp-spin .6s linear infinite;display:inline-block;}
 .sp-upload-icon{font-size:1.4rem;margin-bottom:.3rem;}
 .sp-upload-lbl{font-size:.74rem;line-height:1.4;}
 .sp-img-thumbs{display:flex;flex-direction:column;gap:.4rem;margin-top:.5rem;}
@@ -527,7 +602,7 @@ input[type="color"].sp-ci{width:100%;height:30px;border:1.5px solid;border-radiu
 .feat-gico{font-size:30px;line-height:1;margin-bottom:3px;}
 .feat-gttl{font-family:var(--fd);font-size:20px;font-weight:700;line-height:1.2;}
 /* ══ GEOMETRIC ACCENT RINGS ══ */
-.geo-ring{position:absolute;border-radius:50%;border-style:solid;pointer-events:none;}
+.geo-ring{position:absolute;border-radius:50%;border-style:solid;pointer-events:none;opacity:.6;}
 /* ══ HORIZONTAL ROADMAP ══ */
 .hrm{display:grid;align-items:flex-start;margin-top:40px;}
 .hrm-step{display:flex;flex-direction:column;gap:10px;position:relative;padding-right:28px;}
@@ -668,7 +743,7 @@ input[type="color"].sp-ci{width:100%;height:30px;border:1.5px solid;border-radiu
 ═══════════════════════════════════ -->
 <div id="setup-view">
   <nav class="sn">
-    <div class="sn-logo">notso<span>.</span>ai</div>
+    <div class="sn-logo"><img src="logo.png" alt="notso.ai" style="height:24px;"></div>
     <div class="sn-chip">Proposal Generator</div>
   </nav>
   <div class="sh">
@@ -797,7 +872,7 @@ input[type="color"].sp-ci{width:100%;height:30px;border:1.5px solid;border-radiu
 <div id="deck-view">
   <div class="deck-main">
     <div class="dtb">
-      <div class="dtb-logo">notso<span>.</span>ai</div>
+      <div class="dtb-logo"><img src="logo.png" alt="notso.ai" style="height:20px;"></div>
       <div class="dtb-r">
         <button class="nb back" onclick="backToSetup()">← Setup</button>
         <span class="sctr" id="sctr">1 / 1</span>
@@ -947,6 +1022,28 @@ input[type="color"].sp-ci{width:100%;height:30px;border:1.5px solid;border-radiu
         <div class="sp-upload-lbl">Drop mascot images here<br/><span style="font-size:.65rem;opacity:.7;">PNG, JPG, WebP — auto-placed on slides</span></div>
       </div>
       <div class="sp-img-thumbs" id="sp-img-thumbs"></div>
+    </div>
+
+    <!-- Pose Generator -->
+    <div class="sp-sec" id="sp-pose-sec">
+      <div class="sp-lbl">Pose Generator</div>
+      <div style="margin-bottom:.5rem;">
+        <input class="sp-pose-input" id="sp-rep-token" type="password" placeholder="Replicate API token (r8_...)" />
+        <input class="sp-pose-input" id="sp-worker-url" placeholder="Worker URL (https://...workers.dev)" />
+      </div>
+      <div id="sp-pose-ref-area"></div>
+      <div class="sp-pose-presets" id="sp-pose-presets">
+        <button onclick="setPosePreset('wave')">Wave</button>
+        <button onclick="setPosePreset('point')">Point</button>
+        <button onclick="setPosePreset('think')">Think</button>
+        <button onclick="setPosePreset('thumbsup')">Thumbs Up</button>
+        <button onclick="setPosePreset('present')">Present</button>
+        <button onclick="setPosePreset('sit')">Sit</button>
+      </div>
+      <textarea class="sp-pose-prompt" id="sp-pose-prompt" placeholder="Describe the pose or action..."></textarea>
+      <button class="sp-pose-gen-btn" id="sp-pose-gen-btn" onclick="generatePose()">Generate Pose</button>
+      <div class="sp-pose-status" id="sp-pose-status"></div>
+      <div class="sp-pose-results" id="sp-pose-results"></div>
     </div>
 
     <!-- Slides -->
@@ -1200,66 +1297,71 @@ let spDragIdx=null,aiTarget=null,lastAI='';
 function getThemeVars(slideId){
   const c1=STATE.color1,c2=STATE.color2,ct=STATE.colorTxt;
 
-  // Slides that use BRAND COLOR as background (high visual impact)
-  const BRAND_BG_SLIDES=['s-cover','s-mdesign','s-thankyou','s-mopt'];
-  // Slides that use a LIGHTER shade of brand for subtle warmth
-  const BRAND_TINT_SLIDES=['s-pain','s-chat','s-emotion'];
+  // ══ MONOCHROME DECK SYSTEM ══
+  // 70% neutral/stone base + 30% brand color as accent only
+  // Cover & Thank You: brand-accent (stone bg with brand hero element)
+  // All other slides: clean stone/neutral
+
+  const HERO_SLIDES=['s-cover','s-thankyou'];
 
   let mode=STATE.slideTheme;
-  // In 'brand' mode, auto-assign per slide type
   if(mode==='brand'){
-    if(BRAND_BG_SLIDES.includes(slideId)) mode='brand-full';
-    else if(BRAND_TINT_SLIDES.includes(slideId)) mode='brand-tint';
-    else mode='dark'; // remaining slides: dark background
+    mode=HERO_SLIDES.includes(slideId)?'brand-accent':'mono';
   }
 
-  if(mode==='brand-full'){
+  // ── Monochrome Stone (default for all content slides) ──
+  if(mode==='mono'||mode==='brand'||mode==='light'){
     return {
-      BG:c1, BG2:darken(c1,.07),
-      TX:ct, TX2:alpha(ct,.72), TX3:alpha(ct,.42),
-      CARD:alpha(ct,.07), CARD_BDR:alpha(ct,.16),
-      TAG_COL:ct, TAG_BDR:alpha(ct,.55),
-      HEADING:ct, BODY:alpha(ct,.72),
-      ACCENT:c2, ACCENT_ALPHA:alpha(c2,.3),
-      META_BDR:alpha(ct,.28), NUM_COL:alpha(ct,.07),
-      CARD_ACCENT:alpha(c2,.18),
+      BG:'#f5f5f4', BG2:'#e7e5e4',
+      TX:'#0a0a0a', TX2:'rgba(10,10,10,.55)', TX3:'rgba(10,10,10,.32)',
+      CARD:'rgba(10,10,10,.03)', CARD_BDR:'rgba(163,163,163,.2)',
+      TAG_COL:c1, TAG_BDR:alpha(c1,.4),
+      HEADING:'#0a0a0a', BODY:'rgba(10,10,10,.55)',
+      ACCENT:c1, ACCENT_ALPHA:alpha(c1,.15),
+      META_BDR:'rgba(10,10,10,.1)', NUM_COL:'rgba(10,10,10,.05)',
+      CARD_ACCENT:alpha(c1,.06),
     };
-  } else if(mode==='brand-tint'){
-    // Dark bg with strong brand color accents
+  }
+
+  // ── Brand Accent (cover/thankyou: stone bg + bold brand accent elements) ──
+  if(mode==='brand-accent'){
     return {
-      BG:'#111110', BG2:'#1e1e1c',
-      TX:'#F5F2EC', TX2:'rgba(245,242,236,.68)', TX3:'rgba(245,242,236,.38)',
-      CARD:alpha(c1,.06), CARD_BDR:alpha(c1,.18),
-      TAG_COL:c1, TAG_BDR:alpha(c1,.55),
-      HEADING:'#F5F2EC', BODY:'rgba(245,242,236,.68)',
-      ACCENT:c2, ACCENT_ALPHA:alpha(c2,.25),
-      META_BDR:'rgba(255,255,255,.18)', NUM_COL:'rgba(255,255,255,.04)',
-      CARD_ACCENT:alpha(c1,.1),
-    };
-  } else if(mode==='light'){
-    return {
-      BG:'#F5F2EC', BG2:'#EDEAE2',
-      TX:'#111110', TX2:'rgba(17,17,16,.65)', TX3:'rgba(17,17,16,.35)',
-      CARD:'rgba(17,17,16,.04)', CARD_BDR:'rgba(17,17,16,.1)',
+      BG:'#f5f5f4', BG2:'#e7e5e4',
+      TX:'#0a0a0a', TX2:'rgba(10,10,10,.55)', TX3:'rgba(10,10,10,.32)',
+      CARD:alpha(c1,.05), CARD_BDR:alpha(c1,.15),
       TAG_COL:c1, TAG_BDR:alpha(c1,.5),
-      HEADING:'#111110', BODY:'rgba(17,17,16,.65)',
-      ACCENT:c2, ACCENT_ALPHA:alpha(c2,.2),
-      META_BDR:'rgba(17,17,16,.12)', NUM_COL:'rgba(17,17,16,.05)',
-      CARD_ACCENT:alpha(c1,.1),
-    };
-  } else {
-    // dark (default for content-heavy slides)
-    return {
-      BG:'#111110', BG2:'#1e1e1c',
-      TX:'#F5F2EC', TX2:'rgba(245,242,236,.65)', TX3:'rgba(245,242,236,.35)',
-      CARD:'rgba(255,255,255,.04)', CARD_BDR:'rgba(255,255,255,.08)',
-      TAG_COL:c1, TAG_BDR:alpha(c1,.5),
-      HEADING:'#F5F2EC', BODY:'rgba(245,242,236,.65)',
-      ACCENT:c2, ACCENT_ALPHA:alpha(c2,.25),
-      META_BDR:'rgba(255,255,255,.15)', NUM_COL:'rgba(255,255,255,.04)',
+      HEADING:'#0a0a0a', BODY:'rgba(10,10,10,.55)',
+      ACCENT:c1, ACCENT_ALPHA:alpha(c1,.2),
+      META_BDR:'rgba(10,10,10,.1)', NUM_COL:'rgba(10,10,10,.04)',
       CARD_ACCENT:alpha(c1,.08),
     };
   }
+
+  // ── Dark (if user explicitly picks dark in settings) ──
+  if(mode==='dark'){
+    return {
+      BG:'#1a1a1a', BG2:'#262626',
+      TX:'#e5e5e5', TX2:'rgba(229,229,229,.6)', TX3:'rgba(229,229,229,.35)',
+      CARD:'rgba(255,255,255,.04)', CARD_BDR:'rgba(255,255,255,.08)',
+      TAG_COL:c1, TAG_BDR:alpha(c1,.45),
+      HEADING:'#e5e5e5', BODY:'rgba(229,229,229,.6)',
+      ACCENT:c1, ACCENT_ALPHA:alpha(c1,.2),
+      META_BDR:'rgba(255,255,255,.12)', NUM_COL:'rgba(255,255,255,.04)',
+      CARD_ACCENT:alpha(c1,.08),
+    };
+  }
+
+  // fallback
+  return {
+    BG:'#f5f5f4', BG2:'#e7e5e4',
+    TX:'#0a0a0a', TX2:'rgba(10,10,10,.55)', TX3:'rgba(10,10,10,.32)',
+    CARD:'rgba(10,10,10,.03)', CARD_BDR:'rgba(163,163,163,.2)',
+    TAG_COL:c1, TAG_BDR:alpha(c1,.4),
+    HEADING:'#0a0a0a', BODY:'rgba(10,10,10,.55)',
+    ACCENT:c1, ACCENT_ALPHA:alpha(c1,.15),
+    META_BDR:'rgba(10,10,10,.1)', NUM_COL:'rgba(10,10,10,.05)',
+    CARD_ACCENT:alpha(c1,.06),
+  };
 }
 function isLight(hex){
   if(!hex||hex.length<7)return true;
@@ -1348,8 +1450,187 @@ function removeImage(id){
   rebuildSlides();
 }
 
+// ═══════════════════════════════════════
+// POSE GENERATOR (Replicate API)
+// ═══════════════════════════════════════
+const POSE_PRESETS={
+  wave:'Generate this exact same character in a waving pose, one hand raised high greeting hello. Keep the same character design, colors, proportions and style. Friendly cheerful expression, full body, clean white background.',
+  point:'Generate this exact same character pointing forward at the viewer with index finger. Keep the same character design, colors, proportions and style. Confident pose, full body, clean white background.',
+  think:'Generate this exact same character with hand on chin in a thinking pose. Keep the same character design, colors, proportions and style. Curious thoughtful expression, full body, clean white background.',
+  thumbsup:'Generate this exact same character giving an enthusiastic thumbs up with a big smile. Keep the same character design, colors, proportions and style. Happy cheerful pose, full body, clean white background.',
+  present:'Generate this exact same character gesturing to the side with open palm, presenting something. Keep the same character design, colors, proportions and style. Professional pose, full body, clean white background.',
+  sit:'Generate this exact same character sitting casually cross-legged. Keep the same character design, colors, proportions and style. Relaxed friendly pose, full body, clean white background.',
+};
+
+function setPosePreset(key){
+  document.getElementById('sp-pose-prompt').value=POSE_PRESETS[key]||'';
+  document.querySelectorAll('.sp-pose-presets button').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function updatePoseRefArea(){
+  const area=document.getElementById('sp-pose-ref-area');
+  if(!area)return;
+  if(STATE.mascotImages.length===0){
+    area.innerHTML='<div style="font-size:.65rem;color:#888;margin-bottom:.5rem;">Upload a mascot image first (above) to use as reference</div>';
+    return;
+  }
+  const img=STATE.mascotImages[0];
+  area.innerHTML=`<div class="sp-pose-ref">
+    <img src="${img.url}" alt="ref"/>
+    <div class="sp-pose-ref-info"><strong>Reference:</strong> ${img.name||'mascot'}<br/>This character will be used for pose generation</div>
+  </div>`;
+}
+
+async function blobUrlToBase64(blobUrl){
+  const res=await fetch(blobUrl);
+  const blob=await res.blob();
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onloadend=()=>resolve(reader.result);
+    reader.onerror=reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
+async function generatePose(){
+  const token=document.getElementById('sp-rep-token').value.trim();
+  const workerUrl=document.getElementById('sp-worker-url').value.trim();
+  const prompt=document.getElementById('sp-pose-prompt').value.trim();
+  const statusEl=document.getElementById('sp-pose-status');
+  const btn=document.getElementById('sp-pose-gen-btn');
+
+  if(!token){statusEl.textContent='Enter your Replicate API token';return;}
+  if(!workerUrl){statusEl.textContent='Enter your Cloudflare Worker URL';return;}
+  if(!prompt){statusEl.textContent='Describe the pose first';return;}
+  if(STATE.mascotImages.length===0){statusEl.textContent='Upload a mascot image first';return;}
+
+  btn.disabled=true;
+  btn.innerHTML='<span class="sp-spinner"></span> Generating...';
+  statusEl.textContent='Converting reference image...';
+
+  try{
+    // Convert reference image to base64
+    const refBase64=await blobUrlToBase64(STATE.mascotImages[0].url);
+
+    statusEl.textContent='Sending to Replicate...';
+
+    // Create prediction via Cloudflare Worker
+    const targetUrl=workerUrl.replace(/\/$/,'')+'/predict';
+    statusEl.textContent='Calling worker: '+targetUrl;
+    let createRes;
+    try{
+      createRes=await fetch(targetUrl,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          replicateToken:token,
+          model:'google/nano-banana-pro',
+          input:{
+            image:refBase64,
+            prompt:prompt,
+            aspect_ratio:'1:1',
+            resolution:'1K',
+            output_format:'png',
+            num_images:2,
+            safety_filter_level:4,
+          }
+        })
+      });
+    }catch(fetchErr){
+      throw new Error('Cannot reach Worker. Deploy replicate-worker.js to Cloudflare Workers first. ('+fetchErr.message+')');
+    }
+
+    const responseText=await createRes.text();
+    let prediction;
+    try{prediction=JSON.parse(responseText);}catch(e){
+      throw new Error('Worker returned invalid response (status '+createRes.status+'). Make sure the Worker URL is correct and deployed.');
+    }
+
+    if(!createRes.ok){
+      throw new Error(prediction.error||'Replicate API error (status '+createRes.status+')');
+    }
+    let predId=prediction.id;
+
+    // Poll for results
+    statusEl.textContent='Generating... this takes 15-30 seconds';
+    let result=prediction;
+    let attempts=0;
+    const maxAttempts=60; // 2 minutes max
+
+    while(result.status!=='succeeded'&&result.status!=='failed'&&attempts<maxAttempts){
+      await new Promise(r=>setTimeout(r,2000));
+      attempts++;
+      statusEl.textContent=`Generating... ${attempts*2}s`;
+
+      const pollRes=await fetch(workerUrl.replace(/\/$/,'')+'/predict/'+predId+'?token='+encodeURIComponent(token));
+      const pollText=await pollRes.text();
+      try{result=JSON.parse(pollText);}catch(e){throw new Error('Poll returned invalid JSON');}
+    }
+
+    if(result.status==='failed'){
+      throw new Error(result.error||'Generation failed');
+    }
+    if(result.status!=='succeeded'){
+      throw new Error('Timed out — try again');
+    }
+
+    // Display results
+    const outputs=result.output||[];
+    statusEl.textContent=`Done! ${outputs.length} image(s) generated`;
+    renderPoseResults(outputs);
+
+  }catch(err){
+    statusEl.textContent='Error: '+err.message;
+    console.error('Pose generation error:',err);
+  }finally{
+    btn.disabled=false;
+    btn.innerHTML='Generate Pose';
+  }
+}
+
+function renderPoseResults(imageUrls){
+  const container=document.getElementById('sp-pose-results');
+  container.innerHTML=imageUrls.map((url,i)=>`
+    <div class="sp-pose-result">
+      <img src="${url}" alt="Generated pose ${i+1}" loading="lazy"/>
+      <button class="sp-pose-result-add" onclick="addPoseToSlides('${url}',${i})">+ Add</button>
+    </div>
+  `).join('');
+}
+
+async function addPoseToSlides(imageUrl,index){
+  try{
+    // Download image and create local blob URL
+    const res=await fetch(imageUrl);
+    const blob=await res.blob();
+    const file=new File([blob],'pose-'+Date.now()+'.png',{type:'image/png'});
+    const localUrl=URL.createObjectURL(blob);
+
+    // Add to STATE.mascotImages using existing autoAssign system
+    const assign=autoAssignSlides(STATE.mascotImages.length);
+
+    STATE.mascotImages.push({
+      id:'pose-'+Date.now()+'-'+index,
+      name:'pose-generated-'+(index+1)+'.png',
+      url:localUrl,
+      assignedSlides:assign,
+    });
+
+    buildSpImages();
+    rebuildSlides();
+    document.getElementById('sp-pose-status').textContent='Added to slides!';
+  }catch(err){
+    document.getElementById('sp-pose-status').textContent='Failed to add: '+err.message;
+  }
+}
+
+// Update ref area when mascot images change
+const _origBuildSpImages=typeof buildSpImages==='function'?buildSpImages:null;
+
 function buildSpImages(){
   document.getElementById('sp-img-cnt').textContent=STATE.mascotImages.length;
+  updatePoseRefArea();
   const c=document.getElementById('sp-img-thumbs');c.innerHTML='';
   STATE.mascotImages.forEach(img=>{
     const d=document.createElement('div');d.className='sp-img-thumb';
@@ -1859,38 +2140,39 @@ function buildSlideHTML(sid){
     // ── SPREAD variant (DIGITALE BUDDIES inspired) ──
     if(layoutMode==='spread'){
       return `
-    <div class="sl-bg" style="background:linear-gradient(135deg,${c1} 0%,${c2} 100%);position:absolute;inset:0;"></div>
-    <div class="geo-ring" style="top:-200px;right:-200px;width:800px;height:800px;border-width:120px;border-color:rgba(255,255,255,.1);"></div>
-    <div class="geo-ring" style="bottom:-100px;right:320px;width:300px;height:300px;border-width:50px;border-color:rgba(255,255,255,.07);"></div>
+    <div class="sl-bg" style="background:#f5f5f4;position:absolute;inset:0;"></div>
+    <div style="position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle at 25% 25%, rgba(10,10,10,.06) 0.7px, transparent 1px),radial-gradient(circle at 75% 75%, rgba(10,10,10,.04) 0.7px, transparent 1px);background-size:16px 16px;"></div>
+    <div style="position:absolute;top:0;left:0;width:100%;height:6px;background:${c1};"></div>
+    <div class="geo-ring" style="top:-200px;right:-200px;width:800px;height:800px;border-width:100px;border-color:rgba(10,10,10,.04);"></div>
     <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 480px;align-items:center;padding:0 80px 0 100px;">
       <div style="display:flex;flex-direction:column;justify-content:center;">
-        <div style="display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.18);border-radius:40px;padding:10px 28px;width:fit-content;margin-bottom:36px;">
-          <div style="width:10px;height:10px;border-radius:50%;background:#fff;animation:pd 1.8s ease-in-out infinite;"></div>
-          <span style="font-family:var(--fd);font-size:20px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;">${e(tx('cover_badge',L))}</span>
+        <div style="display:inline-flex;align-items:center;gap:12px;background:rgba(10,10,10,.05);border:1px solid rgba(163,163,163,.2);border-radius:9999px;padding:10px 28px;width:fit-content;margin-bottom:36px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:${c1};"></div>
+          <span style="font-family:var(--fd);font-size:16px;font-weight:600;letter-spacing:.35em;text-transform:uppercase;color:#0a0a0a;">${e(tx('cover_badge',L))}</span>
         </div>
-        <div style="font-family:var(--fd);font-size:96px;font-weight:800;line-height:.9;letter-spacing:-.05em;color:#fff;margin-bottom:20px;">${e(STATE.aiCoverH||tx('cover_h',L))}</div>
-        <div style="font-size:28px;color:rgba(255,255,255,.75);line-height:1.5;max-width:640px;margin-bottom:48px;">${e(tx('cover_sub',L))} <strong style="color:#fff;font-weight:800;">${e(C)}</strong>.</div>
-        <div style="display:flex;gap:0;border-top:2px solid rgba(255,255,255,.25);padding-top:32px;">
-          <div style="flex:1;padding-right:32px;border-right:1px solid rgba(255,255,255,.2);">
-            <div style="font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:6px;">${tx('prepared',L)}</div>
-            <div style="font-family:var(--fd);font-size:22px;font-weight:700;color:#fff;">${e(C)}</div>
+        <div style="font-family:var(--fd);font-size:88px;font-weight:600;line-height:.92;letter-spacing:-.04em;color:#0a0a0a;margin-bottom:24px;">${e(STATE.aiCoverH||tx('cover_h',L))}</div>
+        <div style="font-size:26px;color:rgba(10,10,10,.5);line-height:1.5;max-width:640px;margin-bottom:48px;">${e(tx('cover_sub',L))} <strong style="color:#0a0a0a;font-weight:600;">${e(C)}</strong>.</div>
+        <div style="display:flex;gap:0;border-top:1px solid rgba(10,10,10,.1);padding-top:32px;">
+          <div style="flex:1;padding-right:32px;border-right:1px solid rgba(10,10,10,.08);">
+            <div style="font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:rgba(10,10,10,.35);margin-bottom:6px;">${tx('prepared',L)}</div>
+            <div style="font-family:var(--fd);font-size:20px;font-weight:600;color:#0a0a0a;">${e(C)}</div>
           </div>
-          <div style="flex:1;padding:0 32px;border-right:1px solid rgba(255,255,255,.2);">
-            <div style="font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:6px;">${tx('industry',L)}</div>
-            <div style="font-family:var(--fd);font-size:22px;font-weight:700;color:#fff;">${e(IND)}</div>
+          <div style="flex:1;padding:0 32px;border-right:1px solid rgba(10,10,10,.08);">
+            <div style="font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:rgba(10,10,10,.35);margin-bottom:6px;">${tx('industry',L)}</div>
+            <div style="font-family:var(--fd);font-size:20px;font-weight:600;color:#0a0a0a;">${e(IND)}</div>
           </div>
           <div style="flex:1;padding-left:32px;">
-            <div style="font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:6px;">${tx('kickoff',L)}</div>
-            <div style="font-family:var(--fd);font-size:22px;font-weight:700;color:#fff;">${e(selDate?fmtDate(selDate):'—')}</div>
+            <div style="font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:rgba(10,10,10,.35);margin-bottom:6px;">${tx('kickoff',L)}</div>
+            <div style="font-family:var(--fd);font-size:20px;font-weight:600;color:${c1};">${e(selDate?fmtDate(selDate):'—')}</div>
           </div>
         </div>
       </div>
       <div style="display:flex;align-items:center;justify-content:center;height:100%;">
-        ${hasImg ? `<img src="${getMascotImageForSlide(sid)}" style="height:880px;max-width:520px;object-fit:contain;filter:drop-shadow(0 40px 80px rgba(0,0,0,.35));" alt="mascot"/>` :
-          `<div style="font-size:580px;line-height:1;filter:drop-shadow(0 40px 80px rgba(0,0,0,.3));margin-top:60px;">${bigMascotEmoji}</div>`}
+        ${hasImg ? `<img src="${getMascotImageForSlide(sid)}" style="height:880px;max-width:520px;object-fit:contain;filter:drop-shadow(0 20px 60px rgba(0,0,0,.15));" alt="mascot"/>` :
+          `<div style="font-size:580px;line-height:1;filter:drop-shadow(0 20px 40px rgba(0,0,0,.1));margin-top:60px;">${bigMascotEmoji}</div>`}
       </div>
     </div>
-    <div class="sl-num" style="color:rgba(255,255,255,.08);">01</div>`;}
+    <div class="sl-num" style="color:rgba(10,10,10,.05);">01</div>`;}
 
     // ── IMPACT variant ──
     if(layoutMode==='impact'){
@@ -2845,7 +3127,7 @@ function rebuildSlides(){
     var _lgl=['s-mopt','s-mdesign','s-emotion','s-kb'].includes(s.id);
     var _lgc=_lgl?'#111111':'rgba(255,255,255,.9)';
     var _lgd=_lgl?'#FF6B3D':'rgba(255,107,61,.95)';
-    div.insertAdjacentHTML('beforeend','<div style="position:absolute;top:38px;right:64px;z-index:99;display:flex;align-items:center;gap:4px;font-family:Syne,sans-serif;font-weight:800;font-size:26px;letter-spacing:-.03em;pointer-events:none;user-select:none;"><span style="color:'+_lgc+';">notso</span><span style="color:'+_lgd+';">.</span><span style="color:'+_lgc+';">ai</span></div>');
+    div.insertAdjacentHTML('beforeend','<div style="position:absolute;top:38px;right:64px;z-index:99;pointer-events:none;user-select:none;"><img src="logo.png" alt="notso.ai" style="height:28px;"></div>');
     canvas.appendChild(div);
   });
   if(curSlide>=activeSl.length)curSlide=Math.max(0,activeSl.length-1);
