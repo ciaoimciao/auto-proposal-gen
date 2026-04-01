@@ -6,7 +6,7 @@
 <title>Notso.ai — Proposal Generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Anton&family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Barlow+Condensed:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Anton&family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Barlow+Condensed:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 /* ═══════════════════════════════════════
    TOKENS
@@ -601,6 +601,33 @@ input[type="color"].sp-ci{width:100%;height:30px;border:1.5px solid;border-radiu
 .feat-gc{display:flex;flex-direction:column;gap:8px;padding:20px 22px;border-radius:16px;transition:transform .15s;}
 .feat-gico{font-size:30px;line-height:1;margin-bottom:3px;}
 .feat-gttl{font-family:var(--fd);font-size:20px;font-weight:700;line-height:1.2;}
+/* Features 2x2 contextual grid cards */
+.feat-ctx-grid{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:20px;padding:100px 60px 60px;}
+.feat-ctx-card{position:relative;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:36px 40px;border:1px solid rgba(0,0,0,.08);}
+.feat-ctx-card .fcc-img{position:absolute;right:20px;top:50%;transform:translateY(-50%);height:75%;max-width:40%;object-fit:contain;pointer-events:auto;cursor:move;z-index:1;filter:drop-shadow(0 8px 24px rgba(0,0,0,.12));}
+.feat-ctx-card .fcc-txt{position:relative;z-index:2;max-width:55%;}
+.feat-ctx-card .fcc-ttl{font-family:var(--fd);font-weight:700;line-height:1.15;margin-bottom:10px;}
+.feat-ctx-card .fcc-desc{line-height:1.45;opacity:.7;}
+/* Device mockup frames */
+.mockup-wrap{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%;}
+.mockup-laptop{position:relative;width:680px;z-index:1;}
+.mockup-laptop .ml-screen{position:relative;width:620px;height:388px;background:#1a1a1a;border-radius:8px 8px 0 0;border:3px solid #2a2a2a;overflow:hidden;margin:0 auto;}
+.mockup-laptop .ml-screen img{width:100%;height:100%;object-fit:cover;object-position:top;}
+.mockup-laptop .ml-screen .ml-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1a2e,#16213e);color:rgba(255,255,255,.3);font-size:14px;font-family:var(--fb);}
+.mockup-laptop .ml-base{width:680px;height:14px;background:linear-gradient(180deg,#c0c0c0,#a0a0a0);border-radius:0 0 8px 8px;position:relative;}
+.mockup-laptop .ml-base::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:4px;background:#888;border-radius:0 0 4px 4px;}
+.mockup-laptop .ml-bottom{width:740px;height:6px;background:#888;border-radius:0 0 12px 12px;margin:0 auto;margin-top:-1px;}
+.mockup-phone{position:absolute;right:-30px;bottom:20px;width:200px;z-index:2;filter:drop-shadow(-8px 8px 24px rgba(0,0,0,.25));}
+.mockup-phone .mp-frame{position:relative;width:200px;height:410px;background:#1a1a1a;border-radius:28px;border:3px solid #333;padding:8px;box-sizing:border-box;}
+.mockup-phone .mp-notch{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:80px;height:22px;background:#1a1a1a;border-radius:0 0 14px 14px;z-index:3;}
+.mockup-phone .mp-screen{width:100%;height:100%;border-radius:20px;overflow:hidden;background:#111;position:relative;}
+.mockup-phone .mp-screen img{width:100%;height:100%;object-fit:cover;object-position:top;}
+.mockup-phone .mp-screen .mp-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f0c29,#302b63);color:rgba(255,255,255,.3);font-size:11px;font-family:var(--fb);}
+.mockup-phone .mp-bar{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:100px;height:4px;background:rgba(255,255,255,.2);border-radius:2px;}
+/* Image slot assignment tags */
+.sp-slot-tag{font-size:10px;padding:2px 8px;border-radius:6px;border:1px solid rgba(163,163,163,.25);background:transparent;color:#737373;cursor:pointer;transition:all .15s;user-select:none;}
+.sp-slot-tag:hover{border-color:var(--or);color:var(--or);}
+.sp-slot-tag.active{background:var(--or);border-color:var(--or);color:#fff;font-weight:600;}
 /* ══ GEOMETRIC ACCENT RINGS ══ */
 .geo-ring{position:absolute;border-radius:50%;border-style:solid;pointer-events:none;opacity:.6;}
 /* ══ HORIZONTAL ROADMAP ══ */
@@ -610,9 +637,9 @@ input[type="color"].sp-ci{width:100%;height:30px;border:1.5px solid;border-radiu
 .hrm-num{font-family:var(--fd);font-size:52px;font-weight:800;line-height:1;letter-spacing:-.04em;}
 .hrm-bar{height:3px;border-radius:2px;margin:4px 0 8px;}
 .hrm-body{padding:16px 18px;border-radius:14px;}
-.hrm-ttl{font-size:19px;font-weight:700;font-family:var(--fd);margin-bottom:4px;line-height:1.2;}
-.hrm-txt{font-size:14px;opacity:.5;line-height:1.5;}
-.hrm-date{font-size:12px;opacity:.35;letter-spacing:.06em;text-transform:uppercase;margin-top:6px;}
+.hrm-ttl{font-size:26px;font-weight:700;font-family:var(--fd);margin-bottom:6px;line-height:1.2;}
+.hrm-txt{font-size:20px;opacity:.5;line-height:1.5;}
+.hrm-date{font-size:16px;opacity:.35;letter-spacing:.06em;text-transform:uppercase;margin-top:8px;}
 /* ══ PAIN CARDS GRID ══ */
 .pg{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .pc{padding:22px 24px;border-radius:16px;display:flex;flex-direction:column;gap:8px;}
@@ -725,16 +752,86 @@ input[type="color"].sp-ci{width:100%;height:30px;border:1.5px solid;border-radiu
 /* ═══════════════════════════════════════
    EDIT MODE — inline text editing
 ═══════════════════════════════════════ */
-.slide-canvas.editing [data-editable],.slide-canvas.editing .editable{outline:1px dashed rgba(255,107,61,.35);outline-offset:2px;cursor:text;border-radius:4px;transition:outline-color .2s;}
+.slide-canvas.editing [data-editable],.slide-canvas.editing .editable{outline:1px dashed rgba(255,107,61,.35);outline-offset:2px;cursor:grab;border-radius:4px;transition:outline-color .2s;}
 .slide-canvas.editing [data-editable]:hover,.slide-canvas.editing .editable:hover{outline-color:rgba(255,107,61,.6);}
-.slide-canvas.editing [data-editable]:focus,.slide-canvas.editing .editable:focus{outline:2px solid var(--or);outline-offset:2px;background:rgba(255,107,61,.04);}
+.slide-canvas.editing [data-editable]:focus,.slide-canvas.editing .editable:focus{outline:2px solid var(--or);outline-offset:2px;background:rgba(255,107,61,.04);cursor:text;}
+.slide-canvas.editing [data-editable].dragging{cursor:grabbing;outline:2px solid var(--or);opacity:.85;}
 /* Image edit toolbar */
 .img-edit-bar{position:absolute;background:rgba(17,17,16,.92);backdrop-filter:blur(8px);border-radius:10px;padding:6px 10px;display:flex;gap:6px;align-items:center;z-index:200;box-shadow:0 4px 20px rgba(0,0,0,.4);}
 .img-edit-bar button{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .img-edit-bar button:hover{background:var(--or);border-color:var(--or);}
 .img-edit-bar .rot-slider{width:80px;accent-color:var(--or);height:4px;}
 .img-edit-bar .rot-val{color:rgba(255,255,255,.6);font-size:11px;min-width:32px;text-align:center;font-family:var(--fb);}
+/* PDF export overlay */
+.pdf-overlay{position:fixed;inset:0;background:rgba(10,10,10,.85);backdrop-filter:blur(8px);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;}
+.pdf-overlay .pdf-title{font-family:var(--fh);font-size:1.4rem;color:#F5F2EC;font-weight:700;}
+.pdf-overlay .pdf-progress{width:320px;height:6px;border-radius:3px;background:rgba(255,255,255,.1);overflow:hidden;}
+.pdf-overlay .pdf-bar{height:100%;background:var(--or);border-radius:3px;transition:width .3s ease;}
+.pdf-overlay .pdf-status{font-size:.8rem;color:#B8B5AE;font-family:var(--fb);}
+.slide-canvas.pdf-rendering::after{display:none !important;}
+
+/* ═══════════════════════════════════════
+   RESEARCH RESULTS PANEL
+═══════════════════════════════════════ */
+#research-container{
+  display:none;margin-top:.75rem;
+}
+.research-toggle{
+  display:flex;align-items:center;gap:.5rem;cursor:pointer;
+  padding:.6rem .85rem;background:rgba(10,10,10,.02);
+  border:1px solid rgba(163,163,163,.18);border-radius:14px;
+  transition:all .2s;
+}
+.research-toggle:hover{background:rgba(10,10,10,.05);}
+.research-toggle-title{
+  font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#0a0a0a;
+}
+.research-toggle-badge{
+  font-size:.6rem;padding:2px 8px;border-radius:10px;
+  background:rgba(22,163,74,.08);border:1px solid rgba(22,163,74,.2);color:#15803d;
+  font-weight:500;
+}
+.research-toggle-arrow{
+  margin-left:auto;transition:transform .2s;font-size:.7rem;color:#737373;
+}
+.research-toggle.open .research-toggle-arrow{transform:rotate(180deg);}
+#research-results{
+  display:none;padding:.75rem;margin-top:.4rem;
+  background:rgba(245,245,244,.5);border:1px solid rgba(163,163,163,.15);border-radius:14px;
+  max-height:500px;overflow-y:auto;
+}
+#research-results.show{display:block;}
+.rr-section{margin-bottom:.75rem;}
+.rr-section:last-child{margin-bottom:0;}
+.rr-section-title{
+  font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:#525252;margin-bottom:.4rem;padding-bottom:.25rem;
+  border-bottom:1px solid rgba(163,163,163,.15);
+}
+.rr-card{
+  padding:.45rem .6rem;margin-bottom:.3rem;
+  background:rgba(255,255,255,.7);border:1px solid rgba(163,163,163,.12);border-radius:10px;
+}
+.rr-card-title{font-size:.75rem;font-weight:600;color:#0a0a0a;margin-bottom:.15rem;}
+.rr-card-text{font-size:.7rem;color:#525252;line-height:1.45;}
+.rr-card-source{font-size:.6rem;color:#a3a3a3;margin-top:.2rem;font-style:italic;}
+.rr-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:.35rem;
+}
+.rr-metric{
+  padding:.4rem .55rem;background:rgba(255,255,255,.7);
+  border:1px solid rgba(163,163,163,.12);border-radius:10px;
+}
+.rr-metric-label{font-size:.58rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#737373;margin-bottom:.15rem;}
+.rr-metric-value{font-size:.68rem;color:#0a0a0a;line-height:1.4;}
+.rr-source-badge{
+  display:inline-flex;align-items:center;gap:.3rem;margin-top:.5rem;
+  font-size:.6rem;padding:3px 10px;border-radius:10px;
+  background:rgba(10,10,10,.04);border:1px solid rgba(163,163,163,.15);color:#525252;
+}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
 </head>
 <body>
 
@@ -771,6 +868,19 @@ input[type="color"].sp-ci{width:100%;height:30px;border:1.5px solid;border-radiu
         <div class="fg"><label class="fl">Industry &amp; Department</label><input class="fi" id="in-industry" placeholder="e.g. Retail — HR &amp; Onboarding"/></div>
       </div>
       <div class="fr">
+        <div class="fg">
+          <label class="fl">Use Case <span style="color:#0a0a0a;font-weight:700;">What will the AI agent do?</span></label>
+          <select class="fi" id="in-usecase" style="appearance:auto;cursor:pointer;">
+            <option value="">— Select use case —</option>
+            <option value="student-services">🎓 Student Services (enrollment, FAQ, campus life)</option>
+            <option value="employee-onboarding">👔 Employee Onboarding &amp; Training</option>
+            <option value="customer-service">🎧 Customer Service &amp; Support</option>
+            <option value="internal-kb">📚 Internal Knowledge Base</option>
+            <option value="sales-assistant">🛒 Sales &amp; Product Assistant</option>
+            <option value="patient-support">🏥 Patient / Healthcare Support</option>
+            <option value="other">✏️ Other (describe in pain points)</option>
+          </select>
+        </div>
         <div class="fg"><label class="fl">Decision-maker Name &amp; Role</label><input class="fi" id="in-role" placeholder="e.g. Bas Bobeldijk — Store Manager"/></div>
         <div class="fg"><label class="fl">Client Website URL</label><input class="fi" id="in-url" placeholder="https://www.jumbo.com"/></div>
       </div>
@@ -819,6 +929,20 @@ input[type="color"].sp-ci{width:100%;height:30px;border:1.5px solid;border-radiu
             <input class="fi" id="in-scale" placeholder="e.g. 700+ filialen, 100.000 medewerkers NL"/>
           </div>
         </div>
+        <div class="fr">
+          <div class="fg" style="margin-bottom:.5rem;">
+            <label class="fl">Monthly inquiry volume <span style="color:#737373;font-weight:400;">(approx.)</span></label>
+            <input class="fi" id="in-volume" type="text" placeholder="e.g. 3,000 calls/month, 500 emails/week"/>
+          </div>
+          <div class="fg" style="margin-bottom:.5rem;">
+            <label class="fl">Support team size</label>
+            <input class="fi" id="in-teamsize" type="text" placeholder="e.g. 5 staff handling inquiries"/>
+          </div>
+        </div>
+        <div class="fg" style="margin-bottom:.5rem;">
+          <label class="fl">Chat scenario hint <span style="color:#737373;font-weight:400;">(for Chat Mock-up slide)</span></label>
+          <input class="fi" id="in-chatscene" placeholder="e.g. Student asking about credit transfer process / New hire asking about shift schedule"/>
+        </div>
         <div class="fg" style="margin-bottom:.5rem;">
           <label class="fl">A specific situation or anecdote they told you</label>
           <textarea class="fi" id="in-anecdote" rows="2" placeholder="e.g. Bij een nieuwe kassa zaten 3 medewerkers 45 min te wachten op de manager voor uitleg over een app."></textarea>
@@ -832,16 +956,31 @@ input[type="color"].sp-ci{width:100%;height:30px;border:1.5px solid;border-radiu
 
     <!-- 02 AI GENERATION -->
     <div class="sec">
-      <div class="sec-hdr"><div class="sec-num">02</div><div><div class="sec-ttl">AI Content Generation</div><div class="sec-sub">Writes in Notso.ai&#39;s voice — empathetic, direct, industry-specific — based on everything above</div></div></div>
-      <div class="fg" style="margin-bottom:.4rem;"><label class="fl">Anthropic API Key</label><input class="fi" id="api-key" type="password" placeholder="sk-ant-..."/></div>
-      <div class="api-hint">Stored in memory only &middot; <a href="https://console.anthropic.com" target="_blank" style="color:#0a0a0a;text-decoration:underline;">Get a key &#8594;</a></div>
+      <div class="sec-hdr"><div class="sec-num">02</div><div><div class="sec-ttl">AI Content Generation</div><div class="sec-sub">Market research → argumentation logic → data-backed slide content — all in Notso.ai&#39;s voice</div></div></div>
+
+      <!-- RESEARCH RESULTS (auto-populated) -->
+      <div id="research-container">
+        <div class="research-toggle" onclick="toggleResearch()">
+          <span class="research-toggle-title">📊 Market Research Results</span>
+          <span class="research-toggle-badge" id="research-badge">Ready</span>
+          <span class="research-toggle-arrow">▼</span>
+        </div>
+        <div id="research-results"></div>
+      </div>
+
+      <div class="fg" style="margin-bottom:.4rem;"><label class="fl">Anthropic API Key <span style="color:#737373;font-weight:400;">(powers content generation + web search research)</span></label><input class="fi" id="api-key" type="password" placeholder="sk-ant-..."/></div>
+      <div class="api-hint">Stored in memory only &middot; One key does everything: research + content &middot; <a href="https://console.anthropic.com" target="_blank" style="color:#0a0a0a;text-decoration:underline;">Get a key &#8594;</a> &middot; Web search: $0.01/search</div>
       <div class="ai-row" style="margin-top:.75rem;">
         <button class="ai-btn" id="ai-all-btn" onclick="genAll()">&#10006; Generate All Slide Content</button>
         <button class="ai-btn orange" onclick="openModal('chat')">&#10006; Generate Chat Dialogue</button>
         <span class="ai-st" id="st-all"></span>
       </div>
       <div style="margin-top:.6rem;padding:.6rem .85rem;background:rgba(245,245,244,.6);border-radius:14px;border:1px solid rgba(163,163,163,.18);display:flex;flex-wrap:wrap;gap:.3rem;align-items:center;">
-        <span style="font-size:.6rem;color:#737373;letter-spacing:.1em;text-transform:uppercase;margin-right:.2rem;">Generates:</span>
+        <span style="font-size:.6rem;color:#737373;letter-spacing:.1em;text-transform:uppercase;margin-right:.2rem;">Workflow:</span>
+        <span style="font-size:.7rem;padding:2px 8px;border-radius:10px;background:rgba(22,163,74,.06);border:1px solid rgba(22,163,74,.18);color:#15803d;">📚 DB or 🔍 Live Search</span>
+        <span style="font-size:.7rem;padding:2px 8px;border-radius:10px;background:rgba(22,163,74,.06);border:1px solid rgba(22,163,74,.18);color:#15803d;">✓ URL-verified data only</span>
+        <span style="font-size:.7rem;padding:2px 8px;border-radius:10px;background:rgba(22,163,74,.06);border:1px solid rgba(22,163,74,.18);color:#15803d;">🔍 Claude web_search API</span>
+        <span style="font-size:.6rem;color:#737373;margin:0 .15rem;">→</span>
         <span style="font-size:.7rem;padding:2px 8px;border-radius:10px;background:rgba(10,10,10,.05);border:1px solid rgba(163,163,163,.22);color:#525252;">Pain point (their words)</span>
         <span style="font-size:.7rem;padding:2px 8px;border-radius:10px;background:rgba(10,10,10,.05);border:1px solid rgba(163,163,163,.22);color:#525252;">4 pain cards</span>
         <span style="font-size:.7rem;padding:2px 8px;border-radius:10px;background:rgba(10,10,10,.05);border:1px solid rgba(163,163,163,.22);color:#525252;">Feature copy</span>
@@ -879,6 +1018,7 @@ input[type="color"].sp-ci{width:100%;height:30px;border:1.5px solid;border-radiu
         <button class="nb act" id="edit-btn" onclick="toggleEdit()">✏️ Edit</button>
         <button class="nb" id="btn-prev" onclick="prevSlide()">← Prev</button>
         <button class="nb p" id="btn-next" onclick="nextSlide()">Next →</button>
+        <button class="nb act" id="btn-pdf" onclick="exportPDF()" style="margin-left:8px;background:var(--or);color:#fff;border-color:var(--or);">📄 Export PDF</button>
       </div>
     </div>
     <div class="dots-bar" id="dots-bar"></div>
@@ -908,9 +1048,10 @@ input[type="color"].sp-ci{width:100%;height:30px;border:1.5px solid;border-radiu
       </div>
       <div class="sp-lbl" style="margin-top:.35rem;margin-bottom:.3rem;">Slide Theme</div>
       <div style="display:flex;gap:.3rem;margin-bottom:.4rem;">
-        <button id="theme-brand-btn" onclick="setSlideTheme('brand')" style="flex:1;padding:5px 0;font-size:.68rem;border-radius:7px;border:1.5px solid var(--or);background:rgba(255,107,61,.12);color:var(--or);cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;">Brand Color BG</button>
-        <button id="theme-dark-btn" onclick="setSlideTheme('dark')" style="flex:1;padding:5px 0;font-size:.68rem;border-radius:7px;border:1px solid rgba(255,255,255,.12);background:transparent;color:#9A9890;cursor:pointer;font-family:'DM Sans',sans-serif;">Dark BG</button>
-        <button id="theme-light-btn" onclick="setSlideTheme('light')" style="flex:1;padding:5px 0;font-size:.68rem;border-radius:7px;border:1px solid rgba(255,255,255,.12);background:transparent;color:#9A9890;cursor:pointer;font-family:'DM Sans',sans-serif;">Light BG</button>
+        <button id="theme-brand-btn" onclick="setSlideTheme('brand')" style="flex:1;padding:5px 0;font-size:.68rem;border-radius:7px;border:1.5px solid var(--or);background:rgba(255,107,61,.12);color:var(--or);cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;">Brand Accent</button>
+        <button id="theme-brand-fill-btn" onclick="setSlideTheme('brand-fill')" style="flex:1;padding:5px 0;font-size:.68rem;border-radius:7px;border:1px solid rgba(255,255,255,.12);background:transparent;color:#9A9890;cursor:pointer;font-family:'DM Sans',sans-serif;">Brand Fill</button>
+        <button id="theme-dark-btn" onclick="setSlideTheme('dark')" style="flex:1;padding:5px 0;font-size:.68rem;border-radius:7px;border:1px solid rgba(255,255,255,.12);background:transparent;color:#9A9890;cursor:pointer;font-family:'DM Sans',sans-serif;">Dark</button>
+        <button id="theme-light-btn" onclick="setSlideTheme('light')" style="flex:1;padding:5px 0;font-size:.68rem;border-radius:7px;border:1px solid rgba(255,255,255,.12);background:transparent;color:#9A9890;cursor:pointer;font-family:'DM Sans',sans-serif;">Light</button>
       </div>
       <div class="sp-lbl" style="margin-bottom:.3rem;">Quick Presets</div>
       <div class="sp-presets" id="sp-presets"></div>
@@ -1049,39 +1190,51 @@ input[type="color"].sp-ci{width:100%;height:30px;border:1.5px solid;border-radiu
     <!-- Slides -->
     <div class="sp-sec">
       <div class="sp-lbl">Slides <span class="sp-lbl-cnt" id="sp-slide-cnt">0</span></div>
-      <div class="sp-preset-btns"><button onclick="spPresetFull()">All (16)</button><button onclick="spPresetQuick()">Quick (7)</button><button onclick="spPresetClear()">Clear</button></div>
+      <div class="sp-preset-btns"><button onclick="spPresetFull()">All (16)</button><button onclick="spPresetCore()" style="background:rgba(10,10,10,.08);font-weight:700;">Core (8)</button><button onclick="spPresetQuick()">Quick (7)</button><button onclick="spPresetClear()">Clear</button></div>
       <div id="sp-slides-list"></div>
     </div>
   </div>
 </div>
 
-<script src="data:text/javascript,">
+<script>
 function showImgEditBar(img){
   document.querySelectorAll('.img-edit-bar').forEach(b=>b.remove());
-  const sid=img.closest('[data-slide-id]')?.dataset?.slideId||'default';
+  const sid=img.closest('[data-slide-id]')?.dataset?.slideId||img.dataset?.slideId||'default';
   if(!STATE.imageOffsets)STATE.imageOffsets={};
-  if(!STATE.imageOffsets[sid])STATE.imageOffsets[sid]={x:0,y:0,rotate:0};
+  if(!STATE.imageOffsets[sid])STATE.imageOffsets[sid]={x:0,y:0,rotate:0,scale:1,flipX:false};
   const off=STATE.imageOffsets[sid];
+  if(!off.scale)off.scale=1;
+  if(off.flipX===undefined)off.flipX=false;
   const bar=document.createElement('div');
   bar.className='img-edit-bar';
   bar.innerHTML=`
-    <button onclick="moveImg(this,-10,0)" title="Left">←</button>
-    <button onclick="moveImg(this,10,0)" title="Right">→</button>
-    <button onclick="moveImg(this,0,-10)" title="Up">↑</button>
-    <button onclick="moveImg(this,0,10)" title="Down">↓</button>
-    <input type="range" class="rot-slider" min="-180" max="180" value="${off.rotate}" oninput="rotateImg(this)" title="Rotate"/>
-    <span class="rot-val">${off.rotate}°</span>
-    <button onclick="resetImg(this)" title="Reset" style="font-size:12px;">↺</button>
+    <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap;">
+      <button onclick="moveImg(this,-20,0)" title="Left">←</button>
+      <button onclick="moveImg(this,20,0)" title="Right">→</button>
+      <button onclick="moveImg(this,0,-20)" title="Up">↑</button>
+      <button onclick="moveImg(this,0,20)" title="Down">↓</button>
+      <button onclick="flipImg(this)" title="Flip" style="font-size:11px;">⇔</button>
+      <span style="font-size:10px;color:#999;margin:0 4px;">|</span>
+      <span style="font-size:10px;color:#aaa;">↻</span>
+      <input type="range" class="rot-slider" min="-180" max="180" value="${off.rotate}" oninput="rotateImg(this)" title="Rotate" style="width:80px;"/>
+      <span class="rot-val" style="min-width:30px;">${off.rotate}°</span>
+      <span style="font-size:10px;color:#999;margin:0 4px;">|</span>
+      <span style="font-size:10px;color:#aaa;">⇲</span>
+      <input type="range" class="scale-slider" min="30" max="200" value="${Math.round((off.scale||1)*100)}" oninput="scaleImg(this)" title="Scale" style="width:80px;"/>
+      <span class="scale-val" style="min-width:35px;">${Math.round((off.scale||1)*100)}%</span>
+      <button onclick="resetImg(this)" title="Reset" style="font-size:12px;margin-left:4px;">↺</button>
+    </div>
   `;
   bar.dataset.sid=sid;
   bar._img=img;
-  const rect=img.getBoundingClientRect();
-  const parent=img.closest('.slide-canvas')||img.parentElement;
+  const parent=img.closest('.slide-canvas')||img.closest('[style*="position"]')||img.parentElement;
   parent.style.position='relative';
   parent.appendChild(bar);
-  bar.style.top=(img.offsetTop-40)+'px';
+  bar.style.top=Math.max(0,img.offsetTop-44)+'px';
   bar.style.left=img.offsetLeft+'px';
   applyImgTransform(img,off);
+  // Enable drag on the image
+  enableImgDrag(img,sid);
 }
 function moveImg(btn,dx,dy){
   const bar=btn.closest('.img-edit-bar');
@@ -1098,18 +1251,106 @@ function rotateImg(slider){
   bar.querySelector('.rot-val').textContent=off.rotate+'°';
   applyImgTransform(bar._img,off);
 }
+function scaleImg(slider){
+  const bar=slider.closest('.img-edit-bar');
+  const sid=bar.dataset.sid;
+  const off=STATE.imageOffsets[sid];
+  off.scale=parseInt(slider.value)/100;
+  bar.querySelector('.scale-val').textContent=Math.round(off.scale*100)+'%';
+  applyImgTransform(bar._img,off);
+}
+function flipImg(btn){
+  const bar=btn.closest('.img-edit-bar');
+  const sid=bar.dataset.sid;
+  const off=STATE.imageOffsets[sid];
+  off.flipX=!off.flipX;
+  applyImgTransform(bar._img,off);
+}
 function resetImg(btn){
   const bar=btn.closest('.img-edit-bar');
   const sid=bar.dataset.sid;
-  STATE.imageOffsets[sid]={x:0,y:0,rotate:0};
+  STATE.imageOffsets[sid]={x:0,y:0,rotate:0,scale:1,flipX:false};
   bar.querySelector('.rot-slider').value=0;
   bar.querySelector('.rot-val').textContent='0°';
+  bar.querySelector('.scale-slider').value=100;
+  bar.querySelector('.scale-val').textContent='100%';
   applyImgTransform(bar._img,STATE.imageOffsets[sid]);
 }
 function applyImgTransform(img,off){
   if(!img||!off)return;
-  img.style.transform='translate('+off.x+'px,'+off.y+'px) rotate('+off.rotate+'deg)';
+  const sc=off.scale||1;
+  const fx=off.flipX?-1:1;
+  const existingBase=img.dataset.baseTransform||'';
+  img.style.transform=`translate(${off.x}px,${off.y}px) rotate(${off.rotate}deg) scale(${sc*fx},${sc}) ${existingBase}`;
   img.style.transition='transform .15s ease';
+}
+function enableImgDrag(img,sid){
+  if(img._dragEnabled)return;
+  img._dragEnabled=true;
+  let startX,startY,startOx,startOy;
+  img.addEventListener('mousedown',function(ev){
+    if(ev.target.closest('.img-edit-bar'))return;
+    ev.preventDefault();
+    const off=STATE.imageOffsets[sid];
+    startX=ev.clientX;startY=ev.clientY;
+    startOx=off.x;startOy=off.y;
+    function onMove(e){
+      off.x=startOx+(e.clientX-startX);
+      off.y=startOy+(e.clientY-startY);
+      applyImgTransform(img,off);
+    }
+    function onUp(){document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp);}
+    document.addEventListener('mousemove',onMove);
+    document.addEventListener('mouseup',onUp);
+  });
+}
+
+/* ── Text block drag in edit mode ── */
+function enableTextDrag(){
+  const canvas=document.getElementById('slide-canvas');
+  if(!canvas)return;
+  // Use event delegation on the canvas
+  canvas.addEventListener('mousedown',function(ev){
+    if(!editMode)return;
+    const el=ev.target.closest('[data-editable]')||ev.target.closest('.editable');
+    if(!el)return;
+    // If already focused (editing text), don't drag
+    if(document.activeElement===el&&el.isContentEditable)return;
+    // Need parent to be positioned
+    const parent=el.offsetParent||el.parentElement;
+    if(!parent)return;
+    ev.preventDefault();
+    el.classList.add('dragging');
+    // Get scale factor from scaler transform
+    const scaler=document.getElementById('slide-scaler');
+    const scalerTransform=scaler?getComputedStyle(scaler).transform:'none';
+    let scaleFactor=1;
+    if(scalerTransform&&scalerTransform!=='none'){
+      const m=scalerTransform.match(/matrix\(([^,]+)/);
+      if(m)scaleFactor=parseFloat(m[1])||1;
+    }
+    const startX=ev.clientX,startY=ev.clientY;
+    const origLeft=el.offsetLeft,origTop=el.offsetTop;
+    const wasPositioned=el.style.position;
+    if(!wasPositioned||wasPositioned==='static'){
+      el.style.position='relative';
+    }
+    const origTx=parseFloat(el.style.left)||0;
+    const origTy=parseFloat(el.style.top)||0;
+    function onMove(e){
+      const dx=(e.clientX-startX)/scaleFactor;
+      const dy=(e.clientY-startY)/scaleFactor;
+      el.style.left=(origTx+dx)+'px';
+      el.style.top=(origTy+dy)+'px';
+    }
+    function onUp(){
+      el.classList.remove('dragging');
+      document.removeEventListener('mousemove',onMove);
+      document.removeEventListener('mouseup',onUp);
+    }
+    document.addEventListener('mousemove',onMove);
+    document.addEventListener('mouseup',onUp);
+  });
 }
 
 </script>
@@ -1121,6 +1362,7 @@ const ALL_SLIDES=[
   {id:'s-cover',title:'Cover',e:'🎯',quick:true},
   {id:'s-toc',title:'Table of Contents',e:'📋',quick:true},
   {id:'s-pain',title:'Pain Points',e:'😩',quick:true},
+  {id:'s-market',title:'Market Opportunity',e:'📈',quick:true},
   {id:'s-features',title:'Core Features',e:'✨',quick:true},
   {id:'s-mopt',title:'Mascot Selection',e:'🎭',quick:false},
   {id:'s-mdesign',title:'Mascot Design',e:'🎨',quick:false},
@@ -1129,6 +1371,7 @@ const ALL_SLIDES=[
   {id:'s-chatflow',title:'Chatflow Design',e:'🔀',quick:false},
   {id:'s-kb',title:'Knowledge Base',e:'🧠',quick:false},
   {id:'s-analytics',title:'Data & Insights',e:'📊',quick:true},
+  {id:'s-roi',title:'ROI Evidence',e:'💰',quick:true},
   {id:'s-roadmap',title:'Roadmap',e:'🗺️',quick:true},
   {id:'s-pricing',title:'Pricing',e:'💰',quick:false},
   {id:'s-promo',title:'Promo Materials',e:'🪧',quick:false},
@@ -1148,6 +1391,7 @@ const FONTS=[
   {id:'bebas',display:'Bebas Neue',body:'Plus Jakarta Sans',label:'Bebas Neue',sample:'PROPOSAL'},
   {id:'barlow',display:'Barlow Condensed',body:'Plus Jakarta Sans',label:'Barlow Cond.',sample:'PROPOSAL'},
   {id:'outfit',display:'Outfit',body:'Outfit',label:'Outfit',sample:'Proposal'},
+  {id:'poppins',display:'Poppins',body:'Poppins',label:'Poppins',sample:'Proposal'},
 ];
 const LANGS={
   en:{code:'en',label:'English 🇬🇧'},
@@ -1200,6 +1444,8 @@ const TX={
   emo_h:{en:'emotion states.',nl:'emotionele staten.',zh:'的情緒狀態',de:'Emotionszustände.',fr:'états émotionnels.',ja:'の感情ステート',es:'estados emocionales.'},
   emo_cards:{en:[{ico:'😊',c:'#F7C94E',t:'Happy',x:'Warm greeting, upbeat tone, leans forward.'},{ico:'😤',c:'#FF6B3D',t:'Frustrated',x:'Calm, de-escalating — de-stresses interactions.'},{ico:'🤔',c:'#4CD8A8',t:'Curious',x:'Tilts head, asks clarifying questions, thinking animation.'},{ico:'🎉',c:'#7B7BFF',t:'Celebratory',x:'Triggers on resolved tickets or successful transactions.'},{ico:'😔',c:'',t:'Apologetic',x:'Acknowledges errors gracefully, offers escalation.'},{ico:'💡',c:'#FF6B3D',t:'Helpful',x:'Default state — proactive, clear, solution-oriented.'}],nl:[{ico:'😊',c:'#F7C94E',t:'Blij',x:'Warme begroeting, opgewekte toon.'},{ico:'😤',c:'#FF6B3D',t:'Gefrustreerd',x:'Kalm, de-escalerend — vermindert spanning.'},{ico:'🤔',c:'#4CD8A8',t:'Nieuwsgierig',x:'Kantelt hoofd, stelt verduidelijkende vragen.'},{ico:'🎉',c:'#7B7BFF',t:'Vierend',x:'Getriggerd bij opgeloste tickets of transacties.'},{ico:'😔',c:'',t:'Verontschuldigend',x:'Erkent fouten vriendelijk, biedt escalatie aan.'},{ico:'💡',c:'#FF6B3D',t:'Behulpzaam',x:'Standaardstatus — proactief en oplossingsgericht.'}],zh:[{ico:'😊',c:'#F7C94E',t:'開心',x:'溫暖的問候動畫、積極的語氣。'},{ico:'😤',c:'#FF6B3D',t:'沮喪',x:'冷靜、去升級的肢體語言。'},{ico:'🤔',c:'#4CD8A8',t:'好奇',x:'歪頭、提出澄清問題。'},{ico:'🎉',c:'#7B7BFF',t:'慶祝',x:'在解決工單或成功交易時觸發。'},{ico:'😔',c:'',t:'道歉',x:'優雅承認錯誤並提供即時升級。'},{ico:'💡',c:'#FF6B3D',t:'樂於助人',x:'預設狀態 — 積極、清晰、解決方案導向。'}],de:[{ico:'😊',c:'#F7C94E',t:'Freudig',x:'Warme Begrüßung, aufgeweckter Ton.'},{ico:'😤',c:'#FF6B3D',t:'Frustriert',x:'Ruhige, deeskalierende Körpersprache.'},{ico:'🤔',c:'#4CD8A8',t:'Neugierig',x:'Neigt den Kopf, stellt klärende Fragen.'},{ico:'🎉',c:'#7B7BFF',t:'Feiernd',x:'Wird bei gelösten Tickets ausgelöst.'},{ico:'😔',c:'',t:'Entschuldigend',x:'Erkennt Fehler an, bietet Eskalation.'},{ico:'💡',c:'#FF6B3D',t:'Hilfsbereit',x:'Standardzustand — proaktiv und lösungsorientiert.'}],fr:[{ico:'😊',c:'#F7C94E',t:'Joyeux',x:'Animation chaleureuse, ton enthousiaste.'},{ico:'😤',c:'#FF6B3D',t:'Frustré',x:'Langage corporel calme et désescalatoire.'},{ico:'🤔',c:'#4CD8A8',t:'Curieux',x:'Incline la tête, pose des questions.'},{ico:'🎉',c:'#7B7BFF',t:'Festif',x:'Se déclenche lors de tickets résolus.'},{ico:'😔',c:'',t:'Apologétique',x:'Reconnaît les erreurs avec grâce.'},{ico:'💡',c:'#FF6B3D',t:'Serviable',x:'État par défaut — proactif et orienté solutions.'}],ja:[{ico:'😊',c:'#F7C94E',t:'ハッピー',x:'温かい挨拶アニメーション。'},{ico:'😤',c:'#FF6B3D',t:'フラストレート',x:'冷静な落ち着かせる姿勢。'},{ico:'🤔',c:'#4CD8A8',t:'キュリアス',x:'頭を傾け確認質問をします。'},{ico:'🎉',c:'#7B7BFF',t:'セレブレーション',x:'チケット解決時にトリガー。'},{ico:'😔',c:'',t:'アポロジェティック',x:'エラーを優雅に認め即時エスカレーション。'},{ico:'💡',c:'#FF6B3D',t:'ヘルプフル',x:'デフォルト状態 — 積極的で解決策志向。'}],es:[{ico:'😊',c:'#F7C94E',t:'Feliz',x:'Animación de saludo cálida.'},{ico:'😤',c:'#FF6B3D',t:'Frustrado',x:'Lenguaje corporal calmado y desescalante.'},{ico:'🤔',c:'#4CD8A8',t:'Curioso',x:'Inclina la cabeza, hace preguntas.'},{ico:'🎉',c:'#7B7BFF',t:'Celebratorio',x:'Se activa en tickets resueltos.'},{ico:'😔',c:'',t:'Disculpándose',x:'Reconoce errores con gracia.'},{ico:'💡',c:'#FF6B3D',t:'Servicial',x:'Estado predeterminado — proactivo y orientado.'}]},
   chat_tag:{en:'Live Demo',nl:'Live Demo',zh:'即時展示',de:'Live Demo',fr:'Démo en direct',ja:'ライブデモ',es:'Demo en vivo'},
+  chat_h:{en:'See {M} in action.',nl:'Zie {M} in actie.',zh:'看 {M} 如何運作。',de:'{M} in Aktion.',fr:'Voyez {M} en action.',ja:'{M}の動作を見る。',es:'Mira a {M} en acción.'},
+  chat_online:{en:'Online',nl:'Online',zh:'在線',de:'Online',fr:'En ligne',ja:'オンライン',es:'En línea'},
   chat_body:{en:'An empathetic Brand Agent that reads the room and responds with the right tone — every single time.',nl:'Een empathische Brand Agent die de sfeer aanvoelt en altijd met de juiste toon reageert.',zh:'一個能感知氛圍、每次都以正確語氣回應的感性品牌代理。',de:'Ein empathischer Markenagent, der die Stimmung liest.',fr:'Un agent de marque empathique qui lit l\'ambiance.',ja:'場の空気を読み毎回適切なトーンで応答するブランドエージェント。',es:'Un Agente de Marca empático que lee el ambiente.'},
   chat_default:{en:['Hi! I\'m {M}, {C}\'s Brand Agent. How can I help?','I have a problem with my order.','Of course — I\'ll help you right away! As {C}\'s dedicated agent, I\'m here 24/7.'],nl:['Hoi! Ik ben {M}, de Brand Agent van {C}. Hoe kan ik helpen?','Ik heb een probleem met mijn bestelling.','Natuurlijk — ik help je meteen! Als {C}\'s agent ben ik er 24/7 voor je.'],zh:['您好！我是{M}，{C}的品牌代理。有什麼需要幫忙的嗎？','我的訂單出了問題。','當然 — 讓我馬上幫您！作為{C}的專屬代理，我全天候待命。'],de:['Hallo! Ich bin {M}, {C}\'s Markenagent. Wie kann ich helfen?','Ich habe ein Problem mit meiner Bestellung.','Natürlich — ich helfe dir sofort! Als {C}\'s Agent bin ich 24/7 für dich da.'],fr:['Bonjour ! Je suis {M}, l\'agent de marque de {C}. Comment puis-je aider ?','J\'ai un problème avec ma commande.','Bien sûr — je vous aide tout de suite ! Comme agent de {C}, je suis là 24h/24.'],ja:['こんにちは！私は{M}、{C}のブランドエージェントです。どのようにお手伝いできますか？','注文に問題があります。','もちろんです — すぐにお手伝いします！{C}の専任エージェントとして24時間対応します。'],es:['¡Hola! Soy {M}, el Agente de Marca de {C}. ¿En qué puedo ayudar?','Tengo un problema con mi pedido.','¡Por supuesto — te ayudo ahora mismo! Como agente de {C}, estoy aquí 24/7.']},
   flow_tag:{en:'Chatflow',nl:'Chatflow',zh:'架構',de:'Architektur',fr:'Architecture',ja:'アーキテクチャ',es:'Arquitectura'},
@@ -1218,7 +1464,7 @@ const TX={
   rm_h:{en:'Your launch roadmap.',nl:'Jouw lanceringsplan.',zh:'您的上線路線圖',de:'Euer Launch-Fahrplan.',fr:'Votre feuille de route.',ja:'ローンチロードマップ',es:'Tu hoja de ruta de lanzamiento.'},
   pr_tag:{en:'Investment',nl:'Investering',zh:'投資方案',de:'Investition',fr:'Investissement',ja:'投資',es:'Inversión'},
   pr_h:{en:'Transparent pricing.',nl:'Transparante prijzen.',zh:'透明定價',de:'Transparente Preise.',fr:'Tarification transparente.',ja:'透明な料金体系',es:'Precios transparentes.'},
-  pr_plans:{en:{popular:'Popular',basic:{name:'Basic',price:'€399',per:'/mo',items:['1 Journey flow','1,000 users/mo','Basic character design','3-page knowledge base','Email support (24h)']},premium:{name:'Premium',price:'€699',per:'/mo',items:['2 Journey flows','2,000 users/mo','Premium custom design','10-page knowledge base','Same-day support + phone']},enterprise:{name:'Enterprise',price:'Custom',per:'',items:['Unlimited journeys','Unlimited users','Tailor-made character','API + integrations','24/7 dedicated manager']}},nl:{popular:'Populair',basic:{name:'Basis',price:'€399',per:'/mnd',items:['1 Journey flow','1.000 gebruikers/mnd','Basisontwerp karakter','Kennisbank: 3 pagina\'s','E-mail support (24u)']},premium:{name:'Premium',price:'€699',per:'/mnd',items:['2 Journey flows','2.000 gebruikers/mnd','Premium karakterontwerp','Kennisbank: 10 pagina\'s','Zelfde dag support + telefoon']},enterprise:{name:'Enterprise',price:'Op maat',per:'',items:['Onbeperkte journeys','Onbeperkte gebruikers','Op maat gemaakt karakter','API + integraties','24/7 accountmanager']}},zh:{popular:'熱門',basic:{name:'基礎版',price:'€399',per:'/月',items:['1個對話流程','每月1,000用戶','基礎角色設計','3頁知識庫','電子郵件支援（24小時）']},premium:{name:'進階版',price:'€699',per:'/月',items:['2個對話流程','每月2,000用戶','進階客製設計','10頁知識庫','當天支援 + 電話']},enterprise:{name:'企業版',price:'客製',per:'',items:['無限對話流程','無限用戶','量身訂製角色','API + 整合','24/7 專屬客戶經理']}},de:{popular:'Beliebt',basic:{name:'Basis',price:'€399',per:'/Mo.',items:['1 Journey-Flow','1.000 Nutzer/Mo.','Basischarakter','3-seitige Wissensbasis','E-Mail-Support (24h)']},premium:{name:'Premium',price:'€699',per:'/Mo.',items:['2 Journey-Flows','2.000 Nutzer/Mo.','Premium-Design','10-seitige Wissensbasis','Same-Day-Support']},enterprise:{name:'Enterprise',price:'Individuell',per:'',items:['Unbegrenzte Journeys','Unbegrenzte Nutzer','Maßgeschneidert','API + Integrationen','24/7 dedizierter Manager']}},fr:{popular:'Populaire',basic:{name:'Basique',price:'€399',per:'/mois',items:['1 flux Journey','1 000 utilisateurs/mois','Design basique','Base de connaissances: 3 pages','Support email (24h)']},premium:{name:'Premium',price:'€699',per:'/mois',items:['2 flux Journey','2 000 utilisateurs/mois','Design premium','Base de connaissances: 10 pages','Support même jour']},enterprise:{name:'Entreprise',price:'Sur mesure',per:'',items:['Journeys illimitées','Utilisateurs illimités','Personnage sur mesure','API + intégrations','Manager dédié 24/7']}},ja:{popular:'人気',basic:{name:'ベーシック',price:'€399',per:'/月',items:['1ジャーニーフロー','月間1,000ユーザー','ベーシックデザイン','3ページナレッジベース','メールサポート（24h）']},premium:{name:'プレミアム',price:'€699',per:'/月',items:['2ジャーニーフロー','月間2,000ユーザー','プレミアムデザイン','10ページナレッジベース','当日サポート']},enterprise:{name:'エンタープライズ',price:'カスタム',per:'',items:['無制限ジャーニー','無制限ユーザー','オーダーメイド','API＋統合','24/7専任マネージャー']}},es:{popular:'Popular',basic:{name:'Básico',price:'€399',per:'/mes',items:['1 flujo Journey','1.000 usuarios/mes','Diseño básico','Base de conocimiento: 3 páginas','Soporte por email (24h)']},premium:{name:'Premium',price:'€699',per:'/mes',items:['2 flujos Journey','2.000 usuarios/mes','Diseño premium','Base de conocimiento: 10 páginas','Soporte mismo día']},enterprise:{name:'Enterprise',price:'Personalizado',per:'',items:['Journeys ilimitadas','Usuarios ilimitados','Personaje a medida','API + integraciones','Gerente dedicado 24/7']}}},
+  pr_plans:{en:{popular:'Popular',basic:{name:'Starter',price:'€399',per:'/mo',items:['1 Journey flow','1,000 users · 3,000 conversations/mo','Basic character design','3-page knowledge base','10 images + 5 videos','Email support (24h)']},premium:{name:'Premium',price:'€699',per:'/mo',items:['2 Journey flows','2,000 users · 6,000 conversations/mo','Premium custom design','10-page knowledge base','25 images + 10 videos','Same-day support + messaging']},enterprise:{name:'Enterprise',price:'Custom',per:'',items:['Unlimited journeys & users','Tailor-made character','API integrations','Unlimited media content','Custom analytics dashboard','24/7 dedicated support']}},nl:{popular:'Populair',basic:{name:'Basis',price:'€399',per:'/mnd',items:['1 Journey flow','1.000 gebruikers/mnd','Basisontwerp karakter','Kennisbank: 3 pagina\'s','E-mail support (24u)']},premium:{name:'Premium',price:'€699',per:'/mnd',items:['2 Journey flows','2.000 gebruikers/mnd','Premium karakterontwerp','Kennisbank: 10 pagina\'s','Zelfde dag support + telefoon']},enterprise:{name:'Enterprise',price:'Op maat',per:'',items:['Onbeperkte journeys','Onbeperkte gebruikers','Op maat gemaakt karakter','API + integraties','24/7 accountmanager']}},zh:{popular:'熱門',basic:{name:'入門版',price:'€399',per:'/月',items:['1個對話旅程','每月1,000用戶 · 3,000次對話','基礎吉祥物設計','3頁知識庫','10張圖片 + 5部影片','電子郵件支援（24小時）']},premium:{name:'進階版',price:'€699',per:'/月',items:['2個對話旅程','每月2,000用戶 · 6,000次對話','進階客製設計','10頁知識庫','25張圖片 + 10部影片','當天支援 + 即時通訊']},enterprise:{name:'企業版',price:'客製',per:'',items:['無限對話旅程與用戶','量身訂製角色','API串接與系統整合','無限媒體內容','客製化分析後台','24/7 專屬支援']}},de:{popular:'Beliebt',basic:{name:'Basis',price:'€399',per:'/Mo.',items:['1 Journey-Flow','1.000 Nutzer/Mo.','Basischarakter','3-seitige Wissensbasis','E-Mail-Support (24h)']},premium:{name:'Premium',price:'€699',per:'/Mo.',items:['2 Journey-Flows','2.000 Nutzer/Mo.','Premium-Design','10-seitige Wissensbasis','Same-Day-Support']},enterprise:{name:'Enterprise',price:'Individuell',per:'',items:['Unbegrenzte Journeys','Unbegrenzte Nutzer','Maßgeschneidert','API + Integrationen','24/7 dedizierter Manager']}},fr:{popular:'Populaire',basic:{name:'Basique',price:'€399',per:'/mois',items:['1 flux Journey','1 000 utilisateurs/mois','Design basique','Base de connaissances: 3 pages','Support email (24h)']},premium:{name:'Premium',price:'€699',per:'/mois',items:['2 flux Journey','2 000 utilisateurs/mois','Design premium','Base de connaissances: 10 pages','Support même jour']},enterprise:{name:'Entreprise',price:'Sur mesure',per:'',items:['Journeys illimitées','Utilisateurs illimités','Personnage sur mesure','API + intégrations','Manager dédié 24/7']}},ja:{popular:'人気',basic:{name:'ベーシック',price:'€399',per:'/月',items:['1ジャーニーフロー','月間1,000ユーザー','ベーシックデザイン','3ページナレッジベース','メールサポート（24h）']},premium:{name:'プレミアム',price:'€699',per:'/月',items:['2ジャーニーフロー','月間2,000ユーザー','プレミアムデザイン','10ページナレッジベース','当日サポート']},enterprise:{name:'エンタープライズ',price:'カスタム',per:'',items:['無制限ジャーニー','無制限ユーザー','オーダーメイド','API＋統合','24/7専任マネージャー']}},es:{popular:'Popular',basic:{name:'Básico',price:'€399',per:'/mes',items:['1 flujo Journey','1.000 usuarios/mes','Diseño básico','Base de conocimiento: 3 páginas','Soporte por email (24h)']},premium:{name:'Premium',price:'€699',per:'/mes',items:['2 flujos Journey','2.000 usuarios/mes','Diseño premium','Base de conocimiento: 10 páginas','Soporte mismo día']},enterprise:{name:'Enterprise',price:'Personalizado',per:'',items:['Journeys ilimitadas','Usuarios ilimitados','Personaje a medida','API + integraciones','Gerente dedicado 24/7']}}},
   prm_tag:{en:'Promotion',nl:'Promotie',zh:'促銷素材',de:'Promotion',fr:'Promotion',ja:'プロモーション',es:'Promoción'},
   prm_h:{en:'Physical & digital assets.',nl:'Fysieke & digitale materialen.',zh:'實體與數位素材',de:'Physische & digitale Assets.',fr:'Supports physiques et numériques.',ja:'フィジカル＆デジタルアセット',es:'Activos físicos y digitales.'},
   prm_cards:{en:[{ico:'🪧',bg:'rgba(255,107,61,.1)',ttl:'Poster + Media Kit',txt:'High-quality poster featuring your mascot, ready for print. Includes 10 images + 5 video clips.',pr:'✓ Included in all plans',pc:'#4CD8A8'},{ico:'🧸',bg:'rgba(61,58,232,.1)',ttl:'Vinyl Toy',txt:'A physical 3D designer toy with QR code stand. Perfect for reception, events, or gifts.',pr:'Price on request',pc:null},{ico:'🎌',bg:'rgba(76,216,168,.1)',ttl:'Roll-up Banner',txt:'Large-format banner for events, trade shows, or store entrance. Full 3D mascot.',pr:'Price on request',pc:null}],nl:[{ico:'🪧',bg:'rgba(255,107,61,.1)',ttl:'Poster + Mediapakket',txt:'Hoogwaardig poster, drukklaar. Inclusief 10 afbeeldingen + 5 videoclips.',pr:'✓ Inbegrepen in alle plannen',pc:'#4CD8A8'},{ico:'🧸',bg:'rgba(61,58,232,.1)',ttl:'Vinyl Toy',txt:'Fysiek 3D-speelgoed met QR-codestandaard.',pr:'Prijs op aanvraag',pc:null},{ico:'🎌',bg:'rgba(76,216,168,.1)',ttl:'Roll-up Banner',txt:'Banner op groot formaat voor evenementen.',pr:'Prijs op aanvraag',pc:null}],zh:[{ico:'🪧',bg:'rgba(255,107,61,.1)',ttl:'海報 + 媒體套件',txt:'含吉祥物的高品質海報，印刷就緒。包含10張圖片 + 5段影片片段。',pr:'✓ 所有方案均包含',pc:'#4CD8A8'},{ico:'🧸',bg:'rgba(61,58,232,.1)',ttl:'乙烯基玩具',txt:'實體3D設計師玩具，附QR碼展示架。',pr:'價格請洽詢',pc:null},{ico:'🎌',bg:'rgba(76,216,168,.1)',ttl:'展示橫幅',txt:'適合活動、展覽或店面入口的大型橫幅。',pr:'價格請洽詢',pc:null}],de:[{ico:'🪧',bg:'rgba(255,107,61,.1)',ttl:'Poster + Medienpaket',txt:'Hochwertiges Poster, druckfertig. 10 Bilder + 5 Videoclips.',pr:'✓ In allen Plänen enthalten',pc:'#4CD8A8'},{ico:'🧸',bg:'rgba(61,58,232,.1)',ttl:'Vinyl-Spielzeug',txt:'Physisches 3D-Spielzeug mit QR-Code-Stand.',pr:'Preis auf Anfrage',pc:null},{ico:'🎌',bg:'rgba(76,216,168,.1)',ttl:'Roll-up Banner',txt:'Großformatbanner für Events.',pr:'Preis auf Anfrage',pc:null}],fr:[{ico:'🪧',bg:'rgba(255,107,61,.1)',ttl:'Affiche + Kit médias',txt:'Affiche haute qualité, prête à imprimer. 10 images + 5 clips.',pr:'✓ Inclus dans tous les plans',pc:'#4CD8A8'},{ico:'🧸',bg:'rgba(61,58,232,.1)',ttl:'Jouet vinyle',txt:'Jouet 3D physique avec support QR code.',pr:'Prix sur demande',pc:null},{ico:'🎌',bg:'rgba(76,216,168,.1)',ttl:'Bannière roll-up',txt:'Bannière grand format pour événements.',pr:'Prix sur demande',pc:null}],ja:[{ico:'🪧',bg:'rgba(255,107,61,.1)',ttl:'ポスター + メディアキット',txt:'高品質ポスター、印刷準備完了。10枚の画像 + 5本のビデオ。',pr:'✓ 全プランに含まれる',pc:'#4CD8A8'},{ico:'🧸',bg:'rgba(61,58,232,.1)',ttl:'ビニールトイ',txt:'QRコードスタンド付き物理3Dトイ。',pr:'価格要問合',pc:null},{ico:'🎌',bg:'rgba(76,216,168,.1)',ttl:'ロールアップバナー',txt:'イベント用大判バナー。',pr:'価格要問合',pc:null}],es:[{ico:'🪧',bg:'rgba(255,107,61,.1)',ttl:'Póster + Kit de medios',txt:'Póster de alta calidad, listo para imprimir. 10 imágenes + 5 clips.',pr:'✓ Incluido en todos los planes',pc:'#4CD8A8'},{ico:'🧸',bg:'rgba(61,58,232,.1)',ttl:'Juguete de vinilo',txt:'Juguete 3D físico con soporte QR.',pr:'Precio bajo consulta',pc:null},{ico:'🎌',bg:'rgba(76,216,168,.1)',ttl:'Banner roll-up',txt:'Banner gran formato para eventos.',pr:'Precio bajo consulta',pc:null}]},
@@ -1308,6 +1554,10 @@ function getThemeVars(slideId){
   if(mode==='brand'){
     mode=HERO_SLIDES.includes(slideId)?'brand-accent':'mono';
   }
+  if(mode==='brand-fill'){
+    // All slides get full brand color BG — hero slides use accent variant
+    mode='brand-fill';
+  }
 
   // ── Monochrome Stone (default for all content slides) ──
   if(mode==='mono'||mode==='brand'||mode==='light'){
@@ -1334,6 +1584,29 @@ function getThemeVars(slideId){
       ACCENT:c1, ACCENT_ALPHA:alpha(c1,.2),
       META_BDR:'rgba(10,10,10,.1)', NUM_COL:'rgba(10,10,10,.04)',
       CARD_ACCENT:alpha(c1,.08),
+    };
+  }
+
+  // ── Brand Fill (full brand color background) ──
+  if(mode==='brand-fill'){
+    // Determine if brand color is dark or light to set text contrast
+    const r=parseInt(c1.slice(1,3),16),g=parseInt(c1.slice(3,5),16),b=parseInt(c1.slice(5,7),16);
+    const luma=(r*299+g*587+b*114)/1000;
+    const isDark=luma<140;
+    const tx_col=isDark?'#ffffff':'#0a0a0a';
+    const tx2=isDark?'rgba(255,255,255,.7)':'rgba(10,10,10,.55)';
+    const tx3=isDark?'rgba(255,255,255,.4)':'rgba(10,10,10,.32)';
+    return {
+      BG:c1, BG2:isDark?lightenHex(c1):'#e7e5e4',
+      TX:tx_col, TX2:tx2, TX3:tx3,
+      CARD:isDark?'rgba(255,255,255,.08)':'rgba(0,0,0,.05)',
+      CARD_BDR:isDark?'rgba(255,255,255,.15)':'rgba(0,0,0,.1)',
+      TAG_COL:tx_col, TAG_BDR:isDark?'rgba(255,255,255,.4)':'rgba(0,0,0,.3)',
+      HEADING:tx_col, BODY:tx2,
+      ACCENT:isDark?'#ffffff':c2, ACCENT_ALPHA:isDark?'rgba(255,255,255,.2)':alpha(c2,.2),
+      META_BDR:isDark?'rgba(255,255,255,.15)':'rgba(0,0,0,.1)',
+      NUM_COL:isDark?'rgba(255,255,255,.06)':'rgba(0,0,0,.05)',
+      CARD_ACCENT:isDark?'rgba(255,255,255,.1)':alpha(c2,.08),
     };
   }
 
@@ -1389,7 +1662,7 @@ function lightenHex(hex){
 
 function setSlideTheme(t){
   STATE.slideTheme=t;
-  ['brand','dark','light'].forEach(name=>{
+  ['brand','brand-fill','dark','light'].forEach(name=>{
     const btn=document.getElementById(`theme-${name}-btn`);if(!btn)return;
     btn.style.borderColor='';btn.style.background='transparent';
     btn.style.color='';btn.style.fontFamily='';btn.style.fontWeight='normal';
@@ -1430,17 +1703,31 @@ function handleImageUpload(input){
 }
 
 function autoAssignSlides(imgIndex){
-  // First image → cover + mascot design + thank you
-  // Second image → pain + chat
-  // Further images → alternate slides
   const assignments=[
-    ['s-cover','s-mdesign','s-thankyou','s-features'],
-    ['s-chat','s-pain','s-analytics'],
-    ['s-cover','s-chat','s-kb'],
-    ['s-thankyou','s-pain','s-roadmap'],
+    ['s-cover','s-mdesign','s-thankyou','s-features','s-features-0','s-features-1'],
+    ['s-chat','s-pain','s-analytics','s-features-2','s-features-3','s-mockup-laptop','s-mockup-phone'],
+    ['s-cover','s-chat','s-kb','s-features-0'],
+    ['s-thankyou','s-pain','s-roadmap','s-features-1'],
   ];
   return assignments[imgIndex % assignments.length] || ['s-cover'];
 }
+// All possible image slots (slides + feature cards)
+const IMG_SLOTS=[
+  {id:'s-cover',label:'Cover'},
+  {id:'s-pain',label:'Pain Points'},
+  {id:'s-features-0',label:'Feature Card 1'},
+  {id:'s-features-1',label:'Feature Card 2'},
+  {id:'s-features-2',label:'Feature Card 3'},
+  {id:'s-features-3',label:'Feature Card 4'},
+  {id:'s-chat',label:'Chat Demo'},
+  {id:'s-mockup-laptop',label:'Laptop Screen'},
+  {id:'s-mockup-phone',label:'Phone Screen'},
+  {id:'s-analytics',label:'Analytics'},
+  {id:'s-roadmap',label:'Roadmap'},
+  {id:'s-thankyou',label:'Thank You'},
+  {id:'s-mdesign',label:'Mascot Design'},
+  {id:'s-kb',label:'Knowledge Base'},
+];
 
 function removeImage(id){
   const img=STATE.mascotImages.find(m=>m.id===id);
@@ -1633,22 +1920,51 @@ function buildSpImages(){
   updatePoseRefArea();
   const c=document.getElementById('sp-img-thumbs');c.innerHTML='';
   STATE.mascotImages.forEach(img=>{
-    const d=document.createElement('div');d.className='sp-img-thumb';
-    const slideLabels=img.assignedSlides.map(s=>ALL_SLIDES.find(x=>x.id===s)?.e||s).join(' ');
+    const d=document.createElement('div');d.className='sp-img-thumb';d.style.flexDirection='column';d.style.alignItems='stretch';
+    const slotTags=IMG_SLOTS.map(slot=>{
+      const active=img.assignedSlides.includes(slot.id);
+      return `<span class="sp-slot-tag${active?' active':''}" onclick="toggleImgSlot('${img.id}','${slot.id}')">${slot.label}</span>`;
+    }).join('');
     d.innerHTML=`
-      <img src="${img.url}" alt="${img.name}"/>
-      <div class="sp-img-thumb-info">
-        <div class="sp-img-thumb-name">${img.name}</div>
-        <div class="sp-img-thumb-where">→ ${slideLabels}</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <img src="${img.url}" alt="${img.name}" style="width:48px;height:48px;object-fit:cover;border-radius:8px;flex-shrink:0;"/>
+        <div class="sp-img-thumb-info" style="flex:1;min-width:0;">
+          <div class="sp-img-thumb-name">${img.name}</div>
+        </div>
+        <button class="sp-img-thumb-del" onclick="removeImage('${img.id}')">✕</button>
       </div>
-      <button class="sp-img-thumb-del" onclick="removeImage('${img.id}')">✕</button>`;
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;">${slotTags}</div>`;
     c.appendChild(d);
   });
+}
+function toggleImgSlot(imgId,slotId){
+  const img=STATE.mascotImages.find(m=>m.id===imgId);
+  if(!img)return;
+  const idx=img.assignedSlides.indexOf(slotId);
+  if(idx>=0){
+    img.assignedSlides.splice(idx,1);
+  } else {
+    // Remove this slot from other images first (one image per slot)
+    STATE.mascotImages.forEach(m=>{
+      const j=m.assignedSlides.indexOf(slotId);
+      if(j>=0)m.assignedSlides.splice(j,1);
+    });
+    img.assignedSlides.push(slotId);
+  }
+  buildSpImages();
+  rebuildSlides();
 }
 
 function getMascotImageForSlide(slideId){
   for(const img of STATE.mascotImages){
     if(img.assignedSlides.includes(slideId))return img.url;
+  }
+  // Fallback: card-specific keys like 's-features-0' → try parent 's-features'
+  const parent=slideId.replace(/-\d+$/,'');
+  if(parent!==slideId){
+    for(const img of STATE.mascotImages){
+      if(img.assignedSlides.includes(parent))return img.url;
+    }
   }
   return null;
 }
@@ -1680,6 +1996,735 @@ function fmtDate(d){return `${String(d.getDate()).padStart(2,'0')}/${String(d.ge
 function addDays(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r;}
 function showRMP(){if(!selDate)return;const l=document.getElementById('rm-prev-list');l.innerHTML='';RM_MS.forEach(m=>{const i=document.createElement('div');i.className='rm-pi';i.innerHTML=`<span class="rm-pi-d">${fmtDate(addDays(selDate,m.off))}</span><span>${m.lbl.en}</span>`;l.appendChild(i);});document.getElementById('rm-prev').classList.add('show');}
 
+
+/* ════════════════════════════════════════
+   VERIFIED RESEARCH SYSTEM v2
+   - Prebuilt DB with verified URLs
+   - Anthropic web_search for unknown industries
+   - Claude synthesizes (never generates) data
+════════════════════════════════════════ */
+
+/* ─── INDUSTRY_DB — all data points have verification status ─── */
+const INDUSTRY_DB = {
+
+  education: {
+    keywords: ['education','university','school','college','student','campus','hogeschool','universiteit','mbo','hbo','wo','academic','enrollment','opleiding','studenten','大學','學生','教育'],
+    painPoints: [
+      {
+        title: 'Staff Burnout from Repetitive Work',
+        desc: '84% of student affairs professionals report burnout from stress and crisis management.',
+        source: 'NASPA',
+        url: 'https://www.naspa.org/blog/understanding-turnover-in-higher-education-causes-consequences-and-solutions',
+        verified: true
+      },
+      {
+        title: 'High Staff Turnover',
+        desc: 'Two-thirds of student affairs staff have been in their role under 2 years. Nearly a quarter had been in positions for less than a year.',
+        source: 'Inside Higher Ed / NASPA',
+        url: 'https://www.insidehighered.com/quicktakes/2022/03/23/student-affairs-staff-quit-because-burnout-low-pay',
+        verified: true
+      },
+      {
+        title: 'Summer Melt / Enrollment Drop-off',
+        desc: 'Significant number of accepted students fail to enroll. Georgia State reduced summer melt by 22% using AI chatbot, retaining 324 additional students.',
+        source: 'Georgia State University',
+        url: 'https://success.gsu.edu/initiatives/reduction-of-summer-melt/',
+        verified: true
+      },
+      {
+        title: 'Compensation & Value Gap',
+        desc: 'Nearly 9 in 10 student affairs respondents say salaries are not competitive. 8 in 10 feel undervalued by their institution.',
+        source: 'NASPA / Inside Higher Ed',
+        url: 'https://www.insidehighered.com/quicktakes/2022/03/23/student-affairs-staff-quit-because-burnout-low-pay',
+        verified: true
+      },
+      {
+        title: 'Fragmented Information Sources',
+        desc: 'Students navigate 5+ platforms (LMS, SIS, website, email, groups) for answers. No single intelligent touchpoint exists.',
+        source: 'Industry observation',
+        url: '',
+        verified: false
+      }
+    ],
+    marketData: {
+      industrySize: {
+        value: 'Global AI in education: USD $5.88B (2024) — Grand View Research; USD $2.21B (2024) — MarketsandMarkets. Estimates vary significantly by methodology.',
+        source: 'Grand View Research / MarketsandMarkets',
+        url: 'https://www.grandviewresearch.com/industry-analysis/artificial-intelligence-ai-education-market-report',
+        verified: true
+      },
+      growthRate: {
+        value: 'CAGR 31.2% (2025-2030) per Grand View Research; CAGR 17.5% (2024-2030) per MarketsandMarkets.',
+        source: 'Grand View Research / MarketsandMarkets',
+        url: 'https://www.marketsandmarkets.com/Market-Reports/ai-in-education-market-200371366.html',
+        verified: true
+      },
+      projectedSize: {
+        value: 'Projected USD $32.27B by 2030 (Grand View) or USD $5.82B by 2030 (MarketsandMarkets).',
+        source: 'Grand View Research / MarketsandMarkets',
+        url: 'https://www.grandviewresearch.com/press-release/global-artificial-intelligence-ai-education-market',
+        verified: true
+      }
+    },
+    competitors: [
+      { name: 'Student Information Systems (Osiris, Studielink)', gap: 'Database-focused, no conversational layer', verified: false },
+      { name: 'LMS Platforms (Canvas, Blackboard)', gap: 'Course delivery only, no support for admin or campus life questions', verified: false },
+      { name: 'Basic Chatbots (Chatfuel, ManyChat)', gap: 'No emotional intelligence, no 3D visual engagement, no brand personality', verified: false },
+      { name: 'Human-Only Support Teams', gap: 'Cannot scale 24/7, high burnout, inconsistent answers', verified: true, url: 'https://www.naspa.org/blog/understanding-turnover-in-higher-education-causes-consequences-and-solutions' }
+    ],
+    roiBenchmarks: {
+      casestudies: [
+        {
+          institution: 'Georgia State University (Pounce)',
+          result: '200,000+ questions answered, 22% reduction in summer melt, 324 additional students enrolled',
+          source: 'Georgia State University',
+          url: 'https://success.gsu.edu/initiatives/reduction-of-summer-melt/',
+          verified: true
+        },
+        {
+          institution: 'Bethune-Cookman University',
+          result: '800 hours saved, $16,000 personnel cost savings',
+          source: 'Capacity.com case study',
+          url: 'https://capacity.com/blog/chatbot-for-higher-education/',
+          verified: true
+        },
+        {
+          institution: 'California State University (23 campuses)',
+          result: 'Sharp increase in student engagement, decrease in routine support requests across 460,000+ users',
+          source: 'EdTech Magazine',
+          url: 'https://edtechmagazine.com/higher/article/2025/05/how-three-universities-developed-their-chatbots',
+          verified: true
+        }
+      ],
+      calculations: [
+        {
+          scenario: '100 inquiries/day × 3 min saved × $15/hr staff rate',
+          result: '$1,500/month savings ($18,000/year)',
+          source: 'Verge AI ROI calculation model',
+          url: 'https://verge-ai.com/blog/the-potential-roi-of-ai-chatbot-in-higher-education/',
+          verified: true
+        },
+        {
+          scenario: '70% auto-resolution of 10,000 annual queries × $10/inquiry',
+          result: '$70,000 annual savings',
+          source: 'Gravyty ROI model',
+          url: 'https://gravyty.com/blog/roi-of-ai-virtual-assistants-for-higher-education/',
+          verified: true
+        }
+      ]
+    },
+    customerProfile: {
+      typicalSize: '500-50,000 students',
+      budget: '$10K-$100K/year for student engagement tools',
+      decisionMaker: 'Dean of Students, Head of Student Services, or IT Director',
+      buyingHabits: 'Procurement-driven, 6-12 month cycle. Need GDPR/data compliance. Pilot with one faculty then expand.',
+      verified: false
+    }
+  },
+
+  retail: {
+    keywords: ['retail','supermarket','store','shop','winkel','filiaal','jumbo','albert heijn','lidl','aldi','spar'],
+    painPoints: [
+      {
+        title: 'High Turnover & Onboarding Costs',
+        desc: 'Retail has among the highest turnover rates across industries. Each replacement requires significant training investment.',
+        source: 'Industry consensus',
+        url: '',
+        verified: false
+      },
+      {
+        title: 'Repetitive HR Questions',
+        desc: 'New hires flood managers with identical questions about schedules, dress code, POS systems. Proven by Notso.ai Jumbo case: reduced 70% HR workload.',
+        source: 'Notso.ai — Jumbo Case Study',
+        url: 'https://www.notso.ai',
+        verified: true
+      },
+      {
+        title: 'No Digital Employee Touchpoint',
+        desc: 'Frontline workers expect digital-first tools but often receive paper handbooks and verbal instructions.',
+        source: 'Industry observation',
+        url: '',
+        verified: false
+      }
+    ],
+    marketData: {
+      industrySize: {
+        value: 'Global AI in education/training market applies. Retail-specific AI assistant market data requires further research.',
+        source: 'Pending verification',
+        url: '',
+        verified: false
+      },
+      growthRate: {
+        value: 'Conversational AI market growing rapidly. Retail segment adoption accelerating post-COVID.',
+        source: 'Industry consensus',
+        url: '',
+        verified: false
+      }
+    },
+    competitors: [
+      { name: 'Generic Chatbots (Intercom, Zendesk)', gap: 'No brand personality, no 3D visual identity', verified: false },
+      { name: 'HR Platforms (Workday, BambooHR)', gap: 'Admin tools, zero engagement layer for frontline', verified: false },
+      { name: 'WhatsApp Groups', gap: 'No structure, no searchability, no analytics', verified: false }
+    ],
+    roiBenchmarks: {
+      casestudies: [
+        {
+          institution: 'Jumbo Supermarkets (Liza)',
+          result: '70% reduction in HR workload for onboarding questions',
+          source: 'Notso.ai case study',
+          url: 'https://www.notso.ai',
+          verified: true
+        }
+      ],
+      calculations: []
+    },
+    customerProfile: {
+      typicalSize: '1-700+ locations',
+      budget: '€5K-€50K/year for digital tools',
+      decisionMaker: 'HR Director, Operations Manager, or Store Owner',
+      buyingHabits: 'Pilot in 1-3 stores, prove ROI, roll out chain-wide.',
+      verified: false
+    }
+  },
+
+  healthcare: {
+    keywords: ['healthcare','hospital','clinic','dental','dentist','tandarts','huisarts','ziekenhuis','kliniek','patient','medical','zorg'],
+    painPoints: [
+      {
+        title: 'Phone Line Overload',
+        desc: 'Clinics report reception staff spending majority of time on phone calls for appointments and FAQ.',
+        source: 'Industry observation',
+        url: '',
+        verified: false
+      },
+      {
+        title: 'Patient No-Shows',
+        desc: 'No-show rates vary by practice. AI reminders and prep tools have shown reduction in no-shows across healthcare.',
+        source: 'Industry observation',
+        url: '',
+        verified: false
+      }
+    ],
+    marketData: {
+      industrySize: {
+        value: 'Healthcare AI market is one of the largest AI verticals. Specific patient engagement segment requires further research.',
+        source: 'Pending verification',
+        url: '',
+        verified: false
+      }
+    },
+    competitors: [
+      { name: 'Appointment Booking Systems (Doctolib, ZorgDomein)', gap: 'Scheduling only, no patient education or FAQ', verified: false },
+      { name: 'Patient Portals', gap: 'Transactional, patients still call for questions', verified: false }
+    ],
+    roiBenchmarks: {
+      casestudies: [],
+      calculations: []
+    },
+    customerProfile: {
+      typicalSize: '1-5 practitioners',
+      budget: '€3K-€15K/year',
+      decisionMaker: 'Practice Owner or Office Manager',
+      buyingHabits: 'Demo → 1 month pilot → commit. Referral-driven.',
+      verified: false
+    }
+  },
+
+  office: {
+    keywords: ['office','real estate','building','property','wtc','vastgoed','kantoor','coworking','tenant','lobby','facility'],
+    painPoints: [
+      {
+        title: 'Visitor Registration Friction',
+        desc: 'Manual sign-in creates bottlenecks. Proven by Notso.ai WTC case with digital concierge.',
+        source: 'Notso.ai — WTC Amsterdam Case Study',
+        url: 'https://www.notso.ai',
+        verified: true
+      },
+      {
+        title: 'Tenant FAQ Repetition',
+        desc: 'Building management answers same questions repeatedly. Real-time emotion tracking and conversion ROI demonstrated at WTC Amsterdam.',
+        source: 'Notso.ai — WTC Amsterdam Case Study',
+        url: 'https://www.notso.ai',
+        verified: true
+      }
+    ],
+    marketData: {
+      industrySize: {
+        value: 'PropTech AI market growing. Specific facility management AI segment requires further research.',
+        source: 'Pending verification',
+        url: '',
+        verified: false
+      }
+    },
+    competitors: [
+      { name: 'Visitor Management Systems (Envoy, Proxyclick)', gap: 'Sign-in only, no conversation', verified: false },
+      { name: 'Digital Signage', gap: 'One-way, no interaction or data capture', verified: false }
+    ],
+    roiBenchmarks: {
+      casestudies: [
+        {
+          institution: 'WTC Amsterdam (Worldly)',
+          result: 'Real-time emotion tracking, conversion ROI measurement, 24/7 digital concierge for tenants and visitors',
+          source: 'Notso.ai case study',
+          url: 'https://www.notso.ai',
+          verified: true
+        }
+      ],
+      calculations: []
+    },
+    customerProfile: {
+      typicalSize: '10,000-100,000+ sqm',
+      budget: '€15K-€100K/year',
+      decisionMaker: 'Head of Asset Management or Facility Director',
+      buyingHabits: 'Enterprise sales, 3-9 month cycle, custom pricing.',
+      verified: false
+    }
+  }
+};
+
+/* ─── Anthropic Web Search Tool Integration ─── */
+// Uses Claude's built-in web_search server tool — searches happen on Anthropic's servers
+// No external API key needed, just the same Anthropic key
+
+async function liveResearchWithWebSearch(industryText, clientName, painText, statusEl) {
+  if (statusEl) statusEl.textContent = '🔍 Starting live web research (Anthropic web_search)…';
+
+  const researchPrompt = `You are a B2B market research analyst preparing data for a sales proposal for Notso.ai — a company that makes 3D animated AI brand agents with empathy.
+
+RESEARCH TARGET:
+- Industry: ${industryText}
+- Client: ${clientName || 'Unknown'}
+- Known pain points: ${painText || 'Not specified'}
+
+YOUR TASK: Search the web for REAL, VERIFIABLE data in these 4 areas:
+
+1. PAIN POINTS — Search for real complaints, challenges, and statistics about this industry's operational problems that an AI agent could solve. Look for surveys, reports, and news articles.
+
+2. MARKET DATA — Search for the market size of AI/chatbot solutions in this industry. Find growth rates, adoption statistics, and market projections from research firms.
+
+3. COMPETITORS — Search for existing AI chatbot or automation solutions in this industry. Identify what they do and what they DON'T do (gaps Notso.ai can fill with 3D animated brand agents).
+
+4. ROI EVIDENCE — Search for case studies of AI chatbot implementations in this industry. Find specific cost savings, time reductions, and efficiency improvements with real numbers.
+
+CRITICAL RULES:
+- Search thoroughly for each area (use multiple searches if needed)
+- Only report data you actually find in search results
+- Include the exact URL for every data point
+- If you cannot find data for a category, say "No verified data found"
+- Do NOT estimate, infer, or fabricate ANY numbers
+- Prefer recent data (2023-2026)
+
+After searching, organize your findings into this EXACT JSON format:
+{
+  "painPoints": [
+    {"title": "max 6 words", "desc": "exact finding from search", "source": "source name", "url": "exact URL", "verified": true}
+  ],
+  "marketData": {
+    "industrySize": {"value": "exact number from search", "source": "source name", "url": "URL", "verified": true},
+    "growthRate": {"value": "exact from search", "source": "source name", "url": "URL", "verified": true},
+    "projectedSize": {"value": "exact from search or 'No verified data found'", "source": "", "url": "", "verified": false}
+  },
+  "competitors": [
+    {"name": "competitor", "gap": "limitation found in research", "url": "URL", "verified": true}
+  ],
+  "roiBenchmarks": {
+    "casestudies": [
+      {"institution": "name", "result": "exact result", "source": "source", "url": "URL", "verified": true}
+    ],
+    "calculations": []
+  }
+}
+
+Return ONLY the JSON after completing your research. No markdown wrapping.`;
+
+  try {
+    const fullResponse = await callClaude(researchPrompt, 8000, {
+      tools: [{
+        type: 'web_search_20250305',
+        name: 'web_search',
+        max_uses: 10,
+        user_location: {
+          type: 'approximate',
+          country: 'NL',
+          timezone: 'Europe/Amsterdam'
+        }
+      }],
+      returnFull: true,
+      timeout: 180000 // 3 min for research
+    });
+
+    if (!fullResponse || fullResponse.error) {
+      console.error('Web search research failed:', fullResponse?.error);
+      if (statusEl) statusEl.textContent = '⚠️ Web search failed — ' + (fullResponse?.error?.message || 'unknown error');
+      return null;
+    }
+
+    // Extract text content and citations from response
+    const textParts = [];
+    const allCitations = [];
+    if (fullResponse.content) {
+      for (const block of fullResponse.content) {
+        if (block.type === 'text') {
+          textParts.push(block.text);
+          // Extract citations
+          if (block.citations) {
+            for (const cite of block.citations) {
+              if (cite.url) {
+                allCitations.push({
+                  url: cite.url,
+                  title: cite.title || '',
+                  text: cite.cited_text || ''
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+
+    const rawText = textParts.join('');
+    console.log('Web search research raw:', rawText);
+    console.log('Citations found:', allCitations.length);
+
+    // Log search usage
+    if (fullResponse.usage?.server_tool_use) {
+      console.log('Web searches used:', fullResponse.usage.server_tool_use.web_search_requests);
+    }
+
+    // Parse JSON from response
+    let cleaned = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
+    const jsonStart = cleaned.indexOf('{');
+    const jsonEnd = cleaned.lastIndexOf('}') + 1;
+    if (jsonStart >= 0 && jsonEnd > jsonStart) cleaned = cleaned.slice(jsonStart, jsonEnd);
+
+    const data = JSON.parse(cleaned);
+    // Attach citation metadata
+    data._citations = allCitations;
+    data._searchCount = fullResponse.usage?.server_tool_use?.web_search_requests || 0;
+    return data;
+
+  } catch (e) {
+    console.error('Live research error:', e);
+    if (statusEl) statusEl.textContent = '⚠️ Research failed: ' + e.message;
+    return null;
+  }
+}
+
+// Legacy compatibility wrapper (replaces old synthesizeSearchResults)
+async function synthesizeSearchResults(searchResults, industryText, clientName, statusEl) {
+  const searchContext = formatSearchResultsForClaude(searchResults);
+
+  if (statusEl) statusEl.textContent = '🧠 Synthesizing search results (Claude will NOT invent data)…';
+
+  const prompt = `You are a strict research data organizer. Your ONLY job is to extract and organize data from the web search results provided below.
+
+ABSOLUTE RULES:
+1. You may ONLY use information that appears in the search results below.
+2. You must NEVER add, infer, estimate, or fabricate ANY data, statistics, numbers, or sources.
+3. If a category has insufficient data in the search results, set its value to "No verified data found".
+4. Every data point MUST include the exact URL where it was found.
+5. Do NOT round, adjust, or "improve" any numbers. Use them exactly as found.
+6. If two sources give conflicting numbers, include BOTH with their respective URLs.
+
+INDUSTRY: ${industryText}
+CLIENT: ${clientName || 'Unknown'}
+
+WEB SEARCH RESULTS:
+${searchContext}
+
+Return ONLY valid JSON with this structure:
+{
+  "painPoints": [
+    {"title": "max 6 words", "desc": "exact info from search results", "source": "source name", "url": "exact URL from results", "verified": true}
+  ],
+  "marketData": {
+    "industrySize": {"value": "exact number from results or 'No verified data found'", "source": "source name", "url": "URL", "verified": true/false},
+    "growthRate": {"value": "exact from results or 'No verified data found'", "source": "source name", "url": "URL", "verified": true/false}
+  },
+  "competitors": [
+    {"name": "competitor from results", "gap": "limitation mentioned in results", "url": "URL", "verified": true}
+  ],
+  "roiBenchmarks": {
+    "casestudies": [
+      {"institution": "name", "result": "exact result from search", "source": "source", "url": "URL", "verified": true}
+    ]
+  }
+}
+
+If a field has no data from search results, set verified to false and value to "No verified data found".
+Return ONLY the JSON. No explanation. No markdown.`;
+
+  try {
+    const raw = await callClaude(prompt, 4000);
+    if (!raw) return null;
+
+    let cleaned = raw.replace(/```json/g, '').replace(/```/g, '').trim();
+    const jsonStart = cleaned.indexOf('{');
+    const jsonEnd = cleaned.lastIndexOf('}') + 1;
+    if (jsonStart >= 0 && jsonEnd > jsonStart) cleaned = cleaned.slice(jsonStart, jsonEnd);
+
+    return JSON.parse(cleaned);
+  } catch (e) {
+    console.error('Synthesis parse error:', e);
+    return null;
+  }
+}
+
+/* ─── Match industry to DB ─── */
+function matchIndustry(industryText) {
+  if (!industryText) return null;
+  const lower = industryText.toLowerCase();
+  let bestMatch = null;
+  let bestScore = 0;
+  for (const [key, data] of Object.entries(INDUSTRY_DB)) {
+    let score = 0;
+    for (const kw of data.keywords) {
+      if (lower.includes(kw)) score += kw.length;
+    }
+    if (score > bestScore) {
+      bestScore = score;
+      bestMatch = key;
+    }
+  }
+  return bestScore > 0 ? bestMatch : null;
+}
+
+/* ─── Format verified research for prompt injection ─── */
+function formatResearchForPrompt(research) {
+  if (!research) return '';
+  let out = '\n\n═══════════════════════════════════════\nVERIFIED MARKET RESEARCH DATA\n═══════════════════════════════════════\n';
+  out += '⚠️ INSTRUCTION: Only use data points marked [VERIFIED] below. Do NOT add your own statistics.\n';
+
+  if (research.painPoints && research.painPoints.length) {
+    out += '\n【PAIN POINTS】\n';
+    research.painPoints.forEach((p, i) => {
+      const tag = p.verified ? '[VERIFIED]' : '[UNVERIFIED — do not use in slides]';
+      out += `${i+1}. ${tag} ${p.title}: ${p.desc}`;
+      if (p.url) out += ` (Source: ${p.source} — ${p.url})`;
+      out += '\n';
+    });
+  }
+
+  if (research.marketData) {
+    out += '\n【MARKET DATA】\n';
+    const md = research.marketData;
+    if (md.industrySize) {
+      const tag = md.industrySize.verified ? '[VERIFIED]' : '[UNVERIFIED]';
+      out += `• ${tag} Industry Size: ${md.industrySize.value}`;
+      if (md.industrySize.url) out += ` (${md.industrySize.url})`;
+      out += '\n';
+    }
+    if (md.growthRate) {
+      const tag = md.growthRate.verified ? '[VERIFIED]' : '[UNVERIFIED]';
+      out += `• ${tag} Growth: ${md.growthRate.value}`;
+      if (md.growthRate.url) out += ` (${md.growthRate.url})`;
+      out += '\n';
+    }
+    if (md.projectedSize) {
+      const tag = md.projectedSize.verified ? '[VERIFIED]' : '[UNVERIFIED]';
+      out += `• ${tag} Projected: ${md.projectedSize.value}`;
+      if (md.projectedSize.url) out += ` (${md.projectedSize.url})`;
+      out += '\n';
+    }
+  }
+
+  if (research.competitors && research.competitors.length) {
+    out += '\n【COMPETITOR GAPS】\n';
+    research.competitors.forEach(c => {
+      const tag = c.verified ? '[VERIFIED]' : '[UNVERIFIED]';
+      out += `• ${tag} ${c.name} → Gap: ${c.gap}`;
+      if (c.url) out += ` (${c.url})`;
+      out += '\n';
+    });
+  }
+
+  if (research.roiBenchmarks) {
+    const rb = research.roiBenchmarks;
+    if (rb.casestudies && rb.casestudies.length) {
+      out += '\n【ROI — REAL CASE STUDIES】\n';
+      rb.casestudies.forEach(cs => {
+        const tag = cs.verified ? '[VERIFIED]' : '[UNVERIFIED]';
+        out += `• ${tag} ${cs.institution}: ${cs.result} (${cs.source} — ${cs.url})\n`;
+      });
+    }
+    if (rb.calculations && rb.calculations.length) {
+      out += '\n【ROI — CALCULATION MODELS】\n';
+      rb.calculations.forEach(calc => {
+        const tag = calc.verified ? '[VERIFIED]' : '[UNVERIFIED]';
+        out += `• ${tag} ${calc.scenario} → ${calc.result} (${calc.source} — ${calc.url})\n`;
+      });
+    }
+  }
+
+  if (research.source) {
+    out += `\nResearch Source: ${research.source}\n`;
+  }
+
+  return out;
+}
+
+/* ─── Main research function — hybrid mode v2 ─── */
+async function researchIndustry(industryText, clientName, painText, statusEl) {
+  // Step 1: Check prebuilt verified DB
+  const matchKey = matchIndustry(industryText);
+
+  if (matchKey) {
+    const data = INDUSTRY_DB[matchKey];
+    if (statusEl) statusEl.textContent = '📊 Found verified industry data: ' + matchKey;
+    await new Promise(r => setTimeout(r, 200));
+
+    // Count verified data points
+    let vCount = 0, tCount = 0;
+    if (data.painPoints) data.painPoints.forEach(p => { tCount++; if (p.verified) vCount++; });
+    if (data.roiBenchmarks?.casestudies) data.roiBenchmarks.casestudies.forEach(c => { tCount++; if (c.verified) vCount++; });
+
+    STATE.research = {
+      ...data,
+      matchedIndustry: matchKey,
+      source: 'Verified Industry Database',
+      isLive: false,
+      verifiedCount: vCount,
+      totalCount: tCount
+    };
+
+    if (statusEl) statusEl.textContent = `✅ Loaded ${vCount}/${tCount} verified data points for "${matchKey}"`;
+    updateResearchPanel(STATE.research);
+    return STATE.research;
+  }
+
+  // Step 2: Not in DB — use Anthropic web_search tool (same API key, no extra key needed)
+  if (statusEl) statusEl.textContent = '🔍 Industry not in DB — launching live web research…';
+  const liveData = await liveResearchWithWebSearch(industryText, clientName, painText, statusEl);
+
+  if (!liveData) {
+    if (statusEl) statusEl.textContent = '⚠️ Live research returned no data — proceeding without research';
+    STATE.research = null;
+    return null;
+  }
+
+  // Count verified points
+  let vCount = 0, tCount = 0;
+  if (liveData.painPoints) liveData.painPoints.forEach(p => { tCount++; if (p.verified) vCount++; });
+  if (liveData.roiBenchmarks?.casestudies) liveData.roiBenchmarks.casestudies.forEach(c => { tCount++; if (c.verified) vCount++; });
+
+  STATE.research = {
+    ...liveData,
+    matchedIndustry: 'live-web-search',
+    source: 'Anthropic Web Search Tool (server-side)',
+    isLive: true,
+    citations: liveData._citations || [],
+    searchCount: liveData._searchCount || 0,
+    verifiedCount: vCount,
+    totalCount: tCount
+  };
+
+  if (statusEl) statusEl.textContent = `✅ Live research complete — ${vCount} verified data points from ${liveData._searchCount || '?'} web searches`;
+  updateResearchPanel(STATE.research);
+  return STATE.research;
+}
+
+/* ─── Update research results panel ─── */
+function updateResearchPanel(research) {
+  const panel = document.getElementById('research-results');
+  if (!panel || !research) return;
+
+  let html = '';
+
+  // Verification summary
+  const vPct = research.totalCount > 0 ? Math.round((research.verifiedCount / research.totalCount) * 100) : 0;
+  html += '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.65rem;padding:.45rem .65rem;background:rgba(255,255,255,.7);border-radius:10px;border:1px solid rgba(163,163,163,.12);">';
+  html += '<div style="font-size:.7rem;font-weight:600;color:#0a0a0a;">Verification: ' + research.verifiedCount + '/' + research.totalCount + ' data points (' + vPct + '%)</div>';
+  html += '<div style="flex:1;height:6px;background:rgba(163,163,163,.15);border-radius:3px;overflow:hidden;"><div style="height:100%;width:' + vPct + '%;background:#15803d;border-radius:3px;"></div></div>';
+  html += '</div>';
+
+  // Pain points
+  if (research.painPoints && research.painPoints.length) {
+    html += '<div class="rr-section"><div class="rr-section-title">🎯 Pain Points</div>';
+    research.painPoints.forEach(p => {
+      const badge = p.verified
+        ? '<span style="font-size:.55rem;padding:1px 6px;border-radius:6px;background:rgba(22,163,74,.1);color:#15803d;font-weight:600;">✓ VERIFIED</span>'
+        : '<span style="font-size:.55rem;padding:1px 6px;border-radius:6px;background:rgba(234,179,8,.1);color:#a16207;font-weight:600;">⚠ UNVERIFIED</span>';
+      html += '<div class="rr-card">';
+      html += '<div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.15rem;">' + badge + '<span class="rr-card-title" style="margin-bottom:0;">' + p.title + '</span></div>';
+      html += '<div class="rr-card-text">' + p.desc + '</div>';
+      if (p.url) html += '<div class="rr-card-source"><a href="' + p.url + '" target="_blank" style="color:#0369a1;text-decoration:underline;">' + p.source + ' ↗</a></div>';
+      else html += '<div class="rr-card-source">' + (p.source || 'No source') + '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+  }
+
+  // Market data
+  if (research.marketData) {
+    html += '<div class="rr-section"><div class="rr-section-title">📈 Market Data</div><div class="rr-grid">';
+    for (const [key, val] of Object.entries(research.marketData)) {
+      if (!val || typeof val !== 'object' || !val.value) continue;
+      const badge = val.verified
+        ? '<span style="font-size:.5rem;padding:1px 5px;border-radius:5px;background:rgba(22,163,74,.1);color:#15803d;font-weight:600;">✓</span>'
+        : '<span style="font-size:.5rem;padding:1px 5px;border-radius:5px;background:rgba(234,179,8,.1);color:#a16207;font-weight:600;">⚠</span>';
+      html += '<div class="rr-metric"><div class="rr-metric-label">' + badge + ' ' + key + '</div><div class="rr-metric-value">' + val.value + '</div>';
+      if (val.url) html += '<div style="font-size:.55rem;margin-top:.15rem;"><a href="' + val.url + '" target="_blank" style="color:#0369a1;">Source ↗</a></div>';
+      html += '</div>';
+    }
+    html += '</div></div>';
+  }
+
+  // ROI
+  if (research.roiBenchmarks) {
+    const rb = research.roiBenchmarks;
+    if ((rb.casestudies && rb.casestudies.length) || (rb.calculations && rb.calculations.length)) {
+      html += '<div class="rr-section"><div class="rr-section-title">💰 ROI Evidence</div>';
+      if (rb.casestudies) rb.casestudies.forEach(cs => {
+        const badge = cs.verified
+          ? '<span style="font-size:.55rem;padding:1px 6px;border-radius:6px;background:rgba(22,163,74,.1);color:#15803d;font-weight:600;">✓ VERIFIED</span>'
+          : '<span style="font-size:.55rem;padding:1px 6px;border-radius:6px;background:rgba(234,179,8,.1);color:#a16207;font-weight:600;">⚠ UNVERIFIED</span>';
+        html += '<div class="rr-card">';
+        html += '<div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.15rem;">' + badge + '<span class="rr-card-title" style="margin-bottom:0;">' + cs.institution + '</span></div>';
+        html += '<div class="rr-card-text">' + cs.result + '</div>';
+        if (cs.url) html += '<div class="rr-card-source"><a href="' + cs.url + '" target="_blank" style="color:#0369a1;">' + cs.source + ' ↗</a></div>';
+        html += '</div>';
+      });
+      if (rb.calculations) rb.calculations.forEach(calc => {
+        const badge = calc.verified
+          ? '<span style="font-size:.55rem;padding:1px 6px;border-radius:6px;background:rgba(22,163,74,.1);color:#15803d;font-weight:600;">✓ VERIFIED</span>'
+          : '<span style="font-size:.55rem;padding:1px 6px;border-radius:6px;background:rgba(234,179,8,.1);color:#a16207;font-weight:600;">⚠ UNVERIFIED</span>';
+        html += '<div class="rr-card">';
+        html += '<div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.15rem;">' + badge + '<span class="rr-card-title" style="margin-bottom:0;">ROI Model</span></div>';
+        html += '<div class="rr-card-text">' + calc.scenario + ' → <strong>' + calc.result + '</strong></div>';
+        if (calc.url) html += '<div class="rr-card-source"><a href="' + calc.url + '" target="_blank" style="color:#0369a1;">' + calc.source + ' ↗</a></div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+  }
+
+  // Source badge
+  html += '<div class="rr-source-badge">';
+  if (research.isLive) {
+    html += '🔍 Anthropic Web Search — Claude searched the web server-side (' + (research.searchCount || '?') + ' searches)';
+  } else {
+    html += '📚 Verified Database — ' + research.matchedIndustry + ' (' + research.verifiedCount + ' verified with URLs)';
+  }
+  html += '</div>';
+
+  panel.innerHTML = html;
+  panel.style.display = 'block';
+  const container = document.getElementById('research-container');
+  if (container) container.style.display = 'block';
+}
+
+function toggleResearch(){
+  const panel=document.getElementById('research-results');
+  const toggle=document.querySelector('.research-toggle');
+  if(panel.classList.contains('show')){
+    panel.classList.remove('show');
+    toggle.classList.remove('open');
+  }else{
+    panel.classList.add('show');
+    toggle.classList.add('open');
+  }
+}
+
 /* ════════════════════════════════════════
    AI
 ════════════════════════════════════════ */
@@ -1687,22 +2732,35 @@ function getCtx(){
   return{
     c:document.getElementById('in-client').value.trim()||'the client',
     ind:document.getElementById('in-industry').value.trim()||'their industry',
+    usecase:document.getElementById('in-usecase')?.value||'',
     pain:document.getElementById('in-pain').value.trim()||'repetitive queries',
     role:document.getElementById('in-role').value.trim()||'decision-maker',
     tools:document.getElementById('in-tools').value.trim()||'standard FAQ page',
     url:document.getElementById('in-url').value.trim()||'',
     audience:document.getElementById('in-audience')?.value.trim()||'',
     scale:document.getElementById('in-scale')?.value.trim()||'',
+    volume:document.getElementById('in-volume')?.value.trim()||'',
+    teamsize:document.getElementById('in-teamsize')?.value.trim()||'',
+    chatscene:document.getElementById('in-chatscene')?.value.trim()||'',
     anecdote:document.getElementById('in-anecdote')?.value.trim()||'',
     goal:document.getElementById('in-goal')?.value.trim()||'',
   };
 }
-async function callClaude(prompt, maxTokens=4096){
+async function callClaude(prompt, maxTokens=4096, options={}){
   const key=document.getElementById('api-key').value.trim();
   if(!key)return null;
   const controller=new AbortController();
-  const timeout=setTimeout(()=>controller.abort(),60000);
+  const timeoutMs=options.timeout||120000;
+  const timeout=setTimeout(()=>controller.abort(),timeoutMs);
   try{
+    const body={
+      model:'claude-sonnet-4-20250514',
+      max_tokens:maxTokens,
+      messages:[{role:'user',content:prompt}]
+    };
+    // Add tools if specified (e.g., web_search)
+    if(options.tools) body.tools=options.tools;
+
     const r=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       signal:controller.signal,
@@ -1712,11 +2770,7 @@ async function callClaude(prompt, maxTokens=4096){
         'anthropic-version':'2023-06-01',
         'anthropic-dangerous-direct-browser-access':'true'
       },
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:maxTokens,
-        messages:[{role:'user',content:prompt}]
-      })
+      body:JSON.stringify(body)
     });
     clearTimeout(timeout);
     const d=await r.json();
@@ -1725,11 +2779,13 @@ async function callClaude(prompt, maxTokens=4096){
       window._lastApiError=`${d.error.type}: ${d.error.message}`;
       return null;
     }
+    // If tools were used, return full response for citation extraction
+    if(options.tools && options.returnFull) return d;
     return d.content?.map(x=>x.text||'').join('')||null;
   }catch(e){
     clearTimeout(timeout);
     console.error('callClaude fetch error:',e);
-    window._lastApiError=e.name==='AbortError'?'Request timed out after 60s':e.message||String(e);
+    window._lastApiError=e.name==='AbortError'?'Request timed out after 120s':e.message||String(e);
     return null;
   }
 }
@@ -1814,99 +2870,173 @@ async function genAll(){
   // Step 1: Research client website
   let webResearch='';
   if(c.url&&c.url.startsWith('http')){
-    st.textContent='🔍 Researching client website…';
+    st.textContent='🔍 Step 0: Researching client website…';
     const scraped=await researchClientWebsite(c.url);
     if(scraped){
       webResearch=`\n\nCLIENT WEBSITE RESEARCH (scraped from ${c.url}):\n${scraped}`;
     }
   }
 
-  st.textContent='✦ Generating slide content…';
+  // Step 2: Market Research (4-step workflow)
+  st.textContent='📊 Starting market research…';
+  const researchData=await researchIndustry(c.ind, c.c, c.pain, st);
+  let marketResearch='';
+  if(researchData){
+    marketResearch=formatResearchForPrompt(researchData);
+  }
 
-  const prompt=`You are a senior B2B marketing strategist and conversion copywriter for Notso.ai — a company that builds empathetic 3D animated AI brand agents. Your copy wins deals.
+  st.textContent='✦ Generating slide content with research data…';
+  // Update research badge
+  const rBadge=document.getElementById('research-badge');
+  if(rBadge){
+    if(researchData){
+      rBadge.textContent=researchData.isLive?'Live Research':'DB: '+researchData.matchedIndustry;
+      rBadge.style.background='rgba(22,163,74,.08)';rBadge.style.color='#15803d';rBadge.style.borderColor='rgba(22,163,74,.2)';
+    }else{
+      rBadge.textContent='No data';
+      rBadge.style.background='rgba(234,179,8,.08)';rBadge.style.color='#a16207';rBadge.style.borderColor='rgba(234,179,8,.2)';
+    }
+  }
 
-MISSION: Write proposal slide content so specific, so resonant, that the client thinks "they really understand our world." Generic copy loses. Specificity wins.
+  // Build use case context string
+  const useCaseMap={
+    'student-services':'Student Services — AI agent answers enrollment, course selection, campus life, admin procedure questions for students',
+    'employee-onboarding':'Employee Onboarding & Training — AI agent guides new hires through SOPs, policies, scheduling, and company knowledge',
+    'customer-service':'Customer Service & Support — AI agent handles customer inquiries, complaints, product questions, and ticket routing',
+    'internal-kb':'Internal Knowledge Base — AI agent helps employees find internal documents, policies, and procedures',
+    'sales-assistant':'Sales & Product Assistant — AI agent helps customers browse products, compare options, and make purchase decisions',
+    'patient-support':'Patient / Healthcare Support — AI agent answers patient questions about appointments, procedures, medications, and hospital services',
+    'other':'Custom use case — see pain points for details',
+  };
+  const useCaseDesc=useCaseMap[c.usecase]||'General AI brand agent';
+
+  const prompt=`You are a senior B2B pitch strategist for Notso.ai. You write cold proposals that win meetings. Study the GOLDEN EXAMPLES below — they are from real proposals that closed deals. Your output must match that quality level.
+
+CRITICAL RULES:
+1. This is a COLD PITCH — we have NOT spoken to the client. Base everything on sales rep input + website research + market research data + industry knowledge.
+2. NEVER fabricate direct quotes from the client. Describe situations they likely face.
+3. NEVER invent numbers. USE THE MARKET RESEARCH DATA PROVIDED BELOW — it contains validated pain points, market size, competitor gaps, and ROI benchmarks. Reference these numbers directly.
+4. NEVER say "chatbot" — say "Brand Agent" or "Visual Agent" or use the mascot name.
+5. Write like a smart colleague presenting insights, not a vendor selling software.
+6. ARGUMENTATION LOGIC: Pain is real (validated data) → Market is large & growing → Current solutions have gaps → Our product fills the gap → Clear ROI pathway.
 
 ABOUT NOTSO.AI:
-Notso.ai creates Visual Agents — 3D animated AI brand mascots with personality, empathy, and visual identity. Not chatbots. We are "The Experience Layer of AI" — we sit on top of existing AI stacks (Salesforce, Zendesk) and make them delightful.
+Notso.ai creates Visual Agents — 3D animated AI brand mascots with personality, empathy, and visual identity. "The Experience Layer of AI" — sits on top of existing AI stacks and makes them delightful.
+Key tech: Empathy Engine (real-time emotion detection), Agentic RAG (trained on client docs, zero hallucination), 3D Animation Engine (lightweight, fast-loading).
+All plans are 12-month contracts. Starter €399/mo, Premium €699/mo, Enterprise custom.
 
-KEY DIFFERENTIATORS (use in feature descriptions):
-- Empathy Engine: real-time emotion detection triggers specific animations (happy, confused, apologetic)
-- Agentic RAG: trained on client's own docs (PDFs, FAQs), zero hallucination, brand-safe
-- 3D Animation Engine: proprietary, lightweight, fast-loading animated characters
-- We are NOT photorealistic avatars. We are stylized, brandable, expressive characters.
+═══════════════════════════════════════
+GOLDEN EXAMPLES — REAL PROPOSALS THAT WON
+Study the PATTERN, not the content. Adapt to the new client.
+═══════════════════════════════════════
 
-PROVEN RESULTS (reference when relevant):
-- Jumbo (retail): 70% reduction in HR workload after deploying mascot Liza
-- Brand mascots increase consumer trust by 35%
-- Mascot campaigns boost online engagement metrics by up to 40%
-- Mascots are recognized 7x more than logos or human agents
+【COVER — Pattern: "{Mascot Name} – Role Definition. Benefit Statement."】
+✅ Jumbo: "Liza – The Digital AI Buddy: Your 24/7 Super FRESH Assistant."
+✅ Fin: "Meet Fin: The Digital Proactive Coach for Modern Sports Clubs."
+✅ Biek: "Biek: The Digital Clone & Virtual Brand Ambassador. 24/7 Authentic Rotterdam Flavor."
+→ Formula: Name the mascot + define its role in the client's world + one killer benefit.
 
-COMPETITIVE EDGE (use to frame features):
-- vs Traditional chatbots: powerful but lack brand personality, feel cold
-- vs Design agencies: great mascots but no AI brain for real-time conversation
-- Notso.ai = AI automation efficiency + brand character emotional appeal
+【PAIN POINTS — Pattern: Industry-specific operational pain, not generic "inefficiency"】
+✅ Jumbo (HR): "Management and HR are overwhelmed by repetitive administrative employee questions." + "Lacking a modern digital touchpoint aligned with Jumbo's Super FRESH vision."
+✅ Fin (Finance): "Volunteer treasurers struggle to keep up with complex, changing government subsidy regulations (BOSA, DUMAVA)." + "Manual payment processing and tedious admin tasks drag down operational efficiency."
+✅ Biek (Marketing): "Existing virtual influencers lack authenticity — they can't embody local culture (Rotterdam spirit)." + "Urgent need for a 24/7, scalable solution for website inquiries, lead generation, and internal team support."
+→ Formula: Name the SPECIFIC role that suffers (treasurer, HR manager, admin staff) + name the SPECIFIC task/regulation/system that causes pain + quantify if possible.
 
-OBJECTION PREEMPTION (weave into copy subtly):
-- Traditional custom 3D interactive dev costs €350,000+. Our Premium annual = ~€7,550.
-- We don't replace existing systems — we upgrade them as an Experience Layer.
+【FEATURES — Pattern: Outcome for the user, not tech specs】
+✅ Jumbo: "Automated Onboarding: Welcomes new employees, guides store selection, assists with ID and tax form submission." + "24/7 Service Q&A: Answers scheduling, company policy, and employee app questions anytime."
+✅ Fin: "Expert Knowledge Retrieval: Answers specific subsidy questions based on 100+ pages of documentation." + "Proactive Coaching: Detects admin fatigue and proactively recommends the automated payment module."
+✅ Biek: "Digital Clone: Perfectly replicates the founder's vision, humor, and local dialect." + "Sales Conversion Logic: Guides users through the sales funnel, from content suggestions to service bookings."
+→ Formula: Start with a bold capability name (2-3 words) + colon + describe what changes for the END USER in their daily work. Reference specific documents/processes/systems the client uses.
 
-VOICE RULES:
-- Speak like a smart colleague, not a vendor
-- Use the client's OWN words wherever they are given
-- Short, punchy sentences. Zero jargon. Zero filler.
-- Pain must be felt — visceral, specific, real situations
-- Headlines are bold claims or provocations, never descriptions
-- NEVER say "chatbot" — say "Brand Agent" or "Visual Agent"
-- Conversations, not interrogations. Built for delight, not realism.
+【CHAT MOCK-UP — Pattern: User expresses real frustration → Agent shows empathy + offers concrete solution】
+✅ User: "Manually processing these invoices is exhausting..."
+   Fin: "That sounds really tough, I totally understand. Our automation module can save you 90% of the time. Want me to draft an implementation plan?"
+✅ Biek: "Want to take artisan Taiwanese tea global? The key is telling the origin and craftsman story. Want to explore content strategy or distribution channels?"
+→ Formula: User speaks in NATURAL language about a REAL pain → Agent acknowledges emotion first → then offers a SPECIFIC next action (not generic "how can I help").
 
-TONE EXAMPLES (this is the bar):
-Cover: "Jumbo's New Hire Calls End Today." (not "AI chatbot solution for retail")
-Pain intro: "Every week, 3 new hires call the team leader for the same password reset. Meanwhile, the manager is stuck on a checkout — again."
-Feature: "Answers shift questions before they're asked." (not "automated FAQ responses")
+【ROI / ANALYTICS — Pattern: Emotion + Behavior + Conversion data】
+✅ All cases track: User sentiment analysis during interactions, anonymous statistics (top questions, peak hours, resolution rate), sales funnel conversion tracking.
+→ Formula: Show 3 concrete metrics the client's leadership would actually look at every month. Frame as "insights you currently don't have."
 
-CLIENT PROFILE:
+【THANK YOU — Pattern: Action-oriented CTA】
+✅ "Ready to humanize your brand with Notso.ai? Book a session now."
+→ Formula: Question that echoes the transformation + clear single action.
+
+═══════════════════════════════════════
+CLIENT PROFILE FOR THIS PROPOSAL
+═══════════════════════════════════════
 Company: ${clientName}
 Website: ${c.url||'N/A'}
 Industry: ${c.ind}
+Use Case: ${useCaseDesc}
 Decision-maker: ${c.role}
-Their pain (use these exact words): ${c.pain}
-Tools being replaced: ${c.tools}
-End users: ${c.audience}
-Scale: ${c.scale}
-Real story they told: ${c.anecdote}
-What success looks like: ${c.goal}
-${webResearch}
+Pain points provided by sales rep: ${c.pain||'(not provided — research and infer from industry)'}
+Tools being replaced: ${c.tools||'(not provided — research from website)'}
+End users: ${c.audience||'(not provided — infer from use case)'}
+Scale: ${c.scale||'(not provided — research from website)'}
+Monthly inquiry volume: ${c.volume||'(not provided — estimate from industry averages)'}
+Support team size: ${c.teamsize||'(not provided — estimate from scale)'}
+Chat scenario hint: ${c.chatscene||'(not provided — generate based on use case + web research)'}
+Real story/anecdote: ${c.anecdote||'(not provided — create a realistic scenario based on research)'}
+Success definition: ${c.goal||'(not provided — infer from pain points)'}
+${webResearch}${marketResearch}
 
 OUTPUT LANGUAGE: ${langInstr}
+If language is Chinese/Japanese, write ALL content in that language. Do NOT mix English into the output. Technical terms like "Brand Agent" can stay in English, but descriptions must be fully localized.
 
-Return ONLY a valid JSON object. No markdown. No explanation. No emoji in field values. Every field must be client-specific — never generic:
+═══════════════════════════════════════
+OUTPUT — STRICT FORMAT
+═══════════════════════════════════════
+Return ONLY valid JSON. No markdown. No explanation. No emoji.
+Specific to ${clientName}. If fields are blank, use research + industry knowledge.
+
+CRITICAL: OBEY THE CHARACTER LIMITS BELOW. Shorter is ALWAYS better. Every word must earn its place.
+
 {
-  "cover_headline": "6-8 word bold claim specific to ${clientName}. Examples: 'Jumbo\'s New Hire Calls End Today.' or 'Every Conversation, An Experience.' — make it feel like a movie tagline",
-  "cover_sub": "one precise sentence: what ${mascotName} does and for whom, mentioning the core pain",
-  "pain_intro": "2 punchy sentences from their lived reality — use their exact words if given. Make the reader nod.",
+  "cover_headline": "MAX 15 WORDS. Formula: '{mascot} – {role}: {benefit}.' Example: 'Liza – The Digital AI Buddy: Your 24/7 Super FRESH Assistant.'",
+  "cover_sub": "MAX 20 WORDS. What ${mascotName} does for ${clientName}.",
+
+  "pain_intro": "MAX 30 WORDS total, 2 sentences. Example: 'Management and HR are overwhelmed by repetitive administrative employee questions. There is no modern digital touchpoint aligned with their brand vision.'",
   "pain_cards": [
-    {"title": "3-4 word tension title", "text": "one vivid, specific sentence about this pain in their world"},
-    {"title": "3-4 word tension title", "text": "one vivid, specific sentence"},
-    {"title": "3-4 word tension title", "text": "one vivid, specific sentence"},
-    {"title": "3-4 word tension title", "text": "one vivid, specific sentence"}
+    {"title": "MAX 5 WORDS. Example: 'Repetitive Admin Overload'", "text": "MAX 15 WORDS. One sentence. Example: 'Volunteer treasurers struggle to keep up with complex changing subsidy regulations.'"},
+    {"title": "MAX 5 WORDS", "text": "MAX 15 WORDS"},
+    {"title": "MAX 5 WORDS", "text": "MAX 15 WORDS"},
+    {"title": "MAX 5 WORDS", "text": "MAX 15 WORDS"}
   ],
-  "feature_body": "one sentence: how ${mascotName} directly solves ${clientName}'s core pain — be specific",
+
+  "feature_body": "MAX 20 WORDS. ${mascotName}'s role at ${clientName}.",
   "feature_items": [
-    "concrete outcome for ${clientName}. Reference Empathy Engine, Knowledge Base, or Analytics when relevant. Frame as what changes for the user, not what the tech does.",
-    "concrete feature",
-    "concrete feature",
-    "concrete feature",
-    "concrete feature"
+    "MAX 15 WORDS each. Formula: 'Capability Name: outcome.' Example: 'Automated Onboarding: Welcomes new hires, guides store selection, assists with ID submission.'",
+    "MAX 15 WORDS",
+    "MAX 15 WORDS",
+    "MAX 15 WORDS",
+    "MAX 15 WORDS"
   ],
-  "chat_mascot1": "warm, specific greeting from ${mascotName} that shows it knows ${clientName}'s world",
-  "chat_user1": "user asking something they actually would ask — specific to their daily pain",
-  "chat_mascot2": "empathetic, helpful response that solves the immediate question and hints at the bigger solution — max 20 words",
-  "ty_body": "personal, warm, specific closing line — thank ${clientName} by name, reference the change ${mascotName} will bring"
+
+  "chat_messages": [
+    {"role": "mascot", "text": "MAX 15 WORDS. Warm greeting."},
+    {"role": "user", "text": "MAX 15 WORDS. Real question from their daily work."},
+    {"role": "mascot", "text": "MAX 25 WORDS. Empathy first, then specific answer with next action."},
+    {"role": "user", "text": "MAX 10 WORDS. Follow-up."},
+    {"role": "mascot", "text": "MAX 20 WORDS. Shows depth of knowledge."}
+  ],
+
+  "roi_headline": "MAX 10 WORDS. Example: 'What Changes When ${mascotName} Joins the Team'",
+  "roi_metrics": [
+    {"number": "-60% or 3x or 24/7", "label": "MAX 8 WORDS", "detail": "MAX 15 WORDS"},
+    {"number": "metric", "label": "MAX 8 WORDS", "detail": "MAX 15 WORDS"},
+    {"number": "metric", "label": "MAX 8 WORDS", "detail": "MAX 15 WORDS"}
+  ],
+  "roi_before": "MAX 3 bullet points, each MAX 12 WORDS",
+  "roi_after": "MAX 3 bullet points, each MAX 12 WORDS",
+
+  "ty_headline": "MAX 12 WORDS. Question that echoes the transformation.",
+  "ty_body": "MAX 20 WORDS. Personal, warm closing.",
+  "ty_cta": "MAX 8 WORDS. Example: 'Book a 30-min demo'"
 }`;
 
   try{
-    const raw=await callClaude(prompt, 4096);
+    const raw=await callClaude(prompt, 6000);
     if(!raw){
       const errMsg=window._lastApiError||'unknown error';
       st.textContent='Failed: '+errMsg;
@@ -1930,7 +3060,21 @@ Return ONLY a valid JSON object. No markdown. No explanation. No emoji in field 
     STATE.aiCoverH=d.cover_headline||'';
     STATE.aiCoverSub=d.cover_sub||'';
     STATE.aiTyBody=d.ty_body||'';
-    STATE.aiChat='MASCOT: '+(d.chat_mascot1||'')+'\nUSER: '+(d.chat_user1||'')+'\nMASCOT: '+(d.chat_mascot2||'');
+    STATE.aiTyHeadline=d.ty_headline||'';
+    STATE.aiTyCta=d.ty_cta||'';
+    // Chat: support new multi-message format
+    if(d.chat_messages&&Array.isArray(d.chat_messages)){
+      STATE.aiChat=d.chat_messages.map(m=>(m.role==='mascot'?'MASCOT':'USER')+': '+m.text).join('\n');
+      STATE.aiChatMessages=d.chat_messages;
+    }else{
+      STATE.aiChat='MASCOT: '+(d.chat_mascot1||'')+'\nUSER: '+(d.chat_user1||'')+'\nMASCOT: '+(d.chat_mascot2||'');
+      STATE.aiChatMessages=null;
+    }
+    // ROI data
+    STATE.aiRoiHeadline=d.roi_headline||'';
+    STATE.aiRoiMetrics=d.roi_metrics||null;
+    STATE.aiRoiBefore=d.roi_before||'';
+    STATE.aiRoiAfter=d.roi_after||'';
     st.textContent='Done! Click Generate Deck to apply.';
   }catch(e){
     console.error('genAll error:', e);
@@ -1991,17 +3135,8 @@ function updateTextSize(){
   document.getElementById('sp-hd-size-lbl').textContent=hdSize+'px';
   document.getElementById('sp-bd-size-lbl').textContent=bdSize+'px';
   STATE.hdSize=hdSize; STATE.bdSize=bdSize;
-  // Update CSS on slide canvas directly — no full rebuild needed
-  const canvas=document.getElementById('slide-canvas');
-  if(!canvas)return;
-  canvas.querySelectorAll('.sl-h1').forEach(el=>el.style.fontSize=hdSize+'px');
-  canvas.querySelectorAll('.sl-h2').forEach(el=>el.style.fontSize=Math.round(hdSize*.73)+'px');
-  canvas.querySelectorAll('.sl-h3').forEach(el=>el.style.fontSize=Math.round(hdSize*.55)+'px');
-  canvas.querySelectorAll('.sl-body').forEach(el=>el.style.fontSize=bdSize+'px');
-  canvas.querySelectorAll('.sl-body-sm').forEach(el=>el.style.fontSize=Math.round(bdSize*.62)+'px');
-  // also update inline font sizes (card text, etc.)
-  canvas.querySelectorAll('.pc-ttl,.mopt-nm,.fsttl,.kb-ttl,.em-ttl,.lic-ttl,.prm-ttl,.pr-pl').forEach(el=>el.style.fontSize=Math.round(bdSize*.85)+'px');
-  canvas.querySelectorAll('.pc-txt,.mopt-rl,.fstxt,.kb-txt,.em-txt,.lic-txt,.prm-txt,.feat-tx').forEach(el=>el.style.fontSize=Math.round(bdSize*.65)+'px');
+  // Rebuild slides to apply new sizes to all elements (including inline-styled ones)
+  rebuildSlides();
 }
 
 function setFW(type,weight){
@@ -2023,7 +3158,19 @@ function setFW(type,weight){
 }
 function buildSpLangs(){
   const c=document.getElementById('sp-langs');c.innerHTML='';
-  Object.values(LANGS).forEach(l=>{const b=document.createElement('button');b.className='sp-lang'+(l.code===STATE.lang?' active':'');b.textContent=l.label;b.onclick=()=>{STATE.lang=l.code;buildSpLangs();document.getElementById('sp-lang-lbl').textContent=l.code.toUpperCase();rebuildSlides();};c.appendChild(b);});
+  Object.values(LANGS).forEach(l=>{const b=document.createElement('button');b.className='sp-lang'+(l.code===STATE.lang?' active':'');b.textContent=l.label;b.onclick=()=>{
+    const prevLang=STATE.lang;
+    STATE.lang=l.code;
+    // Clear AI-generated content when language changes (it's in the old language)
+    if(prevLang!==l.code){
+      STATE.aiCoverH='';STATE.aiCoverSub='';STATE.aiPain='';STATE.aiPainCards=null;
+      STATE.aiFeatureBody='';STATE.aiFeatureItems=null;STATE.aiChat='';STATE.aiChatMessages=null;
+      STATE.aiTyBody='';STATE.aiTyHeadline='';STATE.aiTyCta='';
+      STATE.aiRoiHeadline='';STATE.aiRoiMetrics=null;STATE.aiRoiBefore='';STATE.aiRoiAfter='';
+      document.getElementById('st-all').textContent='Language changed — click Generate All to regenerate in '+l.label;
+    }
+    buildSpLangs();document.getElementById('sp-lang-lbl').textContent=l.code.toUpperCase();rebuildSlides();
+  };c.appendChild(b);});
 }
 function buildSpSlides(){
   const c=document.getElementById('sp-slides-list');c.innerHTML='';
@@ -2042,6 +3189,7 @@ function buildSpSlides(){
 }
 function spToggle(si,col){if(col==='active'){activeSl=activeSl.filter(i=>i!==si);poolSl.push(si);poolSl.sort((a,b)=>a-b);}else{poolSl=poolSl.filter(i=>i!==si);activeSl.push(si);}buildSpSlides();rebuildSlides();}
 function spPresetFull(){activeSl=ALL_SLIDES.map((_,i)=>i);poolSl=[];buildSpSlides();rebuildSlides();}
+function spPresetCore(){const c=['s-cover','s-pain','s-features','s-chat','s-analytics','s-roadmap','s-pricing','s-thankyou'];activeSl=ALL_SLIDES.map((_,i)=>i).filter(i=>c.includes(ALL_SLIDES[i].id));poolSl=ALL_SLIDES.map((_,i)=>i).filter(i=>!c.includes(ALL_SLIDES[i].id));buildSpSlides();rebuildSlides();}
 function spPresetQuick(){const q=ALL_SLIDES.map((s,i)=>s.quick?i:-1).filter(i=>i>=0);activeSl=[...q];poolSl=ALL_SLIDES.map((_,i)=>i).filter(i=>!q.includes(i));buildSpSlides();rebuildSlides();}
 function spPresetClear(){poolSl=ALL_SLIDES.map((_,i)=>i);activeSl=[];buildSpSlides();rebuildSlides();}
 
@@ -2067,18 +3215,20 @@ function mascotImgTag(slideId, V){
   if(!url)return '';
   const rule=MASCOT_SLIDE_RULES[slideId];
   if(!rule)return '';
-  let style=`position:absolute;object-fit:contain;height:${rule.height};max-width:${rule.maxW||'500px'};pointer-events:none;filter:drop-shadow(0 24px 60px ${alpha(V.BG,.6)});z-index:10;`;
+  const imgScale=STATE.imageOffsets[slideId]?.scale||1;
+  let style=`position:absolute;object-fit:contain;height:${rule.height};max-width:${rule.maxW||'500px'};pointer-events:auto;cursor:move;filter:drop-shadow(0 24px 60px ${alpha(V.BG,.6)});z-index:10;`;
   if(rule.right)style+=`right:${rule.right};`;
   if(rule.left)style+=`left:${rule.left};`;
   if(rule.top)style+=`top:${rule.top};`;
   if(rule.bottom)style+=`bottom:${rule.bottom};`;
   if(rule.transform)style+=`transform:${rule.transform};`;
   // Patch6: apply saved image offsets
-  const offsets = STATE.imageOffsets[slideId] || {x:0, y:0, rotate:0};
-  if(offsets.x || offsets.y || offsets.rotate){
-    // need to merge transform
+  const offsets = STATE.imageOffsets[slideId] || {x:0, y:0, rotate:0, scale:1, flipX:false};
+  const sc=offsets.scale||1;
+  const fx=offsets.flipX?-1:1;
+  if(offsets.x || offsets.y || offsets.rotate || sc!==1 || offsets.flipX){
     const existingTransform = rule.transform || '';
-    const offsetTransform = `translate(${offsets.x}px, ${offsets.y}px) rotate(${offsets.rotate}deg)`;
+    const offsetTransform = `translate(${offsets.x}px, ${offsets.y}px) rotate(${offsets.rotate}deg) scale(${sc*fx},${sc})`;
     style = style.replace(/transform:[^;]+;?/, '');
     style += `transform:${offsetTransform} ${existingTransform};`;
   }
@@ -2096,18 +3246,40 @@ function buildSlideHTML(sid){
   const c1=STATE.color1,c2=STATE.color2;
   const PAIN=STATE.aiPain||STATE.pain||'repetitive customer queries';
 
-  // chat dialogue
+  // Font size system — all inline sizes scale from these
+  const HD=STATE.hdSize||88;
+  const BD=STATE.bdSize||32;
+  const S={
+    h1:HD,h2:Math.round(HD*.73),h3:Math.round(HD*.55),
+    body:BD,bodySm:Math.round(BD*.62),
+    card:Math.round(BD*.85),cardTx:Math.round(BD*.65),
+    chat:Math.round(BD*.58),chatSm:Math.round(BD*.5),
+    label:Math.round(BD*.42),labelSm:Math.round(BD*.35),
+    metric:Math.round(HD*.7),metricLbl:Math.round(BD*.55),
+  };
+
+  // chat dialogue — supports 3 or 5 messages
   const chatDef=tx('chat_default',L);
   let cu1=chatDef[0].replace('{M}',MN).replace('{C}',C);
   let cu2=chatDef[1];
   let ca1=chatDef[2].replace('{M}',MN).replace('{C}',C);
-  if(STATE.aiChat){
+  let cu3='',ca2=''; // extra 2 messages for 5-turn chat
+  if(STATE.aiChatMessages&&Array.isArray(STATE.aiChatMessages)){
+    const msgs=STATE.aiChatMessages;
+    if(msgs[0])cu1=msgs[0].text;
+    if(msgs[1])cu2=msgs[1].text;
+    if(msgs[2])ca1=msgs[2].text;
+    if(msgs[3])cu3=msgs[3].text;
+    if(msgs[4])ca2=msgs[4].text;
+  }else if(STATE.aiChat){
     const lines=STATE.aiChat.split('\n').filter(l=>l.trim());
     const mascotLines=lines.filter(l=>/^mascot:/i.test(l)||/^agent:/i.test(l));
     const userLines=lines.filter(l=>/^user:/i.test(l));
     if(mascotLines[0])cu1=mascotLines[0].replace(/^(mascot|agent):\s*/i,'');
     if(userLines[0])cu2=userLines[0].replace(/^user:\s*/i,'');
     if(mascotLines[1])ca1=mascotLines[1].replace(/^(mascot|agent):\s*/i,'');
+    if(userLines[1])cu3=userLines[1].replace(/^user:\s*/i,'');
+    if(mascotLines[2])ca2=mascotLines[2].replace(/^(mascot|agent):\s*/i,'');
   }
   const painCards=STATE.aiPainCards||tx('pain_cards',L);
   const featItems=STATE.aiFeatureItems||tx('feat_items',L);
@@ -2140,9 +3312,9 @@ function buildSlideHTML(sid){
     // ── SPREAD variant (DIGITALE BUDDIES inspired) ──
     if(layoutMode==='spread'){
       return `
-    <div class="sl-bg" style="background:#f5f5f4;position:absolute;inset:0;"></div>
-    <div style="position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle at 25% 25%, rgba(10,10,10,.06) 0.7px, transparent 1px),radial-gradient(circle at 75% 75%, rgba(10,10,10,.04) 0.7px, transparent 1px);background-size:16px 16px;"></div>
-    <div style="position:absolute;top:0;left:0;width:100%;height:6px;background:${c1};"></div>
+    <div class="sl-bg" style="background:${V.BG};position:absolute;inset:0;"></div>
+    <div style="position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle at 25% 25%, ${alpha(V.TX,.06)} 0.7px, transparent 1px),radial-gradient(circle at 75% 75%, ${alpha(V.TX,.04)} 0.7px, transparent 1px);background-size:16px 16px;"></div>
+    <div style="position:absolute;top:0;left:0;width:100%;height:6px;background:${V.ACCENT};"></div>
     <div class="geo-ring" style="top:-200px;right:-200px;width:800px;height:800px;border-width:100px;border-color:rgba(10,10,10,.04);"></div>
     <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 480px;align-items:center;padding:0 80px 0 100px;">
       <div style="display:flex;flex-direction:column;justify-content:center;">
@@ -2168,7 +3340,7 @@ function buildSlideHTML(sid){
         </div>
       </div>
       <div style="display:flex;align-items:center;justify-content:center;height:100%;">
-        ${hasImg ? `<img src="${getMascotImageForSlide(sid)}" style="height:880px;max-width:520px;object-fit:contain;filter:drop-shadow(0 20px 60px rgba(0,0,0,.15));" alt="mascot"/>` :
+        ${hasImg ? imgTag :
           `<div style="font-size:580px;line-height:1;filter:drop-shadow(0 20px 40px rgba(0,0,0,.1));margin-top:60px;">${bigMascotEmoji}</div>`}
       </div>
     </div>
@@ -2192,14 +3364,14 @@ function buildSlideHTML(sid){
         <div style="font-family:var(--fd);font-size:110px;font-weight:800;line-height:.88;letter-spacing:-.05em;color:${V.TX};margin-bottom:28px;">${e(STATE.aiCoverH||tx('cover_h',L))}</div>
         <div style="font-size:30px;color:${V.TX2};line-height:1.5;margin-bottom:52px;">${e(tx('cover_sub',L))} <strong style="color:${V.TX};">${e(C)}</strong>.</div>
         <div style="display:flex;gap:40px;padding-top:36px;border-top:2px solid ${alpha(V.TX,.12)};">
-          <div><div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:${V.TX3};margin-bottom:6px;">${tx('by',L)}</div><div style="font-family:var(--fd);font-size:20px;font-weight:700;color:${V.TX};">Notso.ai</div></div>
-          <div><div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:${V.TX3};margin-bottom:6px;">${tx('industry',L)}</div><div style="font-family:var(--fd);font-size:20px;font-weight:700;color:${V.TX};">${e(IND)}</div></div>
+          <div><div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:${V.TX3};margin-bottom:6px;">${tx('by',L)}</div><div style="font-family:var(--fd);font-size:${S.body}px;font-weight:700;color:${V.TX};">Notso.ai</div></div>
+          <div><div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:${V.TX3};margin-bottom:6px;">${tx('industry',L)}</div><div style="font-family:var(--fd);font-size:${S.body}px;font-weight:700;color:${V.TX};">${e(IND)}</div></div>
           <div><div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:${V.TX3};margin-bottom:6px;">${tx('kickoff',L)}</div><div style="font-family:var(--fd);font-size:20px;font-weight:700;color:${c1};">${e(selDate?fmtDate(selDate):'—')}</div></div>
         </div>
       </div>
       <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;">
         <div style="width:440px;height:440px;border-radius:50%;background:linear-gradient(135deg,${alpha(c1,.25)},${alpha(c2,.15)});border:2px solid ${alpha(c1,.3)};display:flex;align-items:center;justify-content:center;position:relative;">
-          ${hasImg ? `<img src="${getMascotImageForSlide(sid)}" style="height:400px;object-fit:contain;filter:drop-shadow(0 20px 40px ${alpha(V.BG,.5)});" alt="mascot"/>` :
+          ${hasImg ? imgTag :
             `<div style="font-size:320px;line-height:1;filter:drop-shadow(0 20px 40px rgba(0,0,0,.3));">${bigMascotEmoji}</div>`}
           <div style="position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);background:${c1};color:#fff;font-family:var(--fd);font-size:18px;font-weight:700;padding:10px 28px;border-radius:40px;white-space:nowrap;letter-spacing:.06em;text-transform:uppercase;">${e(MN)}</div>
         </div>
@@ -2263,7 +3435,7 @@ function buildSlideHTML(sid){
     <div class="sl-bg" style="${bg}"></div>
     <div class="geo-ring" style="top:-80px;right:-80px;width:400px;height:400px;border-width:64px;border-color:${alpha(c2,.08)};"></div>
     <div class="sl-safe" style="display:flex;flex-direction:column;justify-content:flex-start;padding-top:48px;">
-      <div style="font-family:var(--fd);font-size:52px;font-weight:800;letter-spacing:-.04em;color:${V.TX};line-height:1;margin-bottom:6px;">${e(tx('toc_h',L))}</div>
+      <div style="font-family:var(--fd);font-size:${S.h3}px;font-weight:800;letter-spacing:-.04em;color:${V.TX};line-height:1;margin-bottom:6px;">${e(tx('toc_h',L))}</div>
       <div style="font-size:18px;color:${V.TX3};margin-bottom:10px;">${e(C)} — ${e(IND)}</div>
       <div class="toc-arrow" style="gap:8px 48px;">
         ${tocItems.map(t=>`
@@ -2292,7 +3464,7 @@ function buildSlideHTML(sid){
             <div>
               <div class="pain-big-word" style="font-size:140px;color:${alpha(V.TX,.12)};line-height:.8;">?!</div>
               <div style="font-size:22px;font-weight:700;color:${c1};margin-top:16px;font-family:var(--fd);letter-spacing:.05em;text-transform:uppercase;">${e(tx('pain_tag',L))}</div>
-              <div style="font-size:19px;color:${V.TX3};margin-top:8px;line-height:1.6;">Every unresolved question is time the manager can't get back.</div>
+              <div style="font-size:${S.chatSm}px;color:${V.TX3};margin-top:8px;line-height:1.6;">${e(tx('pain_context',L))}</div>
             </div>
           </div>
         </div>`:''}
@@ -2306,32 +3478,117 @@ function buildSlideHTML(sid){
     </div>
     <div class="sl-num" style="${numStyle}">03</div>`;}
 
-  case 's-features': {
-    const imgTag=mascotImgTag(sid,V);const hasImg=!!getMascotImageForSlide(sid);
-    const ficons=['🎯','💬','⚡','🔒','📊','🌍'];
-    const fcolors=[alpha(c1,.1),alpha(c2,.1),alpha(V.TX,.07),alpha(c1,.08),alpha(c2,.08),alpha(V.TX,.06)];
+  case 's-market': {
+    // Market Opportunity slide — shows verified research data
+    const research = STATE.research;
+    const mktData = research?.marketData || {};
+    const hasData = research && (mktData.industrySize?.verified || mktData.growthRate?.verified);
+
+    // Build metric cards from research data
+    let metricCards = '';
+    if (mktData.industrySize?.verified) {
+      metricCards += `<div style="flex:1;min-width:280px;background:${alpha(c1,.06)};border:1px solid ${alpha(c1,.15)};border-radius:16px;padding:28px;">
+        <div style="font-size:${S.labelSm}px;text-transform:uppercase;letter-spacing:.12em;color:${V.TX3};margin-bottom:8px;">Industry Size</div>
+        <div style="font-size:${S.card}px;color:${V.TX};font-weight:600;line-height:1.4;margin-bottom:8px;">${e(mktData.industrySize.value)}</div>
+        <div style="font-size:${S.labelSm}px;color:${c1};">✓ ${e(mktData.industrySize.source)}</div>
+      </div>`;
+    }
+    if (mktData.growthRate?.verified) {
+      metricCards += `<div style="flex:1;min-width:280px;background:${alpha(c2,.06)};border:1px solid ${alpha(c2,.15)};border-radius:16px;padding:28px;">
+        <div style="font-size:${S.labelSm}px;text-transform:uppercase;letter-spacing:.12em;color:${V.TX3};margin-bottom:8px;">Growth Rate</div>
+        <div style="font-size:${S.card}px;color:${V.TX};font-weight:600;line-height:1.4;margin-bottom:8px;">${e(mktData.growthRate.value)}</div>
+        <div style="font-size:${S.labelSm}px;color:${c2};">✓ ${e(mktData.growthRate.source)}</div>
+      </div>`;
+    }
+    if (mktData.projectedSize?.verified) {
+      metricCards += `<div style="flex:1;min-width:280px;background:${alpha(V.TX,.04)};border:1px solid ${alpha(V.TX,.1)};border-radius:16px;padding:28px;">
+        <div style="font-size:${S.labelSm}px;text-transform:uppercase;letter-spacing:.12em;color:${V.TX3};margin-bottom:8px;">Projected</div>
+        <div style="font-size:${S.card}px;color:${V.TX};font-weight:600;line-height:1.4;margin-bottom:8px;">${e(mktData.projectedSize.value)}</div>
+        <div style="font-size:${S.labelSm}px;color:${V.TX2};">✓ ${e(mktData.projectedSize.source)}</div>
+      </div>`;
+    }
+
+    // Competitor gaps
+    let compCards = '';
+    const comps = research?.competitors?.filter(c => c.verified) || [];
+    if (comps.length) {
+      compCards = comps.map(comp => `<div style="display:flex;align-items:flex-start;gap:12px;padding:16px 20px;background:${alpha(V.TX,.03)};border:1px solid ${alpha(V.TX,.06)};border-radius:12px;">
+        <div style="font-size:18px;margin-top:2px;">🏁</div>
+        <div>
+          <div style="font-size:${S.cardTx}px;font-weight:600;color:${V.TX};">${e(comp.name)}</div>
+          <div style="font-size:${S.chatSm}px;color:${V.TX2};margin-top:4px;">Gap: ${e(comp.gap)}</div>
+        </div>
+      </div>`).join('');
+    }
+
+    const noDataMsg = `<div style="text-align:center;padding:80px 40px;color:${V.TX3};font-size:${S.body}px;">
+      <div style="font-size:48px;margin-bottom:16px;">📊</div>
+      <div>No verified market data available for this industry.</div>
+      <div style="font-size:${S.chatSm}px;margin-top:8px;">Research will populate this slide when data is found.</div>
+    </div>`;
+
     return `
     <div class="sl-bg" style="${bg}"></div>
-    <div class="geo-ring" style="bottom:-90px;right:-90px;width:460px;height:460px;border-width:72px;border-color:${alpha(c2,.1)};"></div>
-    <div class="geo-ring" style="top:-50px;left:300px;width:200px;height:200px;border-width:40px;border-color:${alpha(c1,.08)};"></div>
-    ${hasImg ? imgTag : ''}
-    <div class="sl-safe sl-2col" style="${hasImg?'right:460px;':''}">
-      <div class="sl-vc">
-        <div class="sl-tag" data-editable="true" style="${tagStyle}">${e(tx('feat_tag',L))}</div>
-        <div class="sl-h2" data-editable="true" style="${h2Style}">${e(tx('feat_h',L))}</div>
-        <div class="sl-body" data-editable="true" style="${bodyStyle}">${e(featSub)}</div>
-      </div>
-      <div class="sl-vc">
-        <div class="feat-grid">
-          ${featItems.slice(0,6).map((item,i)=>`
-            <div class="feat-gc" style="background:${fcolors[i]||alpha(V.TX,.06)};border:1px solid ${alpha(V.TX,.1)};">
-              <div class="feat-gico">${ficons[i]||'✓'}</div>
-              <div class="feat-gttl" style="color:${V.TX};">${e(item)}</div>
-            </div>`).join('')}
+    <div class="geo-ring" style="bottom:-100px;left:-60px;width:350px;height:350px;border-width:55px;border-color:${alpha(c1,.07)};"></div>
+    <div class="sl-safe">
+      <div class="sl-tag" data-editable="true" style="${tagStyle}">${e({en:'Market Opportunity',nl:'Marktkans',zh:'市場機會',ja:'市場機会',de:'Marktchance',fr:'Opportunité',es:'Oportunidad'}[L]||'Market Opportunity')}</div>
+      <div class="sl-h3" style="${h3Style}">${e({en:'Why Now. Why This Market.',nl:'Waarom nu. Waarom deze markt.',zh:'為什麼是現在。為什麼是這個市場。',ja:'なぜ今。なぜこの市場。',de:'Warum jetzt. Warum dieser Markt.',fr:'Pourquoi maintenant.',es:'Por qué ahora.'}[L]||'Why Now. Why This Market.')}</div>
+      ${hasData ? `
+        <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:24px;">
+          ${metricCards}
         </div>
-      </div>
+        ${compCards ? `<div style="margin-top:32px;">
+          <div style="font-size:${S.labelSm}px;text-transform:uppercase;letter-spacing:.12em;color:${V.TX3};margin-bottom:12px;">Competitor Landscape — Gaps We Fill</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">${compCards}</div>
+        </div>` : ''}
+        <div style="margin-top:24px;font-size:${S.labelSm}px;color:${V.TX3};font-style:italic;">All data points verified with source URLs — see research panel for details</div>
+      ` : noDataMsg}
     </div>
-    <div class="sl-num" style="${numStyle}">04</div>`;}
+    <div class="sl-num" style="${numStyle}">04</div>`;
+  }
+
+    case 's-features': {
+    // ── 2×2 Contextual Card Grid ──
+    // Each card: bold title + 2-3 line description + character image
+    const cardBgs=['#ffffff','#ffffff','#ffffff','#ffffff'];
+    const cardTxColors=[V.TX,V.TX,V.TX,V.TX];
+    // Split feat_items into title+desc pairs (use '—' as separator if present)
+    const rawItems=featItems.slice(0,4);
+    const cardData=rawItems.map((item,i)=>{
+      const parts=typeof item==='string'?item.split('—'):['',''];
+      return {title:parts[0]?.trim()||item, desc:parts.slice(1).join('—').trim()||''};
+    });
+    // Pad to 4 cards
+    while(cardData.length<4)cardData.push({title:'Feature '+(cardData.length+1),desc:''});
+
+    const cardImgs=cardData.map((_,i)=>{
+      const cardKey='s-features-'+i;
+      const url=getMascotImageForSlide(cardKey);
+      return url;
+    });
+
+    return `
+    <div class="sl-bg" style="background:${c1};position:absolute;inset:0;"></div>
+    <div style="position:absolute;top:28px;left:60px;z-index:10;">
+      <div style="font-family:var(--fd);font-size:${S.h2}px;font-weight:800;color:#fff;line-height:1;" data-editable="true">${e(tx('feat_h',L))}</div>
+    </div>
+    <div class="feat-ctx-grid" style="padding-top:110px;">
+      ${cardData.map((cd,i)=>{
+        const imgUrl=cardImgs[i];
+        const imgHtml=imgUrl
+          ?`<img src="${imgUrl}" class="fcc-img slide-img-editable" data-slide-id="s-features-${i}" alt="feature-${i}"/>`
+          :'';
+        return `
+        <div class="feat-ctx-card" style="background:#ffffff;border-left:5px solid ${c1};">
+          <div class="fcc-txt">
+            <div class="fcc-ttl" data-editable="true" style="font-size:${S.h3}px;color:#0a0a0a;">${e(cd.title)}</div>
+            ${cd.desc?`<div class="fcc-desc" data-editable="true" style="font-size:${S.bodySm}px;color:#333;">${e(cd.desc)}</div>`:''}
+          </div>
+          ${imgHtml}
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="sl-num" style="color:rgba(255,255,255,.15);position:absolute;bottom:40px;right:60px;font-family:var(--fd);font-size:180px;font-weight:800;letter-spacing:-.08em;line-height:1;user-select:none;pointer-events:none;">03</div>`;}
 
   case 's-mopt': {
     const roleMap={en:{Manager:'Manager',Collega:'Colleague','HR Manager':'Manager'},nl:{Manager:'Manager',Collega:'Collega','HR Manager':'Manager'},zh:{Manager:'管理者',Collega:'同事','HR Manager':'管理者'},ja:{Manager:'マネージャー',Collega:'同僚','HR Manager':'マネージャー'}};
@@ -2516,33 +3773,73 @@ function buildSlideHTML(sid){
 
   case 's-chat': {
     const imgTag=mascotImgTag(sid,V);const hasImg=!!getMascotImageForSlide(sid);
+    // Get mockup screen images
+    const laptopImg=getMascotImageForSlide('s-mockup-laptop');
+    const phoneImg=getMascotImageForSlide('s-mockup-phone');
+    // Key highlights — tx() returns key name as fallback, so check if TX has the key
+    const _hl=(k,fb)=>(TX[k]?tx(k,L):null)||fb[L]||fb.en;
+    const highlights=[
+      _hl('chat_hl1',{en:'24/7 Instant Response',nl:'24/7 Direct Antwoord',zh:'24/7 即時回覆'}),
+      _hl('chat_hl2',{en:'Multi-channel Integration',nl:'Multi-channel Integratie',zh:'多渠道整合'}),
+      _hl('chat_hl3',{en:'Smart Escalation',nl:'Slimme Escalatie',zh:'智慧轉接'}),
+      _hl('chat_hl4',{en:'Analytics Dashboard',nl:'Analytics Dashboard',zh:'數據分析儀表板'}),
+    ];
     return `
     <div class="sl-bg" style="${bg}"></div>
     ${hasImg ? imgTag : ''}
-    <div class="sl-safe sl-2col-40" style="${hasImg?'':''}">
-      <div class="sl-vc">
-        <div class="sl-tag" data-editable="true" style="${tagStyle}">${e(tx('chat_tag',L))}</div>
-        <div class="sl-h2" data-editable="true" style="${h2Style}">${e(`See ${MN} in action.`)}</div>
-        <div class="sl-body" data-editable="true" style="${bodyStyle}margin-bottom:28px;">${e(tx('chat_body',L))}</div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          ${(tx('an_badges',L)||[]).slice(0,3).map(b=>`<span style="background:${alpha(V.TX,.08)};color:${V.TX2};border:1px solid ${alpha(V.TX,.2)};padding:5px 16px;border-radius:26px;font-size:17px;">${b}</span>`).join('')}
+    <div class="sl-safe" style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;align-items:center;height:100%;">
+      <!-- Left: Device mockups -->
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;padding:20px 0;">
+        <div class="mockup-wrap">
+          <!-- Laptop -->
+          <div class="mockup-laptop">
+            <div class="ml-screen">
+              ${laptopImg
+                ?`<img src="${laptopImg}" class="slide-img-editable" data-slide-id="s-mockup-laptop" alt="laptop-screen"/>`
+                :`<div class="ml-placeholder">Upload laptop screenshot<br>in Image Manager → "Laptop Screen"</div>`}
+            </div>
+            <div class="ml-base"></div>
+            <div class="ml-bottom"></div>
+          </div>
+          <!-- Phone -->
+          <div class="mockup-phone">
+            <div class="mp-frame">
+              <div class="mp-notch"></div>
+              <div class="mp-screen">
+                ${phoneImg
+                  ?`<img src="${phoneImg}" class="slide-img-editable" data-slide-id="s-mockup-phone" alt="phone-screen"/>`
+                  :`<div class="mp-placeholder">Upload phone screenshot<br>→ "Phone Screen"</div>`}
+              </div>
+              <div class="mp-bar"></div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="sl-vc">
-        <div style="background:${alpha(V.TX,.04)};border:1px solid ${alpha(V.TX,.1)};border-radius:22px;overflow:hidden;">
-          <div style="padding:24px 28px;background:${alpha(V.TX,.04)};border-bottom:1px solid ${alpha(V.TX,.08)};display:flex;align-items:center;gap:16px;">
-            <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,${c1},${c2});display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;">${MN.charAt(0)}</div>
-            <div><div style="font-size:21px;font-weight:500;color:${V.TX};">${e(MN)} · ${e(C)}</div><div style="font-size:17px;color:#4CD8A8;display:flex;align-items:center;gap:6px;"><div style="width:7px;height:7px;border-radius:50%;background:#4CD8A8;"></div> Online</div></div>
-          </div>
-          <div style="padding:28px;display:flex;flex-direction:column;gap:18px;">
-            <div style="display:flex;gap:12px;max-width:78%;"><div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,${c1},${c2});display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">${MN.charAt(0)}</div><div style="padding:16px 20px;border-radius:14px;background:${alpha(V.TX,.08)};color:${V.TX};font-size:20px;line-height:1.5;border-bottom-left-radius:4px;">${e(cu1)}</div></div>
-            <div style="display:flex;gap:12px;max-width:78%;align-self:flex-end;flex-direction:row-reverse;"><div style="width:34px;height:34px;border-radius:50%;background:${alpha(V.TX,.12)};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:${V.TX};flex-shrink:0;margin-top:3px;">U</div><div style="padding:16px 20px;border-radius:14px;background:${c1};color:${STATE.colorTxt};font-size:20px;line-height:1.5;border-bottom-right-radius:4px;">${e(cu2)}</div></div>
-            <div style="display:flex;gap:12px;max-width:78%;"><div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,${c1},${c2});display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">${MN.charAt(0)}</div><div style="padding:16px 20px;border-radius:14px;background:${alpha(V.TX,.08)};color:${V.TX};font-size:20px;line-height:1.5;border-bottom-left-radius:4px;">${e(ca1)}</div></div>
-          </div>
+      <!-- Right: Text content -->
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div class="sl-tag" data-editable="true" style="${tagStyle}">${e(tx('chat_tag',L))}</div>
+        <div data-editable="true" style="font-family:var(--fd);font-size:${S.h2}px;font-weight:800;color:${V.TX};line-height:1.1;letter-spacing:-.02em;">
+          ${e(tx('chat_h',L).replace('{M}',MN))}
+        </div>
+        <div data-editable="true" style="font-size:${S.body}px;color:${V.TX2};line-height:1.6;max-width:420px;">
+          ${e(tx('chat_body',L))}
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;">
+          ${highlights.map((h,i)=>`
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:36px;height:36px;border-radius:10px;background:${alpha(c1,.12)};display:flex;align-items:center;justify-content:center;">
+              <div style="width:8px;height:8px;border-radius:50%;background:${c1};"></div>
+            </div>
+            <span data-editable="true" style="font-size:${S.body}px;font-weight:600;color:${V.TX};font-family:var(--fd);">${e(h)}</span>
+          </div>`).join('')}
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;">
+          ${(tx('an_badges',L)||[]).slice(0,3).map(b=>`<span style="background:${alpha(V.TX,.08)};color:${V.TX2};border:1px solid ${alpha(V.TX,.2)};padding:6px 18px;border-radius:26px;font-size:${S.bodySm}px;">${b}</span>`).join('')}
         </div>
       </div>
     </div>
-    <div class="sl-num" style="${numStyle}">08</div>`;}
+    <div class="sl-num" style="${numStyle}">04</div>`;
+  }
 
   case 's-chatflow': {
     const mData4=MASCOTS.find(x=>x.id===STATE.mascotStyle)||MASCOTS[2];
@@ -2768,13 +4065,13 @@ function buildSlideHTML(sid){
     <div class="sl-safe" style="display:grid;grid-template-columns:480px 1fr;gap:48px;align-items:center;height:100%;">
       <div style="display:flex;flex-direction:column;justify-content:center;">
         <div class="sl-tag" data-editable="true" style="${tagStyle}">${e(tx('an_tag',L))}</div>
-        <div class="sl-h3" style="${h3Style}">${e(tx('an_h',L))}</div>
-        <div style="font-size:20px;color:${V.TX2};line-height:1.6;margin-bottom:28px;">${e(anDesc[L]||anDesc.en)}</div>
+        <div class="sl-h3" style="${h3Style}">${e(STATE.aiRoiHeadline||tx('an_h',L))}</div>
+        <div style="font-size:${S.cardTx}px;color:${V.TX2};line-height:1.6;margin-bottom:28px;">${e(STATE.aiRoiBefore?STATE.aiRoiBefore:(anDesc[L]||anDesc.en))}</div>
         <div style="display:flex;flex-direction:column;gap:12px;">
-          ${anItems.map(a=>'<div style="display:flex;align-items:center;gap:12px;font-size:20px;"><span style="font-size:22px;">'+a.ico+'</span><span style="color:'+V.TX+';font-weight:500;">'+e(a.t[L]||a.t.en)+'</span></div>').join('')}
+          ${anItems.map(a=>'<div style="display:flex;align-items:center;gap:12px;font-size:'+S.cardTx+'px;"><span style="font-size:'+(S.cardTx+2)+'px;">'+a.ico+'</span><span style="color:'+V.TX+';font-weight:500;">'+e(a.t[L]||a.t.en)+'</span></div>').join('')}
         </div>
         <div style="margin-top:24px;display:flex;gap:8px;flex-wrap:wrap;">
-          ${anb.map(b=>'<span style="background:'+alpha(c1,.12)+';color:'+c1+';border:1px solid '+alpha(c1,.25)+';padding:4px 14px;border-radius:26px;font-size:16px;">'+b+'</span>').join('')}
+          ${anb.map(b=>'<span style="background:'+alpha(c1,.12)+';color:'+c1+';border:1px solid '+alpha(c1,.25)+';padding:4px 14px;border-radius:26px;font-size:'+S.chatSm+'px;">'+b+'</span>').join('')}
         </div>
       </div>
       <div style="display:flex;align-items:center;justify-content:center;">
@@ -2787,7 +4084,7 @@ function buildSlideHTML(sid){
               <div style="width:7px;height:7px;border-radius:50%;background:#28C840;"></div>
               <div style="flex:1;margin-left:12px;height:18px;background:rgba(255,255,255,.08);border-radius:4px;display:flex;align-items:center;padding:0 8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">analytics.notso.ai</span></div>
             </div>
-            ${dashUrl ? '<img src="'+dashUrl+'" style="width:100%;border-radius:4px 4px 0 0;display:block;" alt="dashboard"/>' : '<div style="background:#1a1a2e;border-radius:4px 4px 0 0;padding:20px 24px;min-height:320px;"><div style="display:flex;gap:12px;margin-bottom:16px;"><div style="flex:1;background:rgba(255,255,255,.06);border-radius:10px;padding:14px;"><div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:4px;">Conversations</div><div style="font-size:24px;font-weight:800;color:#fff;font-family:var(--fd);">1,247</div><div style="font-size:9px;color:#4CD8A8;margin-top:2px;">↑ +18%</div></div><div style="flex:1;background:rgba(255,255,255,.06);border-radius:10px;padding:14px;"><div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:4px;">Resolved</div><div style="font-size:24px;font-weight:800;color:'+c1+';font-family:var(--fd);">87%</div><div style="font-size:9px;color:#4CD8A8;margin-top:2px;">↑ +5%</div></div><div style="flex:1;background:rgba(255,255,255,.06);border-radius:10px;padding:14px;"><div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:4px;">Avg. Duration</div><div style="font-size:24px;font-weight:800;color:#fff;font-family:var(--fd);">2:34</div><div style="font-size:9px;color:rgba(255,255,255,.3);">minutes</div></div></div><div style="display:flex;gap:12px;"><div style="flex:2;background:rgba(255,255,255,.04);border-radius:10px;padding:14px;min-height:140px;"><div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:8px;">Weekly Conversations</div><svg width="100%" height="80" viewBox="0 0 300 80" preserveAspectRatio="none"><polyline fill="none" stroke="'+c1+'" stroke-width="2" points="0,60 40,45 80,55 120,30 160,35 200,15 240,25 280,10 300,20"/><polyline fill="none" stroke="'+alpha(c2,.5)+'" stroke-width="2" stroke-dasharray="4,4" points="0,65 40,60 80,62 120,50 160,52 200,40 240,42 280,35 300,38"/></svg></div><div style="flex:1;background:rgba(255,255,255,.04);border-radius:10px;padding:14px;"><div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:8px;">Top Topics</div><div style="display:flex;flex-direction:column;gap:6px;"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:9px;color:rgba(255,255,255,.6);">Onboarding</span><div style="width:60%;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;"><div style="width:72%;height:100%;background:'+c1+';border-radius:2px;"></div></div></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:9px;color:rgba(255,255,255,.6);">Q&A</span><div style="width:60%;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;"><div style="width:55%;height:100%;background:'+c2+';border-radius:2px;"></div></div></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:9px;color:rgba(255,255,255,.6);">Vertrek</span><div style="width:60%;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;"><div style="width:30%;height:100%;background:#4CD8A8;border-radius:2px;"></div></div></div></div></div></div></div>'}
+            ${dashUrl ? '<img src="'+dashUrl+'" style="width:100%;border-radius:4px 4px 0 0;display:block;" alt="dashboard"/>' : '<div style="background:#1a1a2e;border-radius:4px 4px 0 0;padding:20px 24px;min-height:320px;"><div style="display:flex;gap:12px;margin-bottom:16px;"><div style="flex:1;background:rgba(255,255,255,.06);border-radius:10px;padding:14px;"><div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:4px;">'+({en:'Conversations',nl:'Gesprekken',zh:'對話次數',ja:'会話数',es:'Conversaciones'}[L]||'Conversations')+'</div><div style="font-size:24px;font-weight:800;color:#fff;font-family:var(--fd);">1,247</div><div style="font-size:9px;color:#4CD8A8;margin-top:2px;">↑ +18%</div></div><div style="flex:1;background:rgba(255,255,255,.06);border-radius:10px;padding:14px;"><div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:4px;">'+({en:'Resolved',nl:'Opgelost',zh:'已解決',ja:'解決済み',es:'Resuelto'}[L]||'Resolved')+'</div><div style="font-size:24px;font-weight:800;color:'+c1+';font-family:var(--fd);">87%</div><div style="font-size:9px;color:#4CD8A8;margin-top:2px;">↑ +5%</div></div><div style="flex:1;background:rgba(255,255,255,.06);border-radius:10px;padding:14px;"><div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:4px;">'+({en:'Avg. Duration',nl:'Gem. duur',zh:'平均時長',ja:'平均時間',es:'Duración prom.'}[L]||'Avg. Duration')+'</div><div style="font-size:24px;font-weight:800;color:#fff;font-family:var(--fd);">2:34</div><div style="font-size:9px;color:rgba(255,255,255,.3);">'+({en:'minutes',nl:'minuten',zh:'分鐘',ja:'分',es:'minutos'}[L]||'minutes')+'</div></div></div><div style="display:flex;gap:12px;"><div style="flex:2;background:rgba(255,255,255,.04);border-radius:10px;padding:14px;min-height:140px;"><div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:8px;">'+({en:'Weekly Conversations',nl:'Wekelijkse gesprekken',zh:'每週對話趨勢',ja:'週間会話数',es:'Conversaciones semanales'}[L]||'Weekly Conversations')+'</div><svg width="100%" height="80" viewBox="0 0 300 80" preserveAspectRatio="none"><polyline fill="none" stroke="'+c1+'" stroke-width="2" points="0,60 40,45 80,55 120,30 160,35 200,15 240,25 280,10 300,20"/><polyline fill="none" stroke="'+alpha(c2,.5)+'" stroke-width="2" stroke-dasharray="4,4" points="0,65 40,60 80,62 120,50 160,52 200,40 240,42 280,35 300,38"/></svg></div><div style="flex:1;background:rgba(255,255,255,.04);border-radius:10px;padding:14px;"><div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:8px;">'+({en:'Top Topics',nl:'Top onderwerpen',zh:'熱門主題',ja:'トップトピック',es:'Temas principales'}[L]||'Top Topics')+'</div><div style="display:flex;flex-direction:column;gap:6px;"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:9px;color:rgba(255,255,255,.6);">'+({en:'Onboarding',nl:'Onboarding',zh:'入職培訓',ja:'オンボーディング',es:'Onboarding'}[L]||'Onboarding')+'</span><div style="width:60%;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;"><div style="width:72%;height:100%;background:'+c1+';border-radius:2px;"></div></div></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:9px;color:rgba(255,255,255,.6);">Q&A</span><div style="width:60%;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;"><div style="width:55%;height:100%;background:'+c2+';border-radius:2px;"></div></div></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:9px;color:rgba(255,255,255,.6);">'+({en:'Offboarding',nl:'Vertrek',zh:'離職',ja:'オフボーディング',es:'Offboarding'}[L]||'Offboarding')+'</span><div style="width:60%;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;"><div style="width:30%;height:100%;background:#4CD8A8;border-radius:2px;"></div></div></div></div></div></div></div>'}
           </div>
           <div style="width:110%;margin-left:-5%;height:14px;background:#333;border-radius:0 0 8px 8px;"></div>
           <div style="width:40%;margin:0 auto;height:4px;background:#444;border-radius:0 0 4px 4px;"></div>
@@ -2796,7 +4093,72 @@ function buildSlideHTML(sid){
     </div>
     <div class="sl-num" style="${numStyle}">11</div>`;}
 
-  case 's-roadmap': {
+  case 's-roi': {
+    // ROI Evidence slide — shows verified case studies and calculations
+    const researchRoi = STATE.research;
+    const rb = researchRoi?.roiBenchmarks || {};
+    const cases = (rb.casestudies || []).filter(c => c.verified);
+    const calcs = (rb.calculations || []).filter(c => c.verified);
+    const hasEvidence = cases.length > 0 || calcs.length > 0;
+
+    let evidenceCards = '';
+    if (cases.length) {
+      evidenceCards += cases.map((cs, i) => {
+        const colors = [c1, c2, '#4CD8A8', '#8B5CF6'];
+        const clr = colors[i % colors.length];
+        return `<div style="flex:1;min-width:280px;background:${alpha(clr,.06)};border:1px solid ${alpha(clr,.15)};border-radius:16px;padding:28px;">
+          <div style="font-size:${S.labelSm}px;text-transform:uppercase;letter-spacing:.1em;color:${clr};margin-bottom:8px;">Case Study</div>
+          <div style="font-size:${S.card}px;font-weight:700;color:${V.TX};margin-bottom:8px;">${e(cs.institution)}</div>
+          <div style="font-size:${S.cardTx}px;color:${V.TX2};line-height:1.5;">${e(cs.result)}</div>
+          <div style="font-size:${S.labelSm}px;color:${clr};margin-top:12px;">✓ ${e(cs.source)}</div>
+        </div>`;
+      }).join('');
+    }
+
+    let calcCards = '';
+    if (calcs.length) {
+      calcCards = calcs.map(calc => `<div style="padding:16px 20px;background:${alpha(V.TX,.03)};border:1px solid ${alpha(V.TX,.08)};border-radius:12px;display:flex;align-items:flex-start;gap:12px;">
+        <div style="font-size:20px;">📐</div>
+        <div>
+          <div style="font-size:${S.cardTx}px;color:${V.TX2};">${e(calc.scenario)}</div>
+          <div style="font-size:${S.card}px;font-weight:700;color:${c1};margin-top:4px;">${e(calc.result)}</div>
+          <div style="font-size:${S.labelSm}px;color:${V.TX3};margin-top:4px;">✓ ${e(calc.source)}</div>
+        </div>
+      </div>`).join('');
+    }
+
+    // Notso.ai's own case studies as fallback
+    const notsoCase = `<div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:24px;">
+      <div style="flex:1;min-width:280px;background:${alpha(c1,.06)};border:1px solid ${alpha(c1,.15)};border-radius:16px;padding:28px;">
+        <div style="font-size:${S.labelSm}px;text-transform:uppercase;letter-spacing:.1em;color:${c1};margin-bottom:8px;">Notso.ai Case</div>
+        <div style="font-size:${S.card}px;font-weight:700;color:${V.TX};margin-bottom:8px;">Jumbo Supermarkets</div>
+        <div style="font-size:${S.cardTx}px;color:${V.TX2};line-height:1.5;">70% reduction in HR workload for onboarding questions</div>
+        <div style="font-size:${S.labelSm}px;color:${c1};margin-top:12px;">✓ Notso.ai client result</div>
+      </div>
+      <div style="flex:1;min-width:280px;background:${alpha(c2,.06)};border:1px solid ${alpha(c2,.15)};border-radius:16px;padding:28px;">
+        <div style="font-size:${S.labelSm}px;text-transform:uppercase;letter-spacing:.1em;color:${c2};margin-bottom:8px;">Notso.ai Case</div>
+        <div style="font-size:${S.card}px;font-weight:700;color:${V.TX};margin-bottom:8px;">WTC Amsterdam</div>
+        <div style="font-size:${S.cardTx}px;color:${V.TX2};line-height:1.5;">24/7 digital concierge with real-time emotion tracking and conversion ROI</div>
+        <div style="font-size:${S.labelSm}px;color:${c2};margin-top:12px;">✓ Notso.ai client result</div>
+      </div>
+    </div>`;
+
+    return `
+    <div class="sl-bg" style="${bg}"></div>
+    <div class="geo-ring" style="top:-60px;right:-80px;width:320px;height:320px;border-width:50px;border-color:${alpha(c2,.07)};"></div>
+    <div class="sl-safe">
+      <div class="sl-tag" data-editable="true" style="${tagStyle}">${e({en:'Proven Results',nl:'Bewezen Resultaten',zh:'驗證成效',ja:'実証済み成果',de:'Bewiesene Ergebnisse',fr:'Résultats prouvés',es:'Resultados probados'}[L]||'Proven Results')}</div>
+      <div class="sl-h3" style="${h3Style}">${e({en:'Real Numbers. Real Impact.',nl:'Echte cijfers. Echte impact.',zh:'真實數據。真實影響。',ja:'リアルな数字。リアルなインパクト。',de:'Echte Zahlen. Echte Wirkung.',fr:'Vrais chiffres. Vrai impact.',es:'Números reales. Impacto real.'}[L]||'Real Numbers. Real Impact.')}</div>
+      ${hasEvidence ? `
+        <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:24px;">${evidenceCards}</div>
+        ${calcCards ? `<div style="margin-top:24px;display:flex;flex-direction:column;gap:10px;">${calcCards}</div>` : ''}
+        <div style="margin-top:24px;font-size:${S.labelSm}px;color:${V.TX3};font-style:italic;">All figures from verified external sources — see research panel for URLs</div>
+      ` : notsoCase}
+    </div>
+    <div class="sl-num" style="${numStyle}">12</div>`;
+  }
+
+    case 's-roadmap': {
     const imgTagRm=mascotImgTag(sid,V);const hasImgRm=!!getMascotImageForSlide(sid);
     const rmColors=[c1,c2,'#4CD8A8','#F7C94E',c1,c2];
     const layoutRM=STATE.layout||'spread';
@@ -2835,14 +4197,14 @@ function buildSlideHTML(sid){
           <div style="position:relative;margin-bottom:16px;">
             <div style="position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;background:${col};border:3px solid ${V.BG};z-index:1;"></div>
             <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:3px;">
-              <span style="font-family:var(--fd);font-size:14px;font-weight:700;color:${col};min-width:70px;">${base?fmtDate(d):'Day '+m.off}</span>
-              <span style="font-family:var(--fd);font-size:20px;font-weight:700;color:${V.TX};">${e(m.lbl[L]||m.lbl.en)}</span>
+              <span style="font-family:var(--fd);font-size:${S.bodySm}px;font-weight:700;color:${col};min-width:70px;">${base?fmtDate(d):'Day '+m.off}</span>
+              <span style="font-family:var(--fd);font-size:${S.body}px;font-weight:700;color:${V.TX};">${e(m.lbl[L]||m.lbl.en)}</span>
             </div>
-            <div style="font-size:16px;color:${V.TX3};line-height:1.5;padding-left:80px;">${e(m.detail[L]||m.detail.en)}</div>
+            <div style="font-size:${S.bodySm}px;color:${V.TX3};line-height:1.5;padding-left:80px;">${e(m.detail[L]||m.detail.en)}</div>
           </div>`}).join('')}
         </div>
         <div style="background:${alpha(V.TX,.04)};border:1px solid ${alpha(V.TX,.08)};border-radius:16px;padding:20px 22px;">
-          <div style="font-family:var(--fd);font-size:16px;font-weight:700;color:${c1};letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;">📅 ${seasonLbl[L]||seasonLbl.en}</div>
+          <div style="font-family:var(--fd);font-size:${S.bodySm}px;font-weight:700;color:${c1};letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;">📅 ${seasonLbl[L]||seasonLbl.en}</div>
           <div style="display:flex;flex-direction:column;gap:10px;">
             ${futureSeasons.map(s=>'<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:'+alpha(V.TX,.05)+';border-radius:10px;"><span style="font-size:16px;color:'+V.TX+';font-weight:500;">'+e(s.lbl[L]||s.lbl.en)+'</span></div>').join('')}
           </div>
@@ -2899,16 +4261,16 @@ function buildSlideHTML(sid){
     <div class="sl-safe" style="display:flex;flex-direction:column;gap:0;">
 
       <div style="display:flex;align-items:baseline;gap:20px;margin-bottom:28px;">
-        <div style="font-family:var(--fd);font-size:58px;font-weight:800;letter-spacing:-.04em;color:${V.TX};line-height:1;">${e(tx('pr_h',L))}</div>
-        <div style="font-family:var(--fd);font-size:28px;font-weight:600;color:${c1};letter-spacing:.06em;text-transform:uppercase;opacity:.85;">${e(tx('pr_tag',L))}</div>
+        <div style="font-family:var(--fd);font-size:${S.h2}px;font-weight:800;letter-spacing:-.04em;color:${V.TX};line-height:1;" data-editable="true">${e(tx('pr_h',L))}</div>
+        <div style="font-family:var(--fd);font-size:${S.h3}px;font-weight:600;color:${c1};letter-spacing:.06em;text-transform:uppercase;opacity:.85;">${e(tx('pr_tag',L))}</div>
       </div>
 
       <div style="display:grid;grid-template-columns:1fr 1.08fr 1fr;gap:16px;flex:1;min-height:0;">
 
         <div style="background:${V.CARD};border:1px solid ${V.CARD_BDR};border-radius:20px;padding:28px 26px;display:flex;flex-direction:column;gap:0;">
-          <div style="font-size:15px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:${V.TX3};margin-bottom:12px;">${e(pp.basic.name)}</div>
+          <div style="font-size:${S.bodySm}px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:${V.TX3};margin-bottom:12px;">${e(pp.basic.name)}</div>
           <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:10px;">
-            <span style="font-family:var(--fd);font-size:62px;font-weight:800;letter-spacing:-.04em;color:${V.TX};line-height:1;">${e(pp.basic.price)}</span>
+            <span style="font-family:var(--fd);font-size:${S.h2}px;font-weight:800;letter-spacing:-.04em;color:${V.TX};line-height:1;">${e(pp.basic.price)}</span>
             <span style="font-size:18px;color:${V.TX3};font-weight:400;">/${pw}</span>
           </div>
           <div style="display:flex;gap:10px;margin-bottom:16px;">
@@ -2917,7 +4279,7 @@ function buildSlideHTML(sid){
           </div>
           <div style="height:1px;background:${alpha(V.TX,.1)};margin-bottom:16px;"></div>
           <div style="display:flex;flex-direction:column;gap:9px;flex:1;">
-            ${pp.basic.items.map(it=>`<div style="display:flex;align-items:flex-start;gap:10px;font-size:17px;color:${V.TX2};line-height:1.3;">
+            ${pp.basic.items.map(it=>`<div style="display:flex;align-items:flex-start;gap:10px;font-size:${S.body}px;color:${V.TX2};line-height:1.3;">
               <span style="color:${c1};font-size:18px;margin-top:1px;flex-shrink:0;">✓</span>${it}
             </div>`).join('')}
           </div>
@@ -2926,11 +4288,11 @@ function buildSlideHTML(sid){
         <div style="background:${alpha(c1,.12)};border:2px solid ${alpha(c1,.4)};border-radius:20px;padding:28px 26px;display:flex;flex-direction:column;gap:0;position:relative;overflow:hidden;">
           <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,${c1},${c2});border-radius:20px 20px 0 0;"></div>
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-            <div style="font-size:15px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:${alpha(c1,.8)};">${e(pp.premium.name)}</div>
+            <div style="font-size:${S.bodySm}px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:${alpha(c1,.8)};">${e(pp.premium.name)}</div>
             <div style="background:${c1};color:${STATE.colorTxt||'#fff'};font-family:var(--fd);font-size:14px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:.06em;">★ ${popularBadgeTxt}</div>
           </div>
           <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:10px;">
-            <span style="font-family:var(--fd);font-size:62px;font-weight:800;letter-spacing:-.04em;color:${V.TX};line-height:1;">${e(pp.premium.price)}</span>
+            <span style="font-family:var(--fd);font-size:${S.h2}px;font-weight:800;letter-spacing:-.04em;color:${V.TX};line-height:1;">${e(pp.premium.price)}</span>
             <span style="font-size:18px;color:${V.TX3};font-weight:400;">/${pw}</span>
           </div>
           <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
@@ -2939,16 +4301,16 @@ function buildSlideHTML(sid){
           </div>
           <div style="height:1px;background:${alpha(c1,.2)};margin-bottom:16px;"></div>
           <div style="display:flex;flex-direction:column;gap:9px;flex:1;">
-            ${pp.premium.items.map(it=>`<div style="display:flex;align-items:flex-start;gap:10px;font-size:17px;color:${V.TX2};line-height:1.3;">
+            ${pp.premium.items.map(it=>`<div style="display:flex;align-items:flex-start;gap:10px;font-size:${S.body}px;color:${V.TX2};line-height:1.3;">
               <span style="color:${c1};font-size:18px;margin-top:1px;flex-shrink:0;">✓</span>${it}
             </div>`).join('')}
           </div>
         </div>
 
         <div style="background:${V.CARD};border:1px solid ${V.CARD_BDR};border-radius:20px;padding:28px 26px;display:flex;flex-direction:column;gap:0;">
-          <div style="font-size:15px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:${V.TX3};margin-bottom:12px;">${e(pp.enterprise.name)}</div>
+          <div style="font-size:${S.bodySm}px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:${V.TX3};margin-bottom:12px;">${e(pp.enterprise.name)}</div>
           <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:10px;">
-            <span style="font-family:var(--fd);font-size:52px;font-weight:800;letter-spacing:-.04em;color:${V.TX};line-height:1;">${e(pp.enterprise.price)}</span>
+            <span style="font-family:var(--fd);font-size:${S.h3}px;font-weight:800;letter-spacing:-.04em;color:${V.TX};line-height:1;">${e(pp.enterprise.price)}</span>
           </div>
           <div style="display:flex;gap:10px;margin-bottom:16px;">
             <div style="background:${alpha(c2,.12)};border-radius:40px;padding:4px 14px;font-size:14px;font-weight:600;color:${alpha(c2,.9)};">∞ users</div>
@@ -2956,7 +4318,7 @@ function buildSlideHTML(sid){
           </div>
           <div style="height:1px;background:${alpha(V.TX,.1)};margin-bottom:16px;"></div>
           <div style="display:flex;flex-direction:column;gap:9px;flex:1;">
-            ${pp.enterprise.items.map(it=>`<div style="display:flex;align-items:flex-start;gap:10px;font-size:17px;color:${V.TX2};line-height:1.3;">
+            ${pp.enterprise.items.map(it=>`<div style="display:flex;align-items:flex-start;gap:10px;font-size:${S.body}px;color:${V.TX2};line-height:1.3;">
               <span style="color:${c2};font-size:18px;margin-top:1px;flex-shrink:0;">✓</span>${it}
             </div>`).join('')}
           </div>
@@ -2964,13 +4326,13 @@ function buildSlideHTML(sid){
       </div>
 
       <div style="margin-top:18px;">
-        <div style="font-size:14px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:${V.TX3};margin-bottom:10px;">— ${tx('pr_addons_title',L)}</div>
+        <div style="font-size:${S.bodySm}px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:${V.TX3};margin-bottom:10px;">— ${tx('pr_addons_title',L)}</div>
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
           ${addons.map(a=>`
           <div style="background:${alpha(V.TX,.04)};border:1px solid ${alpha(V.TX,.08)};border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;">
             <span style="font-size:26px;">${a.ico}</span>
             <div style="flex:1;min-width:0;">
-              <div style="font-size:15px;font-weight:600;color:${V.TX};line-height:1.3;">${a.name[L]||a.name.en}</div>
+              <div style="font-size:${S.bodySm}px;font-weight:600;color:${V.TX};line-height:1.3;">${a.name[L]||a.name.en}</div>
             </div>
             <div style="font-family:var(--fd);font-size:18px;font-weight:700;color:${c1};white-space:nowrap;">${a.price}</div>
           </div>`).join('')}
@@ -3085,15 +4447,15 @@ function buildSlideHTML(sid){
     <div style="position:absolute;inset:0;display:grid;grid-template-columns:${hasImg?'1fr 420px':'1fr 340px'};gap:40px;padding:64px 80px;">
       <div style="display:flex;flex-direction:column;justify-content:center;">
         <div class="sl-tag" data-editable="true" style="${tagStyle}">${e(tx('ty_tag',L))}</div>
-        <div style="font-family:var(--fd);font-size:72px;font-weight:800;line-height:.92;letter-spacing:-.04em;color:${V.TX};margin-bottom:16px;">${e(ctLbl[L]||ctLbl.en)}<br/><span style="color:${c1};">${e(closingTarget[L]||closingTarget.en)}</span></div>
-        <div style="font-size:26px;color:${V.TX2};line-height:1.5;margin-bottom:20px;font-style:italic;">${e((mascotCTA[L]||mascotCTA.en).charAt(0).toUpperCase()+(mascotCTA[L]||mascotCTA.en).slice(1))}! 🚀</div>
+        <div style="font-family:var(--fd);font-size:${S.h1}px;font-weight:800;line-height:.92;letter-spacing:-.04em;color:${V.TX};margin-bottom:16px;" data-editable="true">${e(ctLbl[L]||ctLbl.en)}<br/><span style="color:${c1};">${e(closingTarget[L]||closingTarget.en)}</span></div>
+        <div style="font-size:${S.body}px;color:${V.TX2};line-height:1.5;margin-bottom:20px;font-style:italic;" data-editable="true">${e((mascotCTA[L]||mascotCTA.en).charAt(0).toUpperCase()+(mascotCTA[L]||mascotCTA.en).slice(1))}! 🚀</div>
         <div style="border-top:2px solid ${alpha(V.TX,.12)};padding-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;">
-          <div style="display:flex;align-items:center;gap:10px;font-size:20px;color:${V.TX2};">📞 <span style="color:${V.TX};">+31 6 34 197 668</span></div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:20px;color:${V.TX2};">✉️ <a href="mailto:hello@notso.ai" style="color:${c1};text-decoration:none;">hello@notso.ai</a></div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:20px;color:${V.TX2};">🌐 <a href="https://www.notso.ai" target="_blank" style="color:${c1};text-decoration:none;">www.notso.ai</a></div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:20px;color:${V.TX2};">🏢 <span style="color:${V.TX};">Berkenstraat 11, Duivendrecht</span></div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:${S.body}px;color:${V.TX2};">📞 <span style="color:${V.TX};">+31 6 34 197 668</span></div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:${S.body}px;color:${V.TX2};">✉️ <a href="mailto:hello@notso.ai" style="color:${c1};text-decoration:none;">hello@notso.ai</a></div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:${S.body}px;color:${V.TX2};">🌐 <a href="https://www.notso.ai" target="_blank" style="color:${c1};text-decoration:none;">www.notso.ai</a></div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:${S.body}px;color:${V.TX2};">🏢 <span style="color:${V.TX};">Berkenstraat 11, Duivendrecht</span></div>
         </div>
-        <div style="margin-top:16px;padding-top:14px;border-top:1px solid ${alpha(V.TX,.06)};display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:${V.TX3};letter-spacing:.02em;">
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid ${alpha(V.TX,.06)};display:flex;gap:16px;flex-wrap:wrap;font-size:${S.label}px;color:${V.TX3};letter-spacing:.02em;">
           <span>Notso B.V.</span>
           <span>KvK: 95131124</span>
           <span>RSIN: 867013916</span>
@@ -3101,9 +4463,9 @@ function buildSlideHTML(sid){
         </div>
       </div>
       <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
-        ${hasImg ? '<img src="'+getMascotImageForSlide(sid)+'" style="height:600px;max-width:400px;object-fit:contain;filter:drop-shadow(0 30px 60px '+alpha(V.BG,.5)+');" alt="mascot"/>' :
+        ${hasImg ? imgTag :
           '<div style="font-size:380px;line-height:1;filter:drop-shadow(0 30px 60px rgba(0,0,0,.3));">'+bigEmoji3+'</div>'}
-        <div style="margin-top:16px;background:${c1};color:${STATE.colorTxt||'#fff'};font-family:var(--fd);font-size:18px;font-weight:700;padding:12px 32px;border-radius:40px;letter-spacing:.06em;text-transform:uppercase;">${tx("ty_book_call",L)} →</div>
+        <div style="margin-top:16px;background:${c1};color:${STATE.colorTxt||'#fff'};font-family:var(--fd);font-size:${S.body}px;font-weight:700;padding:14px 36px;border-radius:40px;letter-spacing:.06em;text-transform:uppercase;">${tx("ty_book_call",L)} →</div>
       </div>
     </div>
     <div class="sl-num" style="${numStyle}">16</div>`;}
@@ -3127,7 +4489,7 @@ function rebuildSlides(){
     var _lgl=['s-mopt','s-mdesign','s-emotion','s-kb'].includes(s.id);
     var _lgc=_lgl?'#111111':'rgba(255,255,255,.9)';
     var _lgd=_lgl?'#FF6B3D':'rgba(255,107,61,.95)';
-    div.insertAdjacentHTML('beforeend','<div style="position:absolute;top:38px;right:64px;z-index:99;pointer-events:none;user-select:none;"><img src="logo.png" alt="notso.ai" style="height:28px;"></div>');
+    div.insertAdjacentHTML('beforeend','<div style="position:absolute;top:38px;right:64px;z-index:99;pointer-events:none;user-select:none;"><img src="logo.png" alt="notso.ai" style="height:44px;"></div>');
     canvas.appendChild(div);
   });
   if(curSlide>=activeSl.length)curSlide=Math.max(0,activeSl.length-1);
@@ -3167,27 +4529,27 @@ document.addEventListener('keydown',e=>{if(document.getElementById('deck-view').
    EDIT MODE
 ════════════════════════════════════════ */
 function toggleEdit(){
-  STATE.editMode=!STATE.editMode;
+  editMode=!editMode;
+  STATE.editMode=editMode;
   const canvas=document.querySelector('.slide-canvas');
   const btn=document.querySelector('[onclick*="toggleEdit"]');
-  if(STATE.editMode){
+  if(editMode){
     canvas?.classList.add('editing');
     if(btn)btn.style.background='var(--or)';
     if(btn)btn.style.color='#fff';
-    // Make all data-editable elements contentEditable
-    document.querySelectorAll('[data-editable]').forEach(el=>{el.contentEditable='true';});
-    // Make images clickable for position controls
-    document.querySelectorAll('.slide-canvas img, .slide-canvas [data-mascot-img]').forEach(img=>{
-      img.style.cursor='move';
-      img.onclick=function(e){e.stopPropagation();showImgEditBar(this);};
+    // Text blocks: drag on click, edit on double-click
+    document.querySelectorAll('[data-editable]').forEach(el=>{
+      el.contentEditable='false';
+      el.ondblclick=function(){this.contentEditable='true';this.focus();};
+      el.onblur=function(){this.contentEditable='false';};
     });
+    // Images are clickable via document-level click handler
   } else {
     canvas?.classList.remove('editing');
     if(btn)btn.style.background='';
     if(btn)btn.style.color='';
     document.querySelectorAll('[data-editable]').forEach(el=>{el.contentEditable='false';});
-    document.querySelectorAll('.slide-canvas img').forEach(img=>{img.style.cursor='';img.onclick=null;});
-    // Remove any floating toolbar
+    // Remove any floating toolbars
     document.querySelectorAll('.img-edit-bar').forEach(b=>b.remove());
   }
 }
@@ -3226,6 +4588,7 @@ function generateDeck(){
   document.getElementById('setup-view').style.display='none';
   document.getElementById('deck-view').style.display='flex';
   setTimeout(scaleCanvas,60);
+  enableTextDrag();
 }
 function backToSetup(){document.getElementById('deck-view').style.display='none';document.getElementById('setup-view').style.display='block';editMode=false;}
 
@@ -3343,19 +4706,142 @@ document.addEventListener('click',function(ev){
   const img=ev.target.closest('.slide-img-editable');
   if(img){
     ev.preventDefault();ev.stopPropagation();
-    _ietShowToolbar(img);
+    showImgEditBar(img);
     return;
   }
   // if clicking outside toolbar and image, close toolbar
-  if(!ev.target.closest('#img-edit-toolbar')&&!ev.target.closest('.slide-img-editable')){
-    const tb=document.getElementById('img-edit-toolbar');
-    if(tb)tb.remove();
-    _ietSelectedImg=null;
+  if(!ev.target.closest('.img-edit-bar')&&!ev.target.closest('.slide-img-editable')){
+    document.querySelectorAll('.img-edit-bar').forEach(b=>b.remove());
   }
 },true);
 
-/* init */
-activeSl=ALL_SLIDES.map((_,i)=>i);poolSl=[];
+/* ═══════════════════════════════════
+   PDF EXPORT
+═══════════════════════════════════ */
+async function exportPDF(){
+  const {jsPDF}=window.jspdf;
+  if(!jsPDF){alert('jsPDF not loaded — check internet connection.');return;}
+  const canvas=document.getElementById('slide-canvas');
+  const scaler=document.getElementById('slide-scaler');
+  const totalSlides=activeSl.length;
+  if(!totalSlides){alert('No slides to export.');return;}
+
+  // Save current state
+  const savedIdx=curSlide;
+  const savedScale=scaler.style.transform;
+  const savedEm=canvas.classList.contains('em');
+  if(savedEm)canvas.classList.remove('em');
+
+  // Remove edit bars
+  document.querySelectorAll('.img-edit-bar,.img-edit-toolbar').forEach(b=>b.remove());
+
+  // Show progress overlay
+  const overlay=document.createElement('div');
+  overlay.className='pdf-overlay';
+  overlay.innerHTML=`
+    <div class="pdf-title">Exporting PDF...</div>
+    <div class="pdf-progress"><div class="pdf-bar" style="width:0%"></div></div>
+    <div class="pdf-status">Preparing slide 1 of ${totalSlides}</div>
+  `;
+  document.body.appendChild(overlay);
+  const bar=overlay.querySelector('.pdf-bar');
+  const status=overlay.querySelector('.pdf-status');
+
+  // Create PDF — landscape 1920x1080 (16:9)
+  const pdf=new jsPDF({orientation:'landscape',unit:'px',format:[1920,1080],compress:true,hotfixes:['px_scaling']});
+
+  // Render at full scale — temporarily disable clipping & dot overlay
+  scaler.style.transform='scale(1)';
+  scaler.style.transformOrigin='top left';
+  const stage=document.querySelector('.slide-stage');
+  const stageOvf=stage?stage.style.overflow:'';
+  if(stage)stage.style.overflow='visible';
+  canvas.classList.add('pdf-rendering');
+
+  // Temporarily position canvas at top-left of viewport for accurate capture
+  const origPos=scaler.style.position;
+  const origZ=scaler.style.zIndex;
+  scaler.style.position='fixed';
+  scaler.style.top='0';scaler.style.left='0';
+  scaler.style.zIndex='-1';
+
+  for(let i=0;i<totalSlides;i++){
+    status.textContent='Rendering slide '+(i+1)+' of '+totalSlides+'...';
+    bar.style.width=Math.round(((i+0.5)/totalSlides)*100)+'%';
+
+    // Navigate to slide
+    goTo(i);
+
+    // Wait for rendering
+    await new Promise(r=>setTimeout(r,500));
+
+    // Wait for all images in the active slide to load
+    const activeSlide=canvas.querySelector('.slide.active');
+    if(activeSlide){
+      const slideImgs=activeSlide.querySelectorAll('img');
+      await Promise.all([...slideImgs].map(im=>{
+        if(im.complete&&im.naturalWidth>0)return Promise.resolve();
+        return new Promise(r=>{im.onload=r;im.onerror=r;setTimeout(r,2000);});
+      }));
+    }
+
+    try{
+      // Get the slide background color for PDF (avoid transparency)
+      const slideBg=activeSlide?getComputedStyle(activeSlide.querySelector('.sl-bg')||activeSlide).backgroundColor:'#ffffff';
+      const c=await html2canvas(canvas,{
+        scale:1,
+        useCORS:true,
+        allowTaint:true,
+        backgroundColor:slideBg||'#ffffff',
+        width:1920,
+        height:1080,
+        scrollX:0,
+        scrollY:0,
+        x:0,
+        y:0,
+        logging:false,
+      });
+      if(i>0)pdf.addPage([1920,1080],'landscape');
+      pdf.addImage(c.toDataURL('image/jpeg',0.95),'JPEG',0,0,1920,1080);
+    }catch(e){
+      console.error('PDF render error on slide '+(i+1),e);
+    }
+
+    bar.style.width=Math.round(((i+1)/totalSlides)*100)+'%';
+  }
+
+  // Restore scaler position
+  scaler.style.position=origPos||'';
+  scaler.style.top='';scaler.style.left='';
+  scaler.style.zIndex=origZ||'';
+
+  // Generate filename
+  const mn=document.getElementById('in-mascot')?.value||'proposal';
+  const cn=document.getElementById('in-client')?.value||'';
+  const safeName=(cn?cn.replace(/[^a-zA-Z0-9\u4e00-\u9fff]/g,'_')+'_':'')+'Notso_Proposal';
+  const date=new Date().toISOString().slice(0,10);
+
+  status.textContent='Saving PDF...';
+  bar.style.width='100%';
+
+  pdf.save(safeName+'_'+date+'.pdf');
+
+  // Restore state
+  canvas.classList.remove('pdf-rendering');
+  if(stage)stage.style.overflow='';
+  scaler.style.transform=savedScale;
+  curSlide=savedIdx;
+  rebuildSlides();
+  if(savedEm){editMode=true;STATE.editMode=true;applyEdit(true);}
+
+  // Remove overlay
+  setTimeout(()=>overlay.remove(),600);
+}
+
+/* init — default to 8 core pages */
+const CORE_IDS=['s-cover','s-pain','s-features','s-chat','s-analytics','s-roadmap','s-pricing','s-thankyou'];
+activeSl=ALL_SLIDES.map((_,i)=>i).filter(i=>CORE_IDS.includes(ALL_SLIDES[i].id));
+poolSl=ALL_SLIDES.map((_,i)=>i).filter(i=>!CORE_IDS.includes(ALL_SLIDES[i].id));
 </script>
 </body>
 </html>
