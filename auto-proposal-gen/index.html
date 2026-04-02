@@ -903,53 +903,22 @@ input[type="color"].sp-ci{width:100%;height:30px;border:1.5px solid;border-radiu
       </div>
       <div class="rm-prev" id="rm-prev"><div class="rm-prev-ttl">&#128197; Auto-calculated roadmap</div><div id="rm-prev-list"></div></div>
 
-      <!-- Golden box -->
+      <!-- Sales Intel — only first-hand info that web search can't find -->
       <div class="ctx-box" style="border-color:rgba(10,10,10,.12);background:rgba(10,10,10,.02);margin-top:.9rem;">
-        <div class="ctx-lbl" style="color:#0a0a0a;">&#127919; Most important — use their own words</div>
+        <div class="ctx-lbl" style="color:#0a0a0a;">&#127919; Sales Notes — what you heard from the client</div>
         <div class="fg">
-          <label class="fl">What does the client complain about? <span style="color:#0a0a0a;font-weight:700;">Quote them directly if possible</span></label>
-          <textarea class="fi" id="in-pain" rows="3" placeholder="&quot;Nieuwe medewerkers bellen mij elke dag met dezelfde vragen over roosters en kleding — ik kom er niet meer aan toe om te managen.&quot; — Bas, Jumbo Filiaalmanager"></textarea>
-        </div>
-        <div class="fg" style="margin-bottom:0;">
-          <label class="fl">Tools they use now <span style="color:#737373;font-weight:400;">(what Notso.ai replaces)</span></label>
-          <input class="fi" id="in-tools" placeholder="e.g. WhatsApp-groep, uitgeprinte instructiebundels, mondelinge overdracht"/>
-        </div>
-      </div>
-
-      <!-- Extra depth -->
-      <div class="ctx-box" style="margin-top:.75rem;">
-        <div class="ctx-lbl">&#128188; Extra context (optional but makes the deck sharper)</div>
-        <div class="fr">
-          <div class="fg" style="margin-bottom:.5rem;">
-            <label class="fl">End users / target audience</label>
-            <input class="fi" id="in-audience" placeholder="e.g. Nieuwe medewerkers, 16-25 jaar, winkelvloer"/>
-          </div>
-          <div class="fg" style="margin-bottom:.5rem;">
-            <label class="fl">Scale / size</label>
-            <input class="fi" id="in-scale" placeholder="e.g. 700+ filialen, 100.000 medewerkers NL"/>
-          </div>
+          <label class="fl">Anything the client told you <span style="color:#0a0a0a;font-weight:700;">— quotes, complaints, stories, context</span></label>
+          <textarea class="fi" id="in-salesnotes" rows="4" placeholder="Paste anything useful here: direct quotes, anecdotes, what tools they use now, who the end users are, their goals...&#10;&#10;Example: &quot;Nieuwe medewerkers bellen mij elke dag met dezelfde vragen over roosters en kleding — ik kom er niet meer aan toe om te managen.&quot; — Bas, Filiaalmanager. They currently use a WhatsApp group + printed manuals. Goal: managers focus on customers, not HR questions."></textarea>
         </div>
         <div class="fr">
-          <div class="fg" style="margin-bottom:.5rem;">
-            <label class="fl">Monthly inquiry volume <span style="color:#737373;font-weight:400;">(approx.)</span></label>
-            <input class="fi" id="in-volume" type="text" placeholder="e.g. 3,000 calls/month, 500 emails/week"/>
+          <div class="fg" style="margin-bottom:0;">
+            <label class="fl">Company scale <span style="color:#737373;font-weight:400;">(if known — otherwise we'll search)</span></label>
+            <input class="fi" id="in-scale" placeholder="e.g. 700+ locations, 100,000 employees"/>
           </div>
-          <div class="fg" style="margin-bottom:.5rem;">
-            <label class="fl">Support team size</label>
-            <input class="fi" id="in-teamsize" type="text" placeholder="e.g. 5 staff handling inquiries"/>
+          <div class="fg" style="margin-bottom:0;">
+            <label class="fl">Monthly volume / team size <span style="color:#737373;font-weight:400;">(internal data — can't be searched)</span></label>
+            <input class="fi" id="in-opdata" placeholder="e.g. 3,000 calls/month, 5 staff handling inquiries"/>
           </div>
-        </div>
-        <div class="fg" style="margin-bottom:.5rem;">
-          <label class="fl">Chat scenario hint <span style="color:#737373;font-weight:400;">(for Chat Mock-up slide)</span></label>
-          <input class="fi" id="in-chatscene" placeholder="e.g. Student asking about credit transfer process / New hire asking about shift schedule"/>
-        </div>
-        <div class="fg" style="margin-bottom:.5rem;">
-          <label class="fl">A specific situation or anecdote they told you</label>
-          <textarea class="fi" id="in-anecdote" rows="2" placeholder="e.g. Bij een nieuwe kassa zaten 3 medewerkers 45 min te wachten op de manager voor uitleg over een app."></textarea>
-        </div>
-        <div class="fg" style="margin-bottom:0;">
-          <label class="fl">What does success look like for them?</label>
-          <input class="fi" id="in-goal" placeholder="e.g. Filiaalmanager kan focussen op klantcontact, niet op HR-vragen beantwoorden"/>
         </div>
       </div>
     </div>
@@ -1190,7 +1159,7 @@ input[type="color"].sp-ci{width:100%;height:30px;border:1.5px solid;border-radiu
     <!-- Slides -->
     <div class="sp-sec">
       <div class="sp-lbl">Slides <span class="sp-lbl-cnt" id="sp-slide-cnt">0</span></div>
-      <div class="sp-preset-btns"><button onclick="spPresetFull()">All (16)</button><button onclick="spPresetCore()" style="background:rgba(10,10,10,.08);font-weight:700;">Core (8)</button><button onclick="spPresetQuick()">Quick (7)</button><button onclick="spPresetClear()">Clear</button></div>
+      <div class="sp-preset-btns"><button onclick="spPresetFull()">All (18)</button><button onclick="spPresetPitch()" style="background:rgba(10,10,10,.08);font-weight:700;">Pitch (7)</button><button onclick="spPresetCore()">Core (10)</button><button onclick="spPresetClear()">Clear</button></div>
       <div id="sp-slides-list"></div>
     </div>
   </div>
@@ -2286,6 +2255,79 @@ const INDUSTRY_DB = {
 // Uses Claude's built-in web_search server tool — searches happen on Anthropic's servers
 // No external API key needed, just the same Anthropic key
 
+async function liveResearchSlim(industryText, clientName, painText, statusEl) {
+  if (statusEl) statusEl.textContent = '🔍 Searching for industry pain points…';
+
+  const prompt = `Search for real pain points and one market statistic about this industry.
+
+Industry: ${industryText}
+Client: ${clientName || 'Unknown'}
+Context: ${painText || 'None'}
+
+Search for:
+1. Top 3-4 real complaints/challenges in this industry (from surveys, news, reports)
+2. One market size or growth number for AI/automation in this industry
+
+Rules: Only report what you actually find. Include URLs. No fabrication.
+
+Return JSON only:
+{
+  "painPoints": [{"title":"max 6 words","desc":"finding from search","source":"name","url":"URL","verified":true}],
+  "marketData": {"industrySize":{"value":"number from search","source":"name","url":"URL","verified":true}}
+}`;
+
+  try {
+    const fullResponse = await callClaude(prompt, 2000, {
+      tools: [{
+        type: 'web_search_20250305',
+        name: 'web_search',
+        max_uses: 3,
+        user_location: { type: 'approximate', country: 'NL', timezone: 'Europe/Amsterdam' }
+      }],
+      returnFull: true,
+      timeout: 120000
+    });
+
+    if (!fullResponse || fullResponse.error) {
+      console.error('Slim research failed:', fullResponse?.error);
+      if (statusEl) statusEl.textContent = '⚠️ Search failed — ' + (fullResponse?.error?.message || 'unknown');
+      return null;
+    }
+
+    const textParts = [];
+    const allCitations = [];
+    if (fullResponse.content) {
+      for (const block of fullResponse.content) {
+        if (block.type === 'text') {
+          textParts.push(block.text);
+          if (block.citations) {
+            for (const cite of block.citations) {
+              if (cite.url) allCitations.push({ url: cite.url, title: cite.title || '', text: cite.cited_text || '' });
+            }
+          }
+        }
+      }
+    }
+
+    const rawText = textParts.join('');
+    console.log('Slim research raw:', rawText);
+
+    let cleaned = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
+    const jsonStart = cleaned.indexOf('{');
+    const jsonEnd = cleaned.lastIndexOf('}') + 1;
+    if (jsonStart >= 0 && jsonEnd > jsonStart) cleaned = cleaned.slice(jsonStart, jsonEnd);
+
+    const data = JSON.parse(cleaned);
+    data._citations = allCitations;
+    data._searchCount = fullResponse.usage?.server_tool_use?.web_search_requests || 0;
+    return data;
+  } catch (e) {
+    console.error('Slim research error:', e);
+    if (statusEl) statusEl.textContent = '⚠️ Research failed: ' + e.message;
+    return null;
+  }
+}
+
 async function liveResearchWithWebSearch(industryText, clientName, painText, statusEl) {
   if (statusEl) statusEl.textContent = '🔍 Starting live web research (Anthropic web_search)…';
 
@@ -2294,9 +2336,9 @@ async function liveResearchWithWebSearch(industryText, clientName, painText, sta
 RESEARCH TARGET:
 - Industry: ${industryText}
 - Client: ${clientName || 'Unknown'}
-- Known pain points: ${painText || 'Not specified'}
+- Sales rep notes: ${painText || 'Not provided — research everything from scratch'}
 
-YOUR TASK: Search the web for REAL, VERIFIABLE data in these 4 areas:
+YOUR TASK: Search the web for REAL, VERIFIABLE data in these 5 areas:
 
 1. PAIN POINTS — Search for real complaints, challenges, and statistics about this industry's operational problems that an AI agent could solve. Look for surveys, reports, and news articles.
 
@@ -2305,6 +2347,8 @@ YOUR TASK: Search the web for REAL, VERIFIABLE data in these 4 areas:
 3. COMPETITORS — Search for existing AI chatbot or automation solutions in this industry. Identify what they do and what they DON'T do (gaps Notso.ai can fill with 3D animated brand agents).
 
 4. ROI EVIDENCE — Search for case studies of AI chatbot implementations in this industry. Find specific cost savings, time reductions, and efficiency improvements with real numbers.
+
+5. CLIENT PROFILE — If a specific client name is provided, search for: company size (employees, locations, revenue), what tools/platforms they currently use (look at job postings, press releases, tech stack mentions), their target audience, and any recent news or challenges they face.
 
 CRITICAL RULES:
 - Search thoroughly for each area (use multiple searches if needed)
@@ -2332,17 +2376,23 @@ After searching, organize your findings into this EXACT JSON format:
       {"institution": "name", "result": "exact result", "source": "source", "url": "URL", "verified": true}
     ],
     "calculations": []
+  },
+  "clientProfile": {
+    "companySize": {"value": "employee count, locations, etc.", "source": "source", "url": "URL", "verified": true},
+    "currentTools": [{"name": "tool/platform name", "source": "where found", "url": "URL", "verified": true}],
+    "targetAudience": {"value": "who they serve", "source": "source", "url": "URL", "verified": true},
+    "recentNews": [{"headline": "brief", "url": "URL", "verified": true}]
   }
 }
 
 Return ONLY the JSON after completing your research. No markdown wrapping.`;
 
   try {
-    const fullResponse = await callClaude(researchPrompt, 8000, {
+    const fullResponse = await callClaude(researchPrompt, 4000, {
       tools: [{
         type: 'web_search_20250305',
         name: 'web_search',
-        max_uses: 10,
+        max_uses: 3,
         user_location: {
           type: 'approximate',
           country: 'NL',
@@ -2493,14 +2543,13 @@ function matchIndustry(industryText) {
 function formatResearchForPrompt(research) {
   if (!research) return '';
   let out = '\n\n═══════════════════════════════════════\nVERIFIED MARKET RESEARCH DATA\n═══════════════════════════════════════\n';
-  out += '⚠️ INSTRUCTION: Only use data points marked [VERIFIED] below. Do NOT add your own statistics.\n';
+  out += 'Use ONLY the data below. Do NOT add your own statistics.\n';
 
   if (research.painPoints && research.painPoints.length) {
     out += '\n【PAIN POINTS】\n';
-    research.painPoints.forEach((p, i) => {
-      const tag = p.verified ? '[VERIFIED]' : '[UNVERIFIED — do not use in slides]';
-      out += `${i+1}. ${tag} ${p.title}: ${p.desc}`;
-      if (p.url) out += ` (Source: ${p.source} — ${p.url})`;
+    research.painPoints.filter(p=>p.verified).forEach((p, i) => {
+      out += `${i+1}. ${p.title}: ${p.desc}`;
+      if (p.url) out += ` (${p.source} — ${p.url})`;
       out += '\n';
     });
   }
@@ -2592,9 +2641,9 @@ async function researchIndustry(industryText, clientName, painText, statusEl) {
     return STATE.research;
   }
 
-  // Step 2: Not in DB — use Anthropic web_search tool (same API key, no extra key needed)
-  if (statusEl) statusEl.textContent = '🔍 Industry not in DB — launching live web research…';
-  const liveData = await liveResearchWithWebSearch(industryText, clientName, painText, statusEl);
+  // Step 2: Not in DB — use slim web search (pain points + 1 market stat only)
+  if (statusEl) statusEl.textContent = '🔍 Industry not in DB — searching for pain points…';
+  const liveData = await liveResearchSlim(industryText, clientName, painText, statusEl);
 
   if (!liveData) {
     if (statusEl) statusEl.textContent = '⚠️ Live research returned no data — proceeding without research';
@@ -2733,17 +2782,11 @@ function getCtx(){
     c:document.getElementById('in-client').value.trim()||'the client',
     ind:document.getElementById('in-industry').value.trim()||'their industry',
     usecase:document.getElementById('in-usecase')?.value||'',
-    pain:document.getElementById('in-pain').value.trim()||'repetitive queries',
     role:document.getElementById('in-role').value.trim()||'decision-maker',
-    tools:document.getElementById('in-tools').value.trim()||'standard FAQ page',
     url:document.getElementById('in-url').value.trim()||'',
-    audience:document.getElementById('in-audience')?.value.trim()||'',
+    salesnotes:document.getElementById('in-salesnotes')?.value.trim()||'',
     scale:document.getElementById('in-scale')?.value.trim()||'',
-    volume:document.getElementById('in-volume')?.value.trim()||'',
-    teamsize:document.getElementById('in-teamsize')?.value.trim()||'',
-    chatscene:document.getElementById('in-chatscene')?.value.trim()||'',
-    anecdote:document.getElementById('in-anecdote')?.value.trim()||'',
-    goal:document.getElementById('in-goal')?.value.trim()||'',
+    opdata:document.getElementById('in-opdata')?.value.trim()||'',
   };
 }
 async function callClaude(prompt, maxTokens=4096, options={}){
@@ -2753,11 +2796,18 @@ async function callClaude(prompt, maxTokens=4096, options={}){
   const timeoutMs=options.timeout||120000;
   const timeout=setTimeout(()=>controller.abort(),timeoutMs);
   try{
+    // Split prompt into cacheable system part + dynamic user part
     const body={
       model:'claude-sonnet-4-20250514',
       max_tokens:maxTokens,
-      messages:[{role:'user',content:prompt}]
     };
+    // Use system prompt with cache_control for static instructions
+    if(options.systemPrompt){
+      body.system=[{type:'text',text:options.systemPrompt,cache_control:{type:'ephemeral'}}];
+      body.messages=[{role:'user',content:prompt}];
+    } else {
+      body.messages=[{role:'user',content:prompt}];
+    }
     // Add tools if specified (e.g., web_search)
     if(options.tools) body.tools=options.tools;
 
@@ -2818,7 +2868,7 @@ Output ONLY the 3 lines. No extra text.`;
   }
   const res=await callClaude(prompt);if(res){lastAI=res;document.getElementById('modal-out').textContent=res;}else{document.getElementById('modal-out').textContent='⚠️ Failed. Check your API key.';}
 }
-function applyAI(){if(!lastAI)return;if(aiTarget==='pain'){document.getElementById('in-pain').value=lastAI;STATE.aiPain=lastAI;}else if(aiTarget==='chat'){STATE.aiChat=lastAI;}closeModal();}
+function applyAI(){if(!lastAI)return;if(aiTarget==='pain'){STATE.aiPain=lastAI;}else if(aiTarget==='chat'){STATE.aiChat=lastAI;}closeModal();}
 function closeModal(){document.getElementById('modal-bg').classList.add('hidden');lastAI='';}
 /* ════════════════════════════════════════
    WEB RESEARCH — fetch client website
@@ -2842,7 +2892,7 @@ async function researchClientWebsite(url){
       .replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')
       .replace(/\s{2,}/g,' ')
       .trim()
-      .substring(0,3000);
+      .substring(0,1500);
     return text||null;
   }catch(e){
     console.warn('Website research failed:',e.message);
@@ -2879,12 +2929,15 @@ async function genAll(){
 
   // Step 2: Market Research (4-step workflow)
   st.textContent='📊 Starting market research…';
-  const researchData=await researchIndustry(c.ind, c.c, c.pain, st);
+  const researchData=await researchIndustry(c.ind, c.c, c.salesnotes, st);
   let marketResearch='';
   if(researchData){
     marketResearch=formatResearchForPrompt(researchData);
   }
 
+  // Rate limit buffer — research call just used tokens, wait before next call
+  st.textContent='⏳ Waiting 65s for API rate limit reset…';
+  await new Promise(r=>setTimeout(r,65000));
   st.textContent='✦ Generating slide content with research data…';
   // Update research badge
   const rBadge=document.getElementById('research-badge');
@@ -2910,7 +2963,8 @@ async function genAll(){
   };
   const useCaseDesc=useCaseMap[c.usecase]||'General AI brand agent';
 
-  const prompt=`You are a senior B2B pitch strategist for Notso.ai. You write cold proposals that win meetings. Study the GOLDEN EXAMPLES below — they are from real proposals that closed deals. Your output must match that quality level.
+  // Static instructions (cacheable — same across all proposals)
+  const systemPrompt=`You are a senior B2B pitch strategist for Notso.ai. You write cold proposals that win meetings. Study the GOLDEN EXAMPLES below — they are from real proposals that closed deals. Your output must match that quality level.
 
 CRITICAL RULES:
 1. This is a COLD PITCH — we have NOT spoken to the client. Base everything on sales rep input + website research + market research data + industry knowledge.
@@ -2960,9 +3014,10 @@ Study the PATTERN, not the content. Adapt to the new client.
 
 【THANK YOU — Pattern: Action-oriented CTA】
 ✅ "Ready to humanize your brand with Notso.ai? Book a session now."
-→ Formula: Question that echoes the transformation + clear single action.
+→ Formula: Question that echoes the transformation + clear single action.`;
 
-═══════════════════════════════════════
+  // Dynamic part (changes per client — NOT cached)
+  const prompt=`═══════════════════════════════════════
 CLIENT PROFILE FOR THIS PROPOSAL
 ═══════════════════════════════════════
 Company: ${clientName}
@@ -2970,15 +3025,11 @@ Website: ${c.url||'N/A'}
 Industry: ${c.ind}
 Use Case: ${useCaseDesc}
 Decision-maker: ${c.role}
-Pain points provided by sales rep: ${c.pain||'(not provided — research and infer from industry)'}
-Tools being replaced: ${c.tools||'(not provided — research from website)'}
-End users: ${c.audience||'(not provided — infer from use case)'}
-Scale: ${c.scale||'(not provided — research from website)'}
-Monthly inquiry volume: ${c.volume||'(not provided — estimate from industry averages)'}
-Support team size: ${c.teamsize||'(not provided — estimate from scale)'}
-Chat scenario hint: ${c.chatscene||'(not provided — generate based on use case + web research)'}
-Real story/anecdote: ${c.anecdote||'(not provided — create a realistic scenario based on research)'}
-Success definition: ${c.goal||'(not provided — infer from pain points)'}
+Company scale: ${c.scale||'(not provided — check website research and web search results below)'}
+Operational data: ${c.opdata||'(not provided — use industry averages for volume/team size estimates)'}
+
+SALES REP NOTES (first-hand intelligence — highest priority, use verbatim quotes when available):
+${c.salesnotes||'(no notes provided — rely on website research + web search below)'}
 ${webResearch}${marketResearch}
 
 OUTPUT LANGUAGE: ${langInstr}
@@ -2993,12 +3044,22 @@ Specific to ${clientName}. If fields are blank, use research + industry knowledg
 CRITICAL: OBEY THE CHARACTER LIMITS BELOW. Shorter is ALWAYS better. Every word must earn its place.
 
 {
-  "cover_headline": "MAX 15 WORDS. Formula: '{mascot} – {role}: {benefit}.' Example: 'Liza – The Digital AI Buddy: Your 24/7 Super FRESH Assistant.'",
-  "cover_sub": "MAX 20 WORDS. What ${mascotName} does for ${clientName}.",
+  "lead_texts": {
+    "pain": "MAX 15 WORDS, 1 sentence. Conclusion with a number. Example: '84% of student affairs staff report burnout — repetitive admin is the #1 cause.'",
+    "market": "MAX 15 WORDS, 1 sentence. Market size + gap. Example: 'A $25.7B market by 2028 — but no one does empathetic brand agents.'",
+    "features": "MAX 15 WORDS, 1 sentence. What ${mascotName} replaces. Example: '${mascotName} replaces 4 tools with one agent that actually understands emotions.'",
+    "chat": "MAX 15 WORDS, 1 sentence. Example: 'A new hire asks about shifts at 11pm — ${mascotName} answers with empathy.'",
+    "roi": "MAX 15 WORDS, 1 sentence. Key result. Example: 'Similar deployments cut HR workload by 70% within 3 months.'",
+    "pricing": "MAX 15 WORDS, 1 sentence. Example: 'From EUR 399/month — less than 10% of one FTE, live in 4 weeks.'",
+    "thankyou": "MAX 15 WORDS, 1 sentence. Example: 'Every new hire at ${clientName} deserves a warm welcome from day one.'"
+  },
 
-  "pain_intro": "MAX 30 WORDS total, 2 sentences. Example: 'Management and HR are overwhelmed by repetitive administrative employee questions. There is no modern digital touchpoint aligned with their brand vision.'",
+  "cover_hook": "MAX 10 WORDS. Hit the client's #1 pain so hard they can't look away. Rules: (1) Name THEIR specific problem, not a generic benefit. (2) Use a number from research if available. (3) Write like a billboard — if it needs explanation, it's too weak. Bad: 'The future of customer service is here.' Good: 'Your nurses answer the same 5 questions 200 times a day.' Bad: 'Imagine a better onboarding experience.' Good: '67% of your new hires quit before month 3.' The reader should feel a sting, then want the solution.",
+  "cover_sub": "MAX 12 WORDS. Bridge pain to solution. Not a slogan — a promise. Example: '${mascotName} handles it. 24/7. In ${clientName}'s own voice.'",
+
+  "pain_intro": "MAX 30 WORDS total, 2 sentences. Summarize the core pain in the client's own industry language.",
   "pain_cards": [
-    {"title": "MAX 5 WORDS. Example: 'Repetitive Admin Overload'", "text": "MAX 15 WORDS. One sentence. Example: 'Volunteer treasurers struggle to keep up with complex changing subsidy regulations.'"},
+    {"title": "MAX 5 WORDS — name the specific pain", "text": "MAX 15 WORDS — one sentence describing the problem"},
     {"title": "MAX 5 WORDS", "text": "MAX 15 WORDS"},
     {"title": "MAX 5 WORDS", "text": "MAX 15 WORDS"},
     {"title": "MAX 5 WORDS", "text": "MAX 15 WORDS"}
@@ -3006,11 +3067,10 @@ CRITICAL: OBEY THE CHARACTER LIMITS BELOW. Shorter is ALWAYS better. Every word 
 
   "feature_body": "MAX 20 WORDS. ${mascotName}'s role at ${clientName}.",
   "feature_items": [
-    "MAX 15 WORDS each. Formula: 'Capability Name: outcome.' Example: 'Automated Onboarding: Welcomes new hires, guides store selection, assists with ID submission.'",
-    "MAX 15 WORDS",
-    "MAX 15 WORDS",
-    "MAX 15 WORDS",
-    "MAX 15 WORDS"
+    "CRITICAL: feature_items[0] SOLVES pain_cards[0]. feature_items[1] SOLVES pain_cards[1]. And so on. Each feature is the DIRECT answer to the corresponding pain card. Formula: 'Solution Name — outcome that eliminates the pain.' MAX 15 WORDS.",
+    "MAX 15 WORDS — solves pain_cards[1]",
+    "MAX 15 WORDS — solves pain_cards[2]",
+    "MAX 15 WORDS — solves pain_cards[3]"
   ],
 
   "chat_messages": [
@@ -3036,7 +3096,7 @@ CRITICAL: OBEY THE CHARACTER LIMITS BELOW. Shorter is ALWAYS better. Every word 
 }`;
 
   try{
-    const raw=await callClaude(prompt, 6000);
+    const raw=await callClaude(prompt, 4096, {systemPrompt});
     if(!raw){
       const errMsg=window._lastApiError||'unknown error';
       st.textContent='Failed: '+errMsg;
@@ -3052,16 +3112,18 @@ CRITICAL: OBEY THE CHARACTER LIMITS BELOW. Shorter is ALWAYS better. Every word 
     if(jsonStart>=0&&jsonEnd>jsonStart){cleaned=cleaned.slice(jsonStart,jsonEnd);}
     const d=JSON.parse(cleaned);
     // Apply to STATE
-    if(d.pain_intro)document.getElementById('in-pain').value=d.pain_intro;
+    if(d.pain_intro)STATE.aiPain=d.pain_intro;
     STATE.aiPain=d.pain_intro||'';
     STATE.aiPainCards=d.pain_cards||null;
     STATE.aiFeatureBody=d.feature_body||'';
     STATE.aiFeatureItems=d.feature_items||null;
-    STATE.aiCoverH=d.cover_headline||'';
+    STATE.aiCoverH=d.cover_hook||d.cover_headline||'';
     STATE.aiCoverSub=d.cover_sub||'';
     STATE.aiTyBody=d.ty_body||'';
     STATE.aiTyHeadline=d.ty_headline||'';
     STATE.aiTyCta=d.ty_cta||'';
+    // Lead texts — conclusion sentences for each slide
+    STATE.aiLeadTexts=d.lead_texts||{};
     // Chat: support new multi-message format
     if(d.chat_messages&&Array.isArray(d.chat_messages)){
       STATE.aiChat=d.chat_messages.map(m=>(m.role==='mascot'?'MASCOT':'USER')+': '+m.text).join('\n');
@@ -3189,8 +3251,8 @@ function buildSpSlides(){
 }
 function spToggle(si,col){if(col==='active'){activeSl=activeSl.filter(i=>i!==si);poolSl.push(si);poolSl.sort((a,b)=>a-b);}else{poolSl=poolSl.filter(i=>i!==si);activeSl.push(si);}buildSpSlides();rebuildSlides();}
 function spPresetFull(){activeSl=ALL_SLIDES.map((_,i)=>i);poolSl=[];buildSpSlides();rebuildSlides();}
-function spPresetCore(){const c=['s-cover','s-pain','s-features','s-chat','s-analytics','s-roadmap','s-pricing','s-thankyou'];activeSl=ALL_SLIDES.map((_,i)=>i).filter(i=>c.includes(ALL_SLIDES[i].id));poolSl=ALL_SLIDES.map((_,i)=>i).filter(i=>!c.includes(ALL_SLIDES[i].id));buildSpSlides();rebuildSlides();}
-function spPresetQuick(){const q=ALL_SLIDES.map((s,i)=>s.quick?i:-1).filter(i=>i>=0);activeSl=[...q];poolSl=ALL_SLIDES.map((_,i)=>i).filter(i=>!q.includes(i));buildSpSlides();rebuildSlides();}
+function spPresetPitch(){const order=['s-cover','s-pain','s-features','s-chat','s-analytics','s-pricing','s-thankyou'];activeSl=order.map(id=>ALL_SLIDES.findIndex(s=>s.id===id)).filter(i=>i>=0);poolSl=ALL_SLIDES.map((_,i)=>i).filter(i=>!activeSl.includes(i));buildSpSlides();rebuildSlides();}
+function spPresetCore(){const c=['s-cover','s-pain','s-market','s-features','s-emotion','s-chat','s-analytics','s-roi','s-pricing','s-thankyou'];activeSl=c.map(id=>ALL_SLIDES.findIndex(s=>s.id===id)).filter(i=>i>=0);poolSl=ALL_SLIDES.map((_,i)=>i).filter(i=>!activeSl.includes(i));buildSpSlides();rebuildSlides();}
 function spPresetClear(){poolSl=ALL_SLIDES.map((_,i)=>i);activeSl=[];buildSpSlides();rebuildSlides();}
 
 /* ════════════════════════════════════════
@@ -3281,7 +3343,11 @@ function buildSlideHTML(sid){
     if(userLines[1])cu3=userLines[1].replace(/^user:\s*/i,'');
     if(mascotLines[2])ca2=mascotLines[2].replace(/^(mascot|agent):\s*/i,'');
   }
-  const painCards=STATE.aiPainCards||tx('pain_cards',L);
+  // Pain cards: prefer verified research data → AI-generated → default
+  const researchPain=(STATE.research?.painPoints||[]).filter(p=>p.verified);
+  const painCards=researchPain.length>=2
+    ? researchPain.slice(0,4).map(p=>({t:p.title,x:p.desc,source:p.source,url:p.url,verified:true}))
+    : (STATE.aiPainCards||tx('pain_cards',L));
   const featItems=STATE.aiFeatureItems||tx('feat_items',L);
   const featSub=STATE.aiFeatureBody||tx('feat_sub',L);
 
@@ -3322,8 +3388,8 @@ function buildSlideHTML(sid){
           <div style="width:8px;height:8px;border-radius:50%;background:${c1};"></div>
           <span style="font-family:var(--fd);font-size:16px;font-weight:600;letter-spacing:.35em;text-transform:uppercase;color:#0a0a0a;">${e(tx('cover_badge',L))}</span>
         </div>
-        <div style="font-family:var(--fd);font-size:88px;font-weight:600;line-height:.92;letter-spacing:-.04em;color:#0a0a0a;margin-bottom:24px;">${e(STATE.aiCoverH||tx('cover_h',L))}</div>
-        <div style="font-size:26px;color:rgba(10,10,10,.5);line-height:1.5;max-width:640px;margin-bottom:48px;">${e(tx('cover_sub',L))} <strong style="color:#0a0a0a;font-weight:600;">${e(C)}</strong>.</div>
+        <div data-editable="true" style="font-family:var(--fd);font-size:${STATE.aiCoverH&&STATE.aiCoverH.length>30?'64':'88'}px;font-weight:600;line-height:.95;letter-spacing:-.04em;color:#0a0a0a;margin-bottom:24px;">${e(STATE.aiCoverH||tx('cover_h',L))}</div>
+        <div data-editable="true" style="font-size:26px;color:rgba(10,10,10,.5);line-height:1.5;max-width:640px;margin-bottom:48px;">${e(STATE.aiCoverSub||tx('cover_sub',L)+' '+C+'.')}</div>
         <div style="display:flex;gap:0;border-top:1px solid rgba(10,10,10,.1);padding-top:32px;">
           <div style="flex:1;padding-right:32px;border-right:1px solid rgba(10,10,10,.08);">
             <div style="font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:rgba(10,10,10,.35);margin-bottom:6px;">${tx('prepared',L)}</div>
@@ -3361,8 +3427,8 @@ function buildSlideHTML(sid){
           <div class="cvr-dot" style="background:${c1};"></div>
           <span class="cvr-bt" style="color:${V.TX};">${e(tx('cover_badge',L))}</span>
         </div>
-        <div style="font-family:var(--fd);font-size:110px;font-weight:800;line-height:.88;letter-spacing:-.05em;color:${V.TX};margin-bottom:28px;">${e(STATE.aiCoverH||tx('cover_h',L))}</div>
-        <div style="font-size:30px;color:${V.TX2};line-height:1.5;margin-bottom:52px;">${e(tx('cover_sub',L))} <strong style="color:${V.TX};">${e(C)}</strong>.</div>
+        <div data-editable="true" style="font-family:var(--fd);font-size:${STATE.aiCoverH&&STATE.aiCoverH.length>30?'72':'110'}px;font-weight:800;line-height:.9;letter-spacing:-.05em;color:${V.TX};margin-bottom:28px;">${e(STATE.aiCoverH||tx('cover_h',L))}</div>
+        <div data-editable="true" style="font-size:30px;color:${V.TX2};line-height:1.5;margin-bottom:52px;">${e(STATE.aiCoverSub||tx('cover_sub',L)+' '+C+'.')}</div>
         <div style="display:flex;gap:40px;padding-top:36px;border-top:2px solid ${alpha(V.TX,.12)};">
           <div><div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:${V.TX3};margin-bottom:6px;">${tx('by',L)}</div><div style="font-family:var(--fd);font-size:${S.body}px;font-weight:700;color:${V.TX};">Notso.ai</div></div>
           <div><div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:${V.TX3};margin-bottom:6px;">${tx('industry',L)}</div><div style="font-family:var(--fd);font-size:${S.body}px;font-weight:700;color:${V.TX};">${e(IND)}</div></div>
@@ -3392,8 +3458,8 @@ function buildSlideHTML(sid){
         <div class="cvr-dot" style="background:${V.TX2};"></div>
         <span class="cvr-bt" style="color:${V.TX};">${e(tx('cover_badge',L))}</span>
       </div>
-      <div class="sl-h1" style="${h1Style}">${e(STATE.aiCoverH||tx('cover_h',L))}</div>
-      <div class="sl-body" data-editable="true" style="${bodyStyle}">${e(tx('cover_sub',L))} <strong style="color:${V.TX};font-weight:800;">${e(C)}</strong>.</div>
+      <div class="sl-h1" data-editable="true" style="${h1Style}">${e(STATE.aiCoverH||tx('cover_h',L))}</div>
+      <div class="sl-body" data-editable="true" style="${bodyStyle}">${e(STATE.aiCoverSub||tx('cover_sub',L)+' '+C+'.')}</div>
       <div class="cvr-mr" style="${metaBdr}">
         <div><div class="cvr-ml" style="color:${V.TX3};">${tx('prepared',L)}</div><div class="cvr-mv" style="color:${V.TX};font-family:var(--fd);">${e(C)}</div></div>
         <div><div class="cvr-ml" style="color:${V.TX3};">${tx('industry',L)}</div><div class="cvr-mv" style="color:${V.TX};font-family:var(--fd);">${e(IND)}</div></div>
@@ -3470,9 +3536,8 @@ function buildSlideHTML(sid){
         </div>`:''}
         <div>
           <div class="sl-tag" data-editable="true" style="${tagStyle}">${e(tx('pain_tag',L))}</div>
-          <div class="sl-h3" style="${h3Style}">${e(tx('pain_h',L))} <span style="font-style:italic;">${e(C)}</span>.</div>
-          <div class="sl-body" data-editable="true" style="${bodyStyle}margin-bottom:28px;">${e(PAIN)}</div>
-          <div class="pg">${painCards.map((pc,i)=>{const icons=['😩','⏰','💸','🔄'];const ico=(pc.ico&&pc.ico.length<=4)?pc.ico:icons[i]||'⚡';return `<div class="pc" style="${accentCardStyle}"><div class="pc-ico">${ico}</div><div class="pc-ttl" style="color:${V.TX};">${e(pc.t||pc.title||'')}</div><div class="pc-txt" style="color:${V.TX2};">${e(pc.x||pc.text||'')}</div></div>`;}).join('')}</div>
+          <div class="sl-h3" data-editable="true" style="${h3Style}">${e(STATE.aiLeadTexts?.pain || (tx('pain_h',L)+' '+C+'.'))}</div>
+          <div class="pg">${painCards.map((pc,i)=>{const icons=['😩','⏰','💸','🔄'];const ico=(pc.ico&&pc.ico.length<=4)?pc.ico:icons[i]||'⚡';const srcHtml=pc.verified&&pc.url?`<div style="margin-top:8px;font-size:${S.labelSm||11}px;"><a href="${pc.url}" target="_blank" style="color:${c1};text-decoration:none;opacity:.7;">✓ ${e(pc.source||'Source')} ↗</a></div>`:(pc.verified?`<div style="margin-top:8px;font-size:${S.labelSm||11}px;color:${c1};opacity:.7;">✓ ${e(pc.source||'Verified')}</div>`:'');return `<div class="pc" style="${accentCardStyle}"><div class="pc-ico">${ico}</div><div class="pc-ttl" style="color:${V.TX};">${e(pc.t||pc.title||'')}</div><div class="pc-txt" style="color:${V.TX2};">${e(pc.x||pc.text||'')}</div>${srcHtml}</div>`;}).join('')}</div>
         </div>
       </div>
     </div>
@@ -3532,7 +3597,7 @@ function buildSlideHTML(sid){
     <div class="geo-ring" style="bottom:-100px;left:-60px;width:350px;height:350px;border-width:55px;border-color:${alpha(c1,.07)};"></div>
     <div class="sl-safe">
       <div class="sl-tag" data-editable="true" style="${tagStyle}">${e({en:'Market Opportunity',nl:'Marktkans',zh:'市場機會',ja:'市場機会',de:'Marktchance',fr:'Opportunité',es:'Oportunidad'}[L]||'Market Opportunity')}</div>
-      <div class="sl-h3" style="${h3Style}">${e({en:'Why Now. Why This Market.',nl:'Waarom nu. Waarom deze markt.',zh:'為什麼是現在。為什麼是這個市場。',ja:'なぜ今。なぜこの市場。',de:'Warum jetzt. Warum dieser Markt.',fr:'Pourquoi maintenant.',es:'Por qué ahora.'}[L]||'Why Now. Why This Market.')}</div>
+      <div class="sl-h3" data-editable="true" style="${h3Style}">${e(STATE.aiLeadTexts?.market || {en:'Why Now. Why This Market.',nl:'Waarom nu. Waarom deze markt.',zh:'為什麼是現在。為什麼是這個市場。',ja:'なぜ今。なぜこの市場。',de:'Warum jetzt. Warum dieser Markt.',fr:'Pourquoi maintenant.',es:'Por qué ahora.'}[L] || 'Why Now. Why This Market.')}</div>
       ${hasData ? `
         <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:24px;">
           ${metricCards}
@@ -3570,7 +3635,7 @@ function buildSlideHTML(sid){
     return `
     <div class="sl-bg" style="background:${c1};position:absolute;inset:0;"></div>
     <div style="position:absolute;top:28px;left:60px;z-index:10;">
-      <div style="font-family:var(--fd);font-size:${S.h2}px;font-weight:800;color:#fff;line-height:1;" data-editable="true">${e(tx('feat_h',L))}</div>
+      <div style="font-family:var(--fd);font-size:${S.h2}px;font-weight:800;color:#fff;line-height:1;" data-editable="true">${e(STATE.aiLeadTexts?.features || tx('feat_h',L))}</div>
     </div>
     <div class="feat-ctx-grid" style="padding-top:110px;">
       ${cardData.map((cd,i)=>{
@@ -3588,7 +3653,8 @@ function buildSlideHTML(sid){
         </div>`;
       }).join('')}
     </div>
-    <div class="sl-num" style="color:rgba(255,255,255,.15);position:absolute;bottom:40px;right:60px;font-family:var(--fd);font-size:180px;font-weight:800;letter-spacing:-.08em;line-height:1;user-select:none;pointer-events:none;">03</div>`;}
+    <div class="sl-num" style="color:rgba(255,255,255,.15);position:absolute;bottom:40px;right:60px;font-family:var(--fd);font-size:180px;font-weight:800;letter-spacing:-.08em;line-height:1;user-select:none;pointer-events:none;">03</div>
+    ${STATE.research ? '<div style="position:absolute;bottom:18px;left:60px;font-size:10px;color:rgba(255,255,255,.35);max-width:60%;">Research: '+(STATE.research.source||'')+(STATE.research.isLive?' — '+STATE.research.searchCount+' web searches':'')+'</div>' : ''}`;}
 
   case 's-mopt': {
     const roleMap={en:{Manager:'Manager',Collega:'Colleague','HR Manager':'Manager'},nl:{Manager:'Manager',Collega:'Collega','HR Manager':'Manager'},zh:{Manager:'管理者',Collega:'同事','HR Manager':'管理者'},ja:{Manager:'マネージャー',Collega:'同僚','HR Manager':'マネージャー'}};
@@ -3819,7 +3885,7 @@ function buildSlideHTML(sid){
       <div style="display:flex;flex-direction:column;gap:20px;">
         <div class="sl-tag" data-editable="true" style="${tagStyle}">${e(tx('chat_tag',L))}</div>
         <div data-editable="true" style="font-family:var(--fd);font-size:${S.h2}px;font-weight:800;color:${V.TX};line-height:1.1;letter-spacing:-.02em;">
-          ${e(tx('chat_h',L).replace('{M}',MN))}
+          ${e(STATE.aiLeadTexts?.chat || tx('chat_h',L).replace('{M}',MN))}
         </div>
         <div data-editable="true" style="font-size:${S.body}px;color:${V.TX2};line-height:1.6;max-width:420px;">
           ${e(tx('chat_body',L))}
@@ -4148,7 +4214,7 @@ function buildSlideHTML(sid){
     <div class="geo-ring" style="top:-60px;right:-80px;width:320px;height:320px;border-width:50px;border-color:${alpha(c2,.07)};"></div>
     <div class="sl-safe">
       <div class="sl-tag" data-editable="true" style="${tagStyle}">${e({en:'Proven Results',nl:'Bewezen Resultaten',zh:'驗證成效',ja:'実証済み成果',de:'Bewiesene Ergebnisse',fr:'Résultats prouvés',es:'Resultados probados'}[L]||'Proven Results')}</div>
-      <div class="sl-h3" style="${h3Style}">${e({en:'Real Numbers. Real Impact.',nl:'Echte cijfers. Echte impact.',zh:'真實數據。真實影響。',ja:'リアルな数字。リアルなインパクト。',de:'Echte Zahlen. Echte Wirkung.',fr:'Vrais chiffres. Vrai impact.',es:'Números reales. Impacto real.'}[L]||'Real Numbers. Real Impact.')}</div>
+      <div class="sl-h3" data-editable="true" style="${h3Style}">${e(STATE.aiLeadTexts?.roi || {en:'Real Numbers. Real Impact.',nl:'Echte cijfers. Echte impact.',zh:'真實數據。真實影響。',ja:'リアルな数字。リアルなインパクト。',de:'Echte Zahlen. Echte Wirkung.',fr:'Vrais chiffres. Vrai impact.',es:'Números reales. Impacto real.'}[L] || 'Real Numbers. Real Impact.')}</div>
       ${hasEvidence ? `
         <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:24px;">${evidenceCards}</div>
         ${calcCards ? `<div style="margin-top:24px;display:flex;flex-direction:column;gap:10px;">${calcCards}</div>` : ''}
@@ -4261,7 +4327,7 @@ function buildSlideHTML(sid){
     <div class="sl-safe" style="display:flex;flex-direction:column;gap:0;">
 
       <div style="display:flex;align-items:baseline;gap:20px;margin-bottom:28px;">
-        <div style="font-family:var(--fd);font-size:${S.h2}px;font-weight:800;letter-spacing:-.04em;color:${V.TX};line-height:1;" data-editable="true">${e(tx('pr_h',L))}</div>
+        <div style="font-family:var(--fd);font-size:${S.h2}px;font-weight:800;letter-spacing:-.04em;color:${V.TX};line-height:1;" data-editable="true">${e(STATE.aiLeadTexts?.pricing || tx('pr_h',L))}</div>
         <div style="font-family:var(--fd);font-size:${S.h3}px;font-weight:600;color:${c1};letter-spacing:.06em;text-transform:uppercase;opacity:.85;">${e(tx('pr_tag',L))}</div>
       </div>
 
@@ -4447,8 +4513,7 @@ function buildSlideHTML(sid){
     <div style="position:absolute;inset:0;display:grid;grid-template-columns:${hasImg?'1fr 420px':'1fr 340px'};gap:40px;padding:64px 80px;">
       <div style="display:flex;flex-direction:column;justify-content:center;">
         <div class="sl-tag" data-editable="true" style="${tagStyle}">${e(tx('ty_tag',L))}</div>
-        <div style="font-family:var(--fd);font-size:${S.h1}px;font-weight:800;line-height:.92;letter-spacing:-.04em;color:${V.TX};margin-bottom:16px;" data-editable="true">${e(ctLbl[L]||ctLbl.en)}<br/><span style="color:${c1};">${e(closingTarget[L]||closingTarget.en)}</span></div>
-        <div style="font-size:${S.body}px;color:${V.TX2};line-height:1.5;margin-bottom:20px;font-style:italic;" data-editable="true">${e((mascotCTA[L]||mascotCTA.en).charAt(0).toUpperCase()+(mascotCTA[L]||mascotCTA.en).slice(1))}! 🚀</div>
+        <div style="font-family:var(--fd);font-size:${STATE.aiLeadTexts?.thankyou ? S.h2 : S.h1}px;font-weight:800;line-height:${STATE.aiLeadTexts?.thankyou ? '1.15' : '.92'};letter-spacing:-.04em;color:${V.TX};margin-bottom:16px;" data-editable="true">${STATE.aiLeadTexts?.thankyou ? e(STATE.aiLeadTexts.thankyou) : (e(ctLbl[L]||ctLbl.en)+'<br/><span style="color:'+c1+';">'+e(closingTarget[L]||closingTarget.en)+'</span>')}</div>
         <div style="border-top:2px solid ${alpha(V.TX,.12)};padding-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;">
           <div style="display:flex;align-items:center;gap:10px;font-size:${S.body}px;color:${V.TX2};">📞 <span style="color:${V.TX};">+31 6 34 197 668</span></div>
           <div style="display:flex;align-items:center;gap:10px;font-size:${S.body}px;color:${V.TX2};">✉️ <a href="mailto:hello@notso.ai" style="color:${c1};text-decoration:none;">hello@notso.ai</a></div>
@@ -4462,10 +4527,10 @@ function buildSlideHTML(sid){
           <span>VAT: NL867013316B01</span>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
-        ${hasImg ? imgTag :
-          '<div style="font-size:380px;line-height:1;filter:drop-shadow(0 30px 60px rgba(0,0,0,.3));">'+bigEmoji3+'</div>'}
-        <div style="margin-top:16px;background:${c1};color:${STATE.colorTxt||'#fff'};font-family:var(--fd);font-size:${S.body}px;font-weight:700;padding:14px 36px;border-radius:40px;letter-spacing:.06em;text-transform:uppercase;">${tx("ty_book_call",L)} →</div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;">
+        <div style="position:relative;z-index:2;margin-bottom:24px;background:${c1};color:${STATE.colorTxt||'#fff'};font-family:var(--fd);font-size:${S.body}px;font-weight:700;padding:16px 42px;border-radius:40px;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 8px 32px ${alpha(c1,.35)};">${e(STATE.aiTyCta || tx("ty_book_call",L))} →</div>
+        ${hasImg ? '<div style="position:relative;z-index:1;">'+imgTag+'</div>' :
+          '<div style="font-size:320px;line-height:1;filter:drop-shadow(0 30px 60px rgba(0,0,0,.3));">'+bigEmoji3+'</div>'}
       </div>
     </div>
     <div class="sl-num" style="${numStyle}">16</div>`;}
@@ -4578,7 +4643,7 @@ function generateDeck(){
   if(activeSl.length===0){alert('Please add at least one slide.');return;}
   STATE.client=document.getElementById('in-client').value.trim()||'Your Company';
   STATE.industry=document.getElementById('in-industry').value.trim()||'Your Industry';
-  STATE.pain=document.getElementById('in-pain').value.trim()||'repetitive customer queries';
+  STATE.pain=STATE.aiPain||'repetitive customer queries';
   STATE.mascot=document.getElementById('in-mascot').value.trim()||(MASCOTS.find(x=>x.id===STATE.mascotStyle)||MASCOTS[2]).name;
   editMode=false;curSlide=0;
   applyFont();rebuildSlides();
@@ -4838,10 +4903,10 @@ async function exportPDF(){
   setTimeout(()=>overlay.remove(),600);
 }
 
-/* init — default to 8 core pages */
-const CORE_IDS=['s-cover','s-pain','s-features','s-chat','s-analytics','s-roadmap','s-pricing','s-thankyou'];
-activeSl=ALL_SLIDES.map((_,i)=>i).filter(i=>CORE_IDS.includes(ALL_SLIDES[i].id));
-poolSl=ALL_SLIDES.map((_,i)=>i).filter(i=>!CORE_IDS.includes(ALL_SLIDES[i].id));
+/* init — default to Pitch 8 (argumentation logic order) */
+const PITCH_IDS=['s-cover','s-pain','s-features','s-chat','s-analytics','s-pricing','s-thankyou'];
+activeSl=PITCH_IDS.map(id=>ALL_SLIDES.findIndex(s=>s.id===id)).filter(i=>i>=0);
+poolSl=ALL_SLIDES.map((_,i)=>i).filter(i=>!activeSl.includes(i));
 </script>
 </body>
 </html>
