@@ -1,0 +1,14 @@
+# Secrets
+.env
+.secrets.json
+
+# Fixtures (allow demo and example)
+fixtures/*.json
+!fixtures/demo/*.json
+!fixtures/fixture.example.json
+
+# OS
+.DS_Store
+
+# Node
+node_modules/
